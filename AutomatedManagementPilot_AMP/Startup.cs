@@ -46,6 +46,8 @@ namespace AutomatedManagementPilot_AMP
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -75,45 +77,45 @@ namespace AutomatedManagementPilot_AMP
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            CreateRoles(serviceProvider).Wait();
+            //CreateRoles(serviceProvider).Wait();
         }
 
-        private async Task CreateRoles(IServiceProvider serviceProvider)
-        {
-            //initializing custom roles
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            string[] roleNames = { "Supervisor", "Manager", "Employee" };
-            IdentityResult roleResult;
+        //private async Task CreateRoles(IServiceProvider serviceProvider)
+        //{
+        //    //initializing custom roles
+        //    var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //    var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        //    string[] roleNames = { "Supervisor", "Manager", "Employee" };
+        //    IdentityResult roleResult;
 
-            foreach (var roleName in roleNames)
-            {
-                var roleExist = await RoleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
-                {
-                    //create roles and seed them to the database
-                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-            ////create God User
-            //var poweruser = new IdentityUser
-            //{
-            //    UserName = Configuration["AppSettings:UserName"],
-            //    Email = Configuration["AppSettings:UserEmail"],
-            //};
+        //    foreach (var roleName in roleNames)
+        //    {
+        //        var roleExist = await RoleManager.RoleExistsAsync(roleName);
+        //        if (!roleExist)
+        //        {
+        //            //create roles and seed them to the database
+        //            roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+        //        }
+        //    }
+        //    //create God User
+        //    var poweruser = new ApplicationUser
+        //    {
+        //        UserName = Configuration["AppSettings:UserName"],
+        //        Email = Configuration["AppSettings:UserEmail"],
+        //    };
 
 
-            ////values in appsettings.json 
-            //string userPWD = Configuration["AppSettings:UserPassword"];
-            //var _user = await UserManager.FindByEmailAsync(Configuration["AppSettings:AdminUserEmail"]);
-            //if (_user == null)
-            //{
-            //    var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
-            //    if (createPowerUser.Succeeded)
-            //    {
-            //        await UserManager.AddToRoleAsync(poweruser, "Admin");
-            //    }
-            //}
-        }
+        //    //values in appsettings.json 
+        //    string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
+        //    var _user = await UserManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserEmail"]);
+        //    if (_user == null)
+        //    {
+        //        var createPowerUser = await UserManager.CreateAsync(poweruser, userPassword);
+        //        if (createPowerUser.Succeeded)
+        //        {
+        //            await UserManager.AddToRoleAsync(poweruser, "Admin");
+        //        }
+        //    }
+        //}
     }
 }
