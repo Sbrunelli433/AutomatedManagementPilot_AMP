@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace AutomatedManagementPilot_AMP.Models
 {
-    public class Employee
+    public class Manager
     {
         [Key]
-        public int EmployeeId { get; set; }
+        public int ManagerId { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string Name { get; set; }
