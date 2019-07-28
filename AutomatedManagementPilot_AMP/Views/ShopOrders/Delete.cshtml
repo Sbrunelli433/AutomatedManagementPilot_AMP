@@ -1,0 +1,130 @@
+﻿@model AutomatedManagementPilot_AMP.Models.ShopOrder
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ShopOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PartNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PartNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PartName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PartName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderQuantity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderQuantity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RawMatlInventoryId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RawMatlInventoryId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderRecDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderRecDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDueDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderDueDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MachineId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MachineId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ScheduleStartTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ScheduleStartTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ScheduleEndTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ScheduleEndTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OperationSetUpHours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OperationSetUpHours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OperationProductionHours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OperationProductionHours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OperationEmpBreakHours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OperationEmpBreakHours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OperationMachineBreakHours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OperationMachineBreakHours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OperationTearDownHours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OperationTearDownHours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GrossProductionRate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GrossProductionRate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NetProductionRate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NetProductionRate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Profitability)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Profitability)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ShopOrderNumber" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

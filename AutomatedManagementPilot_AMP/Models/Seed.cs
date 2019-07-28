@@ -47,5 +47,15 @@ namespace AutomatedManagementPilot_AMP.Models
                 }
             }
         }
+
+        //public static void InsertSeedData(MyContext context)
+        //{
+        //    if(!context.UserTypes.Any())
+        //    {
+        //        context.UserTypes.AddRange(
+        //            new UserType { Name = "Supervisor" },
+        //            new UserType )
+        //    }
+        //}
     }
 }

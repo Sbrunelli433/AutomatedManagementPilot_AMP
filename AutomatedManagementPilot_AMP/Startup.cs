@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutomatedManagementPilot_AMP.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace AutomatedManagementPilot_AMP
 {
@@ -41,20 +43,50 @@ namespace AutomatedManagementPilot_AMP
                     Configuration.GetConnectionString("DefaultConnection")));
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdminRole",
+                    policy => policy.RequireRole("Admin"));
+                options.AddPolicy("RequireSupervisorRole",
+                    policy => policy.RequireRole("Supervisor"));
+                options.AddPolicy("RequireManagerRole",
+                    policy => policy.RequireRole("Manager"));
+                options.AddPolicy("RequireEmployeeRole",
+                    policy => policy.RequireRole("Employee"));
+
+            });
+
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+            //    .AddDefaultUI()
+            //    .AddDefaultTokenProviders()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultUI()
-                .AddDefaultTokenProviders();
+                .AddDefaultUI();
 
-
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            })
                 .AddRazorPagesOptions(options =>
                 {
                     options.AllowAreas = true;
                     options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
                     options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-                });
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            //    .AddRazorPagesOptions(options =>
+            //    {
+            //        options.AllowAreas = true;
+            //        options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
+            //        options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+            //    });
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -65,7 +97,6 @@ namespace AutomatedManagementPilot_AMP
 
             //using Microsoft.AspNetCore.Identity.UI.Services;
             services.AddSingleton<IEmailSender, EmailSender>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,45 +125,69 @@ namespace AutomatedManagementPilot_AMP
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            //CreateRoles(serviceProvider).Wait();
+            //DbInitializer.Initialize(app.ApplicationServices);
+            CreateRoles(serviceProvider).Wait();
         }
 
-        //private async Task CreateRoles(IServiceProvider serviceProvider)
-        //{
-        //    //initializing custom roles
-        //    var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        //    var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        //    string[] roleNames = { "Supervisor", "Manager", "Employee" };
-        //    IdentityResult roleResult;
-
-        //    foreach (var roleName in roleNames)
-        //    {
-        //        var roleExist = await RoleManager.RoleExistsAsync(roleName);
-        //        if (!roleExist)
-        //        {
-        //            //create roles and seed them to the database
-        //            roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
-        //        }
-        //    }
-        //    //create God User
-        //    var poweruser = new ApplicationUser
-        //    {
-        //        UserName = Configuration["AppSettings:UserName"],
-        //        Email = Configuration["AppSettings:UserEmail"],
-        //    };
 
 
-        //    //values in appsettings.json 
-        //    string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
-        //    var _user = await UserManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserEmail"]);
-        //    if (_user == null)
-        //    {
-        //        var createPowerUser = await UserManager.CreateAsync(poweruser, userPassword);
-        //        if (createPowerUser.Succeeded)
-        //        {
-        //            await UserManager.AddToRoleAsync(poweruser, "Admin");
-        //        }
-        //    }
-        //}
+
+            private async Task CreateRoles(IServiceProvider serviceProvider)
+            {
+                //initializing custom roles
+                var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                string[] roleNames = { "Admin","Supervisor", "Manager", "Employee" };
+                IdentityResult roleResult;
+
+                foreach (var roleName in roleNames)
+                {
+                    var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                    if (!roleExist)
+                    {
+                        //create roles and seed them to the database
+                        roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                    }
+
+                }
+
+                var _user = await UserManager.FindByEmailAsync("admin@admin.com");
+                if (_user == null)
+                {
+                    var poweruser = new ApplicationUser
+                    {
+                        UserName = "Admin",
+                        Email = "admin@admin.com",
+                    
+                    };
+                    string adminPassword = "Steven1!";
+                    var createPowerUser = await UserManager.CreateAsync(poweruser, adminPassword);
+                    if (createPowerUser.Succeeded)
+                    {
+                        await UserManager.AddToRoleAsync(poweruser, "Admin");
+                    }
+            }
+
+
+            ////create God User
+            //var poweruser = new ApplicationUser
+            //{
+            //    UserName = Configuration["AppSettings:UserName"],
+            //    Email = Configuration["AppSettings:UserEmail"],
+            //};
+
+
+            ////values in appsettings.json 
+            //string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
+            //var _user = await UserManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserEmail"]);
+            //if (_user == null)
+            //{
+            //    var createPowerUser = await UserManager.CreateAsync(poweruser, userPassword);
+            //    if (createPowerUser.Succeeded)
+            //    {
+            //        await UserManager.AddToRoleAsync(poweruser, "Admin");
+            //    }
+            //}
+        }
     }
 }

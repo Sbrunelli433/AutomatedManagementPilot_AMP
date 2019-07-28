@@ -1,0 +1,119 @@
+﻿@model AutomatedManagementPilot_AMP.Models.ShopOrder
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<h4>ShopOrder</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Customer" class="control-label"></label>
+                <input asp-for="Customer" class="form-control" />
+                <span asp-validation-for="Customer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PartNumber" class="control-label"></label>
+                <input asp-for="PartNumber" class="form-control" />
+                <span asp-validation-for="PartNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PartName" class="control-label"></label>
+                <input asp-for="PartName" class="form-control" />
+                <span asp-validation-for="PartName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderQuantity" class="control-label"></label>
+                <input asp-for="OrderQuantity" class="form-control" />
+                <span asp-validation-for="OrderQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RawMatlInventoryId" class="control-label"></label>
+                <input asp-for="RawMatlInventoryId" class="form-control" />
+                <span asp-validation-for="RawMatlInventoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderRecDate" class="control-label"></label>
+                <input asp-for="OrderRecDate" class="form-control" />
+                <span asp-validation-for="OrderRecDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderDueDate" class="control-label"></label>
+                <input asp-for="OrderDueDate" class="form-control" />
+                <span asp-validation-for="OrderDueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MachineId" class="control-label"></label>
+                <input asp-for="MachineId" class="form-control" />
+                <span asp-validation-for="MachineId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScheduleStartTime" class="control-label"></label>
+                <input asp-for="ScheduleStartTime" class="form-control" />
+                <span asp-validation-for="ScheduleStartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScheduleEndTime" class="control-label"></label>
+                <input asp-for="ScheduleEndTime" class="form-control" />
+                <span asp-validation-for="ScheduleEndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OperationSetUpHours" class="control-label"></label>
+                <input asp-for="OperationSetUpHours" class="form-control" />
+                <span asp-validation-for="OperationSetUpHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OperationProductionHours" class="control-label"></label>
+                <input asp-for="OperationProductionHours" class="form-control" />
+                <span asp-validation-for="OperationProductionHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OperationEmpBreakHours" class="control-label"></label>
+                <input asp-for="OperationEmpBreakHours" class="form-control" />
+                <span asp-validation-for="OperationEmpBreakHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OperationMachineBreakHours" class="control-label"></label>
+                <input asp-for="OperationMachineBreakHours" class="form-control" />
+                <span asp-validation-for="OperationMachineBreakHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OperationTearDownHours" class="control-label"></label>
+                <input asp-for="OperationTearDownHours" class="form-control" />
+                <span asp-validation-for="OperationTearDownHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GrossProductionRate" class="control-label"></label>
+                <input asp-for="GrossProductionRate" class="form-control" />
+                <span asp-validation-for="GrossProductionRate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NetProductionRate" class="control-label"></label>
+                <input asp-for="NetProductionRate" class="form-control" />
+                <span asp-validation-for="NetProductionRate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Profitability" class="control-label"></label>
+                <input asp-for="Profitability" class="form-control" />
+                <span asp-validation-for="Profitability" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

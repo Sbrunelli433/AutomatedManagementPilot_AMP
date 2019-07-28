@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using AutomatedManagementPilot_AMP.Models;
+using Microsoft.AspNetCore.Identity;
 //using AutomatedManagementPilotAMP.ReportModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutomatedManagementPilot_AMP.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

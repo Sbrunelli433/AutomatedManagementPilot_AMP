@@ -1,0 +1,138 @@
+﻿@model IEnumerable<AutomatedManagementPilot_AMP.Models.ShopOrder>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PartNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PartName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RawMatlInventoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderRecDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScheduleStartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScheduleEndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationSetUpHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationProductionHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationEmpBreakHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationMachineBreakHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationTearDownHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GrossProductionRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetProductionRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Profitability)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RawMatlInventoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderRecDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScheduleStartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScheduleEndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationSetUpHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationProductionHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationEmpBreakHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationMachineBreakHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationTearDownHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrossProductionRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NetProductionRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profitability)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ShopOrderNumber">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ShopOrderNumber">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ShopOrderNumber">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
