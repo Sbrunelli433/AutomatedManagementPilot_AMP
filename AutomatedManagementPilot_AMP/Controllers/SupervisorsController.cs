@@ -7,23 +7,34 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
+    [Authorize(Roles = "Supervisor")]
     public class SupervisorsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public SupervisorsController(ApplicationDbContext context)
+        public SupervisorsController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, ApplicationDbContext context)
         {
+            _roleManager = roleManager;
+            _userManager = userManager;
             _context = context;
         }
 
         // GET: Supervisors
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Supervisor.Include(s => s.ApplicationUser);
-            return View(await applicationDbContext.ToListAsync());
+            var getAllUsers = _context.ApplicationUser.Include(a => a.Id);
+            return View(await getAllUsers.ToListAsync());
+
+            ////Below is default startup code
+            //var applicationDbContext = _context.Supervisor.Include(s => s.ApplicationUser);
+            //return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Supervisors/Details/5
