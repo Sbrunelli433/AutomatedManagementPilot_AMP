@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using AutomatedManagementPilot_AMP.Models;
-using Microsoft.AspNetCore.Identity;
 //using AutomatedManagementPilotAMP.ReportModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutomatedManagementPilot_AMP.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -21,6 +20,7 @@ namespace AutomatedManagementPilot_AMP.Data
             base.OnModelCreating(modelBuilder);
         }
         //public DbSet<Dashboard> Dashboard { get; set; }
+        public DbSet<Admin> Admin { get; set; }
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Machine> Machine { get; set; }
         public DbSet<Manager> Manager { get; set; }
@@ -28,6 +28,7 @@ namespace AutomatedManagementPilot_AMP.Data
         public DbSet<Supervisor> Supervisor { get; set; }
         public DbSet<TimeClock> TimeClock { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        //public DbSet<AllUsers> AllUsers { get; set; }
         //public DbSet<AddedValue> AddedValue { get; set; }
         //public DbSet<MRP> MRPs { get; set; }
         //public DbSet<Purchasing> Purchasing { get; set; }

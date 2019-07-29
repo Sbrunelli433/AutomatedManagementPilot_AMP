@@ -41,7 +41,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -101,6 +100,26 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Admin",
+                columns: table => new
+                {
+                    AdminId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    ApplicationId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Admin", x => x.AdminId);
+                    table.ForeignKey(
+                        name: "FK_Admin_AspNetUsers_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -125,8 +144,8 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -170,8 +189,8 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    Name = table.Column<string>(maxLength: 128, nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -192,21 +211,15 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     EmployeeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
+                    ApplicationId = table.Column<string>(nullable: true),
                     PayRoll = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employee", x => x.EmployeeId);
                     table.ForeignKey(
-                        name: "FK_Employee_AspNetUsers_Name",
-                        column: x => x.Name,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Employee_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Employee_AspNetUsers_ApplicationId",
+                        column: x => x.ApplicationId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -219,21 +232,15 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     ManagerId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
+                    ApplicationId = table.Column<string>(nullable: true),
                     PayRoll = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Manager", x => x.ManagerId);
                     table.ForeignKey(
-                        name: "FK_Manager_AspNetUsers_Name",
-                        column: x => x.Name,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Manager_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Manager_AspNetUsers_ApplicationId",
+                        column: x => x.ApplicationId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -246,21 +253,15 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     SupervisorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
+                    ApplicationId = table.Column<string>(nullable: true),
                     PayRoll = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Supervisor", x => x.SupervisorId);
                     table.ForeignKey(
-                        name: "FK_Supervisor_AspNetUsers_Name",
-                        column: x => x.Name,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Supervisor_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Supervisor_AspNetUsers_ApplicationId",
+                        column: x => x.ApplicationId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -310,6 +311,11 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Admin_ApplicationId",
+                table: "Admin",
+                column: "ApplicationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -349,14 +355,9 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_Name",
+                name: "IX_Employee_ApplicationId",
                 table: "Employee",
-                column: "Name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employee_UserId",
-                table: "Employee",
-                column: "UserId");
+                column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Machine_ShopOrderNumber",
@@ -365,24 +366,14 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Manager_Name",
+                name: "IX_Manager_ApplicationId",
                 table: "Manager",
-                column: "Name");
+                column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Manager_UserId",
-                table: "Manager",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Supervisor_Name",
+                name: "IX_Supervisor_ApplicationId",
                 table: "Supervisor",
-                column: "Name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Supervisor_UserId",
-                table: "Supervisor",
-                column: "UserId");
+                column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TimeClock_EmployeeId",
@@ -392,6 +383,9 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Admin");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

@@ -10,16 +10,86 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutomatedManagementPilot_AMP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190728203933_Initial")]
+    [Migration("20190729134503_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Admin", b =>
+                {
+                    b.Property<int>("AdminId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("AdminId");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.ToTable("Admin");
+                });
+
+            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Employee", b =>
                 {
@@ -27,17 +97,15 @@ namespace AutomatedManagementPilot_AMP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationId");
+
                     b.Property<string>("Name");
 
                     b.Property<double>("PayRoll");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("EmployeeId");
 
-                    b.HasIndex("Name");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("ApplicationId");
 
                     b.ToTable("Employee");
                 });
@@ -68,17 +136,15 @@ namespace AutomatedManagementPilot_AMP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationId");
+
                     b.Property<string>("Name");
 
                     b.Property<double>("PayRoll");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("ManagerId");
 
-                    b.HasIndex("Name");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("ApplicationId");
 
                     b.ToTable("Manager");
                 });
@@ -141,17 +207,15 @@ namespace AutomatedManagementPilot_AMP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationId");
+
                     b.Property<string>("Name");
 
                     b.Property<double>("PayRoll");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("SupervisorId");
 
-                    b.HasIndex("Name");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("ApplicationId");
 
                     b.ToTable("Supervisor");
                 });
@@ -221,62 +285,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -299,9 +307,11 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -332,9 +342,11 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value");
 
@@ -343,26 +355,18 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.ApplicationUser", b =>
+            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Admin", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("Name");
-
-                    b.ToTable("ApplicationUser");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
+                    b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId");
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Employee", b =>
                 {
                     b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("Name");
-
-                    b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ApplicationId");
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Machine", b =>
@@ -377,22 +381,14 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 {
                     b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("Name");
-
-                    b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ApplicationId");
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Supervisor", b =>
                 {
                     b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("Name");
-
-                    b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ApplicationId");
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.TimeClock", b =>
@@ -413,7 +409,7 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -421,7 +417,7 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -434,7 +430,7 @@ namespace AutomatedManagementPilot_AMP.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -442,7 +438,7 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                    b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
