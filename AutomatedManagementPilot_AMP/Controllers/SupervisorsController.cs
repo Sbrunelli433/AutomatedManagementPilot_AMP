@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
-    [Authorize(Roles = "Supervisor")]
+    //[Authorize(Roles = "Supervisor")]
     public class SupervisorsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -29,12 +29,12 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // GET: Supervisors
         public async Task<IActionResult> Index()
         {
-            var getAllUsers = _context.ApplicationUser.Include(a => a.Id);
-            return View(await getAllUsers.ToListAsync());
+            //var getAllUsers = _context.ApplicationUser.Include(a => a.Id);
+            //return View(await getAllUsers.ToListAsync());
 
             ////Below is default startup code
-            //var applicationDbContext = _context.Supervisor.Include(s => s.ApplicationUser);
-            //return View(await applicationDbContext.ToListAsync());
+            var applicationDbContext = _context.Supervisor.Include(s => s.ApplicationUser);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Supervisors/Details/5
