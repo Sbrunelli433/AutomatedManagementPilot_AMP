@@ -100,26 +100,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Admin",
-                columns: table => new
-                {
-                    AdminId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    ApplicationId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admin", x => x.AdminId);
-                    table.ForeignKey(
-                        name: "FK_Admin_AspNetUsers_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -311,11 +291,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Admin_ApplicationId",
-                table: "Admin",
-                column: "ApplicationId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -383,9 +358,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Admin");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

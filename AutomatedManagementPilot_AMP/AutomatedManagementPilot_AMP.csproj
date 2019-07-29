@@ -27,12 +27,11 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="ReportModels\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Shared\_LayoutAdmin.cshtml">
+    <Content Update="Views\Shared\_LayoutSupervisor.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

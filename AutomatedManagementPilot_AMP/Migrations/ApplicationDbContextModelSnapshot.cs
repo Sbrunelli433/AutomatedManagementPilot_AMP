@@ -19,23 +19,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Admin", b =>
-                {
-                    b.Property<int>("AdminId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationId");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("AdminId");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.ToTable("Admin");
-                });
-
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -351,13 +334,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Admin", b =>
-                {
-                    b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId");
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Employee", b =>

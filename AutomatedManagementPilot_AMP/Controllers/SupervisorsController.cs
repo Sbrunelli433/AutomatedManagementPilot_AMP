@@ -9,6 +9,7 @@ using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using AutomatedManagementPilot_AMP.ViewModels;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
@@ -27,8 +28,12 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: Supervisors
-        public async Task<IActionResult> Index()
+        //[Authorize(Roles = "Supervisor,supervisor,supervisors")]
+        public async Task<IActionResult> Index( )
         {
+
+
+
             //var getAllUsers = _context.ApplicationUser.Include(a => a.Id);
             //return View(await getAllUsers.ToListAsync());
 

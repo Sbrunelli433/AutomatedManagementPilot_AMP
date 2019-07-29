@@ -15,7 +15,7 @@ namespace AutomatedManagementPilot_AMP.Models
         {
             //context.Database.EnsureCreated();
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            string[] roleNames = { "Admin", "Supervisor", "Manager", "Employee" };
+            string[] roleNames = { "Supervisor", "Manager", "Employee" };
             IdentityResult roleResult;
             foreach (var roleName in roleNames)
             {

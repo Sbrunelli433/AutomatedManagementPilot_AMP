@@ -45,8 +45,6 @@ namespace AutomatedManagementPilot_AMP
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("RequireAdminRole",
-                    policy => policy.RequireRole("Admin"));
                 options.AddPolicy("RequireSupervisorRole",
                     policy => policy.RequireRole("Supervisor"));
                 options.AddPolicy("RequireManagerRole",
@@ -137,36 +135,38 @@ namespace AutomatedManagementPilot_AMP
                 //initializing custom roles
                 var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                string[] roleNames = { "Admin","Supervisor", "Manager", "Employee" };
+                string[] roleNames = { "Supervisor", "Manager", "Employee" };
                 IdentityResult roleResult;
 
                 foreach (var roleName in roleNames)
                 {
-                    var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                    var roleExist = await RoleManager.RoleExistsAsync("Supervisor");
                     if (!roleExist)
                     {
                         //create roles and seed them to the database
-                        roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                        roleResult = await RoleManager.CreateAsync(new IdentityRole("Supervisor"));
                     }
 
                 }
 
-                var _user = await UserManager.FindByEmailAsync("admin@admin.com");
+                var _user = await UserManager.FindByEmailAsync("super@super.com");
                 if (_user == null)
                 {
                     var poweruser = new ApplicationUser
                     {
-                        UserName = "Admin",
-                        Email = "admin@admin.com",
+                        UserName = "superStartUp",
+                        Email = "super@super.com",
                     
                     };
                     string adminPassword = "Steven1!";
                     var createPowerUser = await UserManager.CreateAsync(poweruser, adminPassword);
                     if (createPowerUser.Succeeded)
                     {
-                        await UserManager.AddToRoleAsync(poweruser, "Admin");
+                        await UserManager.AddToRoleAsync(poweruser, "Supervisor");
                     }
             }
+
+                
 
 
             ////create God User

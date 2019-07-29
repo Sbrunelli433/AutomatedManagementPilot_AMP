@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutomatedManagementPilot_AMP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190729142035_Initial")]
+    [Migration("20190729201809_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,23 +20,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Admin", b =>
-                {
-                    b.Property<int>("AdminId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationId");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("AdminId");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.ToTable("Admin");
-                });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.ApplicationUser", b =>
                 {
@@ -353,13 +336,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Admin", b =>
-                {
-                    b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId");
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Employee", b =>
