@@ -55,10 +55,7 @@ namespace AutomatedManagementPilot_AMP
 
             });
 
-            //services.AddIdentity<IdentityUser, IdentityRole>()
-            //    .AddDefaultUI()
-            //    .AddDefaultTokenProviders()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -79,13 +76,7 @@ namespace AutomatedManagementPilot_AMP
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-            //    .AddRazorPagesOptions(options =>
-            //    {
-            //        options.AllowAreas = true;
-            //        options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
-            //        options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-            //    });
+
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -144,7 +135,7 @@ namespace AutomatedManagementPilot_AMP
                     roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
-            
+
             //Assign Admin role to the main User here we have given our newly registered 
             //login id for Admin management
             ApplicationUser user = await UserManager.FindByEmailAsync("Supervisor@gmail.com");

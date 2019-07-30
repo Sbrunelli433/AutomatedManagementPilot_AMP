@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutomatedManagementPilot_AMP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190730025703_Initial")]
+    [Migration("20190730033934_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,9 +196,13 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
                     b.Property<double>("PayRoll");
 
+                    b.Property<string>("RoleId");
+
                     b.HasKey("SupervisorId");
 
                     b.HasIndex("ApplicationId");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Supervisor");
                 });
@@ -361,6 +365,10 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Roles")
+                        .WithMany()
+                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.TimeClock", b =>

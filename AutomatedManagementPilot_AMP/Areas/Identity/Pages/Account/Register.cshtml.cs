@@ -50,6 +50,10 @@ namespace AutomatedManagementPilot_AMP.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+         
+            [Display(Name = "Supervisor")]
+            public bool IsSupervisor { get; set; }
+
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
@@ -89,7 +93,10 @@ namespace AutomatedManagementPilot_AMP.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    if (Input.IsSupervisor)
+                    {
+                        return RedirectToAction("Create", "Supervisors");
+                    }
                 }
                 foreach (var error in result.Errors)
                 {

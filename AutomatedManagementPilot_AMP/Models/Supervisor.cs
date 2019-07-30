@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,7 +19,9 @@ namespace AutomatedManagementPilot_AMP.Models
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-        //public ApplicationUser User { get; set; }
+
+        [ForeignKey("RoleId")]
+        public virtual IdentityRole Roles { get; set; }
         public double PayRoll { get; set; }
     }
 }

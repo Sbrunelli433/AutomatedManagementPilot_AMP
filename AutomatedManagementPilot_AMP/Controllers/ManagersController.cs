@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
@@ -45,6 +46,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
             return View(manager);
         }
 
+        [Authorize(Roles = "Supervisor")]
         // GET: Managers/Create
         public IActionResult Create()
         {
@@ -55,6 +57,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // POST: Managers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Supervisor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ManagerId,Name,PayRoll")] Manager manager)
@@ -70,6 +73,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: Managers/Edit/5
+        [Authorize(Roles = "Supervisor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,6 +93,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // POST: Managers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Supervisor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ManagerId,Name,PayRoll")] Manager manager)
@@ -123,6 +128,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: Managers/Delete/5
+        [Authorize(Roles = "Supervisor")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,6 +148,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // POST: Managers/Delete/5
+        [Authorize(Roles = "Supervisor")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

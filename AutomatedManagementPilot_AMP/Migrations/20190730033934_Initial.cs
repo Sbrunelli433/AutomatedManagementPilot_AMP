@@ -234,6 +234,7 @@ namespace AutomatedManagementPilot_AMP.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     ApplicationId = table.Column<string>(nullable: true),
+                    RoleId = table.Column<string>(nullable: true),
                     PayRoll = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
@@ -243,6 +244,12 @@ namespace AutomatedManagementPilot_AMP.Migrations
                         name: "FK_Supervisor_AspNetUsers_ApplicationId",
                         column: x => x.ApplicationId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Supervisor_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -351,6 +358,11 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Supervisor_RoleId",
+                table: "Supervisor",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TimeClock_EmployeeId",
                 table: "TimeClock",
                 column: "EmployeeId");
@@ -386,10 +398,10 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 name: "TimeClock");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "ShopOrder");
 
             migrationBuilder.DropTable(
-                name: "ShopOrder");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Employee");
