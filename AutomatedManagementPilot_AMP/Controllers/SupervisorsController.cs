@@ -8,39 +8,34 @@ using Microsoft.EntityFrameworkCore;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using AutomatedManagementPilot_AMP.ViewModels;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
-    //[Authorize(Roles = "Supervisor")]
     public class SupervisorsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public SupervisorsController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+        public SupervisorsController(ApplicationDbContext context)
         {
-            _roleManager = roleManager;
-            _userManager = userManager;
             _context = context;
         }
 
-        // GET: Supervisors
-        //[Authorize(Roles = "Supervisor,supervisor,supervisors")]
-        public async Task<IActionResult> Index( )
+        [Authorize(Roles = "Supervisor")]
+        public IActionResult Index()
         {
-
-
-
-            //var getAllUsers = _context.ApplicationUser.Include(a => a.Id);
-            //return View(await getAllUsers.ToListAsync());
-
-            ////Below is default startup code
             var applicationDbContext = _context.Supervisor.Include(s => s.ApplicationUser);
-            return View(await applicationDbContext.ToListAsync());
+            return View(applicationDbContext.ToList());
         }
+    
+
+        // GET: Supervisors
+        //[Authorize(Roles ="Supervisor")]
+        //public async Task<IActionResult> Index()
+        //    {
+        //        var derp = User;
+        //        var applicationDbContext = _context.Supervisor.Include(s => s.ApplicationUser);
+        //        return View(await applicationDbContext.ToListAsync());
+        //    }
 
         // GET: Supervisors/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -64,7 +59,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // GET: Supervisors/Create
         public IActionResult Create()
         {
-            ViewData["Name"] = new SelectList(_context.ApplicationUser, "Id", "Id");
+            ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id");
             return View();
         }
 
@@ -73,7 +68,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SupervisorId,Name,PayRoll")] Supervisor supervisor)
+        public async Task<IActionResult> Create([Bind("SupervisorId,Name,ApplicationId,PayRoll")] Supervisor supervisor)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +76,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Name"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.Name);
+            ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
             return View(supervisor);
         }
 
@@ -98,7 +93,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
             {
                 return NotFound();
             }
-            ViewData["Name"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.Name);
+            ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
             return View(supervisor);
         }
 
@@ -107,7 +102,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SupervisorId,Name,PayRoll")] Supervisor supervisor)
+        public async Task<IActionResult> Edit(int id, [Bind("SupervisorId,Name,ApplicationId,PayRoll")] Supervisor supervisor)
         {
             if (id != supervisor.SupervisorId)
             {
@@ -134,7 +129,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Name"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.Name);
+            ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
             return View(supervisor);
         }
 

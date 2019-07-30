@@ -31,12 +31,12 @@ namespace AutomatedManagementPilot_AMP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            //services.Configure<CookiePolicyOptions>(options =>
+            //{
+            //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            //    options.CheckConsentNeeded = context => true;
+            //    options.MinimumSameSitePolicy = SameSiteMode.None;
+            //});
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -45,6 +45,7 @@ namespace AutomatedManagementPilot_AMP
 
             services.AddAuthorization(options =>
             {
+                
                 options.AddPolicy("RequireSupervisorRole",
                     policy => policy.RequireRole("Supervisor"));
                 options.AddPolicy("RequireManagerRole",
@@ -58,10 +59,10 @@ namespace AutomatedManagementPilot_AMP
             //    .AddDefaultUI()
             //    .AddDefaultTokenProviders()
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddDefaultIdentity<ApplicationUser>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultUI();
+                .AddDefaultTokenProviders();
 
             services.AddMvc(config =>
             {
@@ -124,70 +125,33 @@ namespace AutomatedManagementPilot_AMP
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             //DbInitializer.Initialize(app.ApplicationServices);
-            CreateRoles(serviceProvider).Wait();
+            CreateUserRoles(serviceProvider).Wait();
+
         }
-
-
-
-
-            private async Task CreateRoles(IServiceProvider serviceProvider)
+        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            string[] roleNames = { "Supervisor", "Manager", "Employee" };
+            IdentityResult roleResult;
+            //Adding Admin Role
+            foreach (var roleName in roleNames)
             {
-                //initializing custom roles
-                var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                string[] roleNames = { "Supervisor", "Manager", "Employee" };
-                IdentityResult roleResult;
-
-                foreach (var roleName in roleNames)
+                var roleCheck = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleCheck)
                 {
-                    var roleExist = await RoleManager.RoleExistsAsync("Supervisor");
-                    if (!roleExist)
-                    {
-                        //create roles and seed them to the database
-                        roleResult = await RoleManager.CreateAsync(new IdentityRole("Supervisor"));
-                    }
-
+                    //create the roles and seed them to the database
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
                 }
-
-                var _user = await UserManager.FindByEmailAsync("super@super.com");
-                if (_user == null)
-                {
-                    var poweruser = new ApplicationUser
-                    {
-                        UserName = "superStartUp",
-                        Email = "super@super.com",
-                    
-                    };
-                    string adminPassword = "Steven1!";
-                    var createPowerUser = await UserManager.CreateAsync(poweruser, adminPassword);
-                    if (createPowerUser.Succeeded)
-                    {
-                        await UserManager.AddToRoleAsync(poweruser, "Supervisor");
-                    }
             }
-
-                
-
-
-            ////create God User
-            //var poweruser = new ApplicationUser
-            //{
-            //    UserName = Configuration["AppSettings:UserName"],
-            //    Email = Configuration["AppSettings:UserEmail"],
-            //};
-
-
-            ////values in appsettings.json 
-            //string userPassword = Configuration.GetSection("AppSettings")["UserPassword"];
-            //var _user = await UserManager.FindByEmailAsync(Configuration.GetSection("AppSettings")["UserEmail"]);
-            //if (_user == null)
-            //{
-            //    var createPowerUser = await UserManager.CreateAsync(poweruser, userPassword);
-            //    if (createPowerUser.Succeeded)
-            //    {
-            //        await UserManager.AddToRoleAsync(poweruser, "Admin");
-            //    }
-            //}
+            
+            //Assign Admin role to the main User here we have given our newly registered 
+            //login id for Admin management
+            ApplicationUser user = await UserManager.FindByEmailAsync("Supervisor@gmail.com");
+            var User = new ApplicationUser();
+            await UserManager.AddToRoleAsync(user, "Supervisor");
         }
     }
 }
+    
+

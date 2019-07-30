@@ -24,7 +24,7 @@ namespace AutomatedManagementPilot_AMP.Data
         public DbSet<Machine> Machine { get; set; }
         public DbSet<Manager> Manager { get; set; }
         public DbSet<ShopOrder> ShopOrder { get; set; }
-        public DbSet<Supervisor> Supervisor { get; set; }
+        public DbSet<Models.Supervisor> Supervisor { get; set; }
         public DbSet<TimeClock> TimeClock { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         //public DbSet<AddedValue> AddedValue { get; set; }

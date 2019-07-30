@@ -1,13 +1,10 @@
 ﻿@model IEnumerable<AutomatedManagementPilot_AMP.Models.Supervisor>
-@*@model  IEnumerable<AutomatedManagementPilot_AMP.ViewModels.SupervisorIndex>*@
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Supervisor Page";
 }
 
-<h2>Index</h2>
-
+<h2>Supervisor Page</h2>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -18,29 +15,41 @@
                 @Html.DisplayNameFor(model => model.ApplicationUser)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PayRoll)
+            </th>
+            <th>
+                <label  class="control-label">User Role</label>
             </th>
 
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.PayRoll)
             </td>
-
-
+            <td>
+                @Html.DisplayFor(modelItem => item.PayRoll)
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.SupervisorId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.SupervisorId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.SupervisorId">Delete</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
+

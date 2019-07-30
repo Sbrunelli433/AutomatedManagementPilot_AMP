@@ -33,7 +33,24 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisors Index</a></li>
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Supervisor"))
+                            {
+                                <a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisor Page</a>
+                            }
+                        }
+                    </li>
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Supervisor,Manager"))
+                            {
+                                <a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a>
+                            }
+                        }
+                    </li>
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
@@ -45,7 +62,6 @@
             <button style="width:100%">Time Clock</button>
         </div>
         <div class="btn-group" style="width: 100%">
-            <button style="width:33.3%" <a asp-area="" asp-controller="Supervisors" asp-action="Index"></a>>Supervisors</button>
             <button style="width:33.3%">Managers</button>
             <button style="width:33.3%">Employees</button>
         </div>
@@ -53,9 +69,6 @@
             <button style="width:50%">Shop Orders</button>
             <button style="width:50%">Machine Schedule</button>
         </div>
-        <ul class="btn-group">
-            <li></li>
-        </ul>
     </div>
 
     <partial name="_CookieConsentPartial" />
