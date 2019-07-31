@@ -10,6 +10,10 @@ using AutomatedManagementPilot_AMP.Models;
 using Microsoft.AspNetCore.Authorization;
 using AutomatedManagementPilot_AMP.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using AutomatedManagementPilot_AMP.Areas.Identity.Pages.Account;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
@@ -17,11 +21,52 @@ namespace AutomatedManagementPilot_AMP.Controllers
     public class SupervisorsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<RegisterModel> _logger;
+        private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public SupervisorsController(ApplicationDbContext context)
+        public SupervisorsController(ApplicationDbContext context, 
+            UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager, 
+            ILogger<RegisterModel> logger,
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager)
+            
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _logger = logger;
+            _emailSender = emailSender;
+            _roleManager = roleManager;
         }
+
+        [BindProperty]
+        public InputModel Input { get; set; }
+
+        public string ReturnUrl { get; set; }
+
+        public class InputModel
+        {
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Password)]
+            [Display(Name = "Password")]
+            public string Password { get; set; }
+
+            [DataType(DataType.Password)]
+            [Display(Name = "Confirm password")]
+            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            public string ConfirmPassword { get; set; }
+        }
+
 
         //[Authorize(Roles = "Supervisor")]
         public IActionResult Index()
@@ -109,26 +154,72 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateManager(CreateUserViewModel createUserViewModel)
         {
-
-
-
             if (ModelState.IsValid)
             {
-                Manager newManager = new Manager();
+                var user = new ApplicationUser
+                
+                {
+                    UserName = createUserViewModel.Email,
+                    Email = createUserViewModel.Email,
+                };
 
-                newManager.ApplicationId = createUserViewModel.Manager.ApplicationId;
-                newManager.ApplicationUser = createUserViewModel.Manager.ApplicationUser;
-                newManager.ManagerId = createUserViewModel.Manager.ManagerId;
-                newManager.Name = createUserViewModel.Manager.Name;
-                newManager.PayRoll = createUserViewModel.Manager.PayRoll;
-
-                _context.Add(newManager);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Supervisors");
+                var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, StaticDetails.Manager);
+                }
+                _logger.LogInformation("A Manager account was cereated with password");
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
-            //ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
-            return View(null);
+            return RedirectToAction("Index", "Supervisors");
         }
+            //RegisterModel newManager = new RegisterModel();
+
+            //var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+            //var result = await _userManager.CreateAsync(user, Input.Password);
+            //if (result.Succeeded)
+            //{
+            //    _logger.LogInformation("User created a new account with password.");
+
+            //    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            //    var callbackUrl = Url.Page(
+            //        "/Account/ConfirmEmail",
+            //        pageHandler: null,
+            //        values: new { userId = user.Id, code = code },
+            //        protocol: Request.Scheme);
+
+            //    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+            //        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+            //    await _signInManager.SignInAsync(user, isPersistent: false);
+            //    if (Input.IsSupervisor)
+            //    {
+            //        return RedirectToAction("Create", "Supervisors");
+            //    }
+            //}
+
+
+            //if (ModelState.IsValid)
+            //{
+            //    Manager newManager = new Manager();
+
+            //    newManager.ApplicationId = createUserViewModel.Manager.ApplicationId;
+            //    newManager.ApplicationUser = createUserViewModel.Manager.ApplicationUser;
+            //    newManager.ManagerId = createUserViewModel.Manager.ManagerId;
+            //    newManager.Name = createUserViewModel.Manager.Name;
+            //    newManager.PayRoll = createUserViewModel.Manager.PayRoll;
+
+
+            //    _context.Add(newManager);
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction("Index", "Supervisors");
+            //}
+            //ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
+            //return View(null);
+        //}
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> CreateManager(string returnUrl = null)
@@ -142,29 +233,39 @@ namespace AutomatedManagementPilot_AMP.Controllers
         //}
 
 
-        //// GET: Supervisors/Create
-        //public IActionResult CreateEmployee()
-        //{
-        //    ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id");
-        //    return View();
-        //}
+        // GET: Supervisors/Create
+        public IActionResult CreateEmployee()
+        {
+            List<IdentityRole> ir = new List<IdentityRole>();
+            ir = _context.Roles.ToList();
+            ViewBag.listofitems = ir;
+            ViewModels.CreateUserViewModel createUserViewModel = new ViewModels.CreateUserViewModel
+            {
+                IdentityRoles = ir
+            };
 
-        //// POST: Supervisors/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreateEmployee([Bind("SupervisorId,Name,ApplicationId,PayRoll")] Supervisor supervisor)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(supervisor);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
-        //    return View(supervisor);
-        //}
+            return View(createUserViewModel);
+
+            //ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id");
+            //return View();
+        }
+
+        // POST: Supervisors/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateEmployee([Bind("SupervisorId,Name,ApplicationId,PayRoll")] Supervisor supervisor)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(supervisor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
+            return View(supervisor);
+        }
 
         // GET: Supervisors/Edit/5
         public async Task<IActionResult> Edit(int? id)

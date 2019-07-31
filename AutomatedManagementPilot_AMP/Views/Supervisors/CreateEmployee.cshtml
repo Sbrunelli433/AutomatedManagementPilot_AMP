@@ -1,0 +1,52 @@
+﻿@*@model AutomatedManagementPilot_AMP.Models.Supervisor*@
+@model AutomatedManagementPilot_AMP.ViewModels.CreateUserViewModel
+
+
+@{
+    ViewData["Title"] = "CreateEmployee";
+}
+
+<h2>Create A New Employee User</h2>
+
+<h4>Supervisor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateEmployee">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Employee.Name" class="control-label"></label>
+                <input asp-for="Employee.Name" class="form-control" />
+                <span asp-validation-for="Employee.Name" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="Employee.ApplicationId" class="control-label"></label>
+                <select asp-for="Employee.ApplicationId" class="form-control" asp-items="ViewBag.ApplicationId"></select>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="Employee.PayRoll" class="control-label"></label>
+                <input asp-for="Employee.PayRoll" class="form-control" />
+                <span asp-validation-for="Employee.PayRoll" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdentityRole" class="control-label"></label>
+                @*<input asp-for="IdentityRole" class="form-control" />*@
+                @*The Above Line of code is the bar that manually enters in the role as a string*@
+                <span asp-validation-for="IdentityRole" class="text-danger"></span>
+                <select asp-for="IdentityRole.NormalizedName" class="form-control" asp-items="@(new SelectList(ViewBag.listofitems,"Id", "Name")) "></select>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
