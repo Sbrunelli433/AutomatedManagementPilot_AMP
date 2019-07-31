@@ -190,7 +190,7 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 {
                     EmployeeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
                     ApplicationId = table.Column<string>(nullable: true),
                     PayRoll = table.Column<double>(nullable: false)
                 },
@@ -211,7 +211,7 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 {
                     ManagerId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
                     ApplicationId = table.Column<string>(nullable: true),
                     PayRoll = table.Column<double>(nullable: false)
                 },
@@ -232,7 +232,7 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 {
                     SupervisorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    UserName = table.Column<string>(nullable: true),
                     ApplicationId = table.Column<string>(nullable: true),
                     RoleId = table.Column<string>(nullable: true),
                     PayRoll = table.Column<double>(nullable: false)

@@ -11,12 +11,13 @@ namespace AutomatedManagementPilot_AMP.Models
     {
         [Key]
         public int EmployeeId { get; set; }
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-        //public ApplicationUser User { get; set; }
+
+
         public double PayRoll { get; set; }
     }
 }

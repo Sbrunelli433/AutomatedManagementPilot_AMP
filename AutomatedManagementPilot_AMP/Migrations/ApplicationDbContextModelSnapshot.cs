@@ -80,9 +80,9 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
                     b.Property<string>("ApplicationId");
 
-                    b.Property<string>("Name");
-
                     b.Property<double>("PayRoll");
+
+                    b.Property<string>("UserName");
 
                     b.HasKey("EmployeeId");
 
@@ -119,9 +119,9 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
                     b.Property<string>("ApplicationId");
 
-                    b.Property<string>("Name");
-
                     b.Property<double>("PayRoll");
+
+                    b.Property<string>("UserName");
 
                     b.HasKey("ManagerId");
 
@@ -190,11 +190,11 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
                     b.Property<string>("ApplicationId");
 
-                    b.Property<string>("Name");
-
                     b.Property<double>("PayRoll");
 
                     b.Property<string>("RoleId");
+
+                    b.Property<string>("UserName");
 
                     b.HasKey("SupervisorId");
 

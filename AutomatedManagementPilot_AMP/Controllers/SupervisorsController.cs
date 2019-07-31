@@ -140,11 +140,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
             {
                 IdentityRoles = ir
             };
-  
             return View(createUserViewModel);
-
-            //ViewData["ApplicationId"] = new SelectList(_context.Manager, "Id", "Id");
-            //return RedirectToAction("Create", "Managers");
         }
 
         // POST: Supervisors/Create
@@ -157,16 +153,22 @@ namespace AutomatedManagementPilot_AMP.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
-                
                 {
                     UserName = createUserViewModel.Email,
                     Email = createUserViewModel.Email,
                 };
-
                 var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, StaticDetails.Manager);
+                    var newManager = new Manager();
+                    {
+                        await _userManager.AddToRoleAsync(user, StaticDetails.Manager);
+                        newManager.ApplicationId = user.Id;
+                        newManager.UserName = user.UserName;
+                        newManager.PayRoll = createUserViewModel.Manager.PayRoll;
+                        _context.Add(newManager);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 _logger.LogInformation("A Manager account was cereated with password");
                 foreach (var error in result.Errors)
@@ -187,7 +189,6 @@ namespace AutomatedManagementPilot_AMP.Controllers
             {
                 IdentityRoles = ir
             };
-
             return View(createUserViewModel);
 
             //ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id");
@@ -205,16 +206,22 @@ namespace AutomatedManagementPilot_AMP.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
-
                 {
                     UserName = createUserViewModel.Email,
                     Email = createUserViewModel.Email,
                 };
-
                 var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, StaticDetails.Employee);
+                    var newEmployee = new Employee();
+                    {
+                        await _userManager.AddToRoleAsync(user, StaticDetails.Employee);
+                        newEmployee.ApplicationId = user.Id;
+                        newEmployee.UserName = user.UserName;
+                        newEmployee.PayRoll = createUserViewModel.Employee.PayRoll;
+                        _context.Add(newEmployee);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 _logger.LogInformation("A Manager account was cereated with password");
                 foreach (var error in result.Errors)
@@ -225,6 +232,112 @@ namespace AutomatedManagementPilot_AMP.Controllers
             return RedirectToAction("Index", "Supervisors");
         }
 
+
+        // GET: Supervisors/Edit/5
+        public async Task<IActionResult> EditManager(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var supervisor = await _context.Supervisor.FindAsync(id);
+            if (supervisor == null)
+            {
+                return NotFound();
+            }
+            ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
+            return View(supervisor);
+        }
+
+        // POST: Supervisors/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditManager(int id, [Bind("SupervisorId,Name,ApplicationId,PayRoll")] Supervisor supervisor)
+        {
+            if (id != supervisor.SupervisorId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(supervisor);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SupervisorExists(supervisor.SupervisorId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
+            return View(supervisor);
+        }
+
+        // GET: Supervisors/Edit/5
+        public async Task<IActionResult> EditEmployee(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var supervisor = await _context.Supervisor.FindAsync(id);
+            if (supervisor == null)
+            {
+                return NotFound();
+            }
+            ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
+            return View(supervisor);
+        }
+
+        // POST: Supervisors/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditEmployee(int id, [Bind("SupervisorId,Name,ApplicationId,PayRoll")] Supervisor supervisor)
+        {
+            if (id != supervisor.SupervisorId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(supervisor);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SupervisorExists(supervisor.SupervisorId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
+            return View(supervisor);
+        }
 
         // GET: Supervisors/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -50,7 +50,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // GET: Managers/Create
         public IActionResult Create()
         {
-            ViewData["Name"] = new SelectList(_context.ApplicationUser, "Id", "Id");
+            ViewData["UserName"] = new SelectList(_context.ApplicationUser, "Id", "Id");
             return View();
         }
 
@@ -60,7 +60,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = "Supervisor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ManagerId,Name,PayRoll")] Manager manager)
+        public async Task<IActionResult> Create([Bind("ManagerId,UserName,PayRoll")] Manager manager)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Name"] = new SelectList(_context.ApplicationUser, "Id", "Id", manager.Name);
+            ViewData["UserName"] = new SelectList(_context.ApplicationUser, "Id", "Id", manager.UserName);
             return View(manager);
         }
 
@@ -86,7 +86,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
             {
                 return NotFound();
             }
-            ViewData["Name"] = new SelectList(_context.ApplicationUser, "Id", "Id", manager.Name);
+            ViewData["UserName"] = new SelectList(_context.ApplicationUser, "Id", "Id", manager.UserName);
             return View(manager);
         }
 
@@ -96,7 +96,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = "Supervisor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ManagerId,Name,PayRoll")] Manager manager)
+        public async Task<IActionResult> Edit(int id, [Bind("ManagerId,UserName,PayRoll")] Manager manager)
         {
             if (id != manager.ManagerId)
             {
@@ -123,7 +123,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Name"] = new SelectList(_context.ApplicationUser, "Id", "Id", manager.Name);
+            ViewData["UserName"] = new SelectList(_context.ApplicationUser, "Id", "Id", manager.UserName);
             return View(manager);
         }
 
