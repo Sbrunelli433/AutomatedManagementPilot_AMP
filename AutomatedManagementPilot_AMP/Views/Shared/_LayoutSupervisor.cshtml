@@ -61,7 +61,31 @@
                 </div>
             </nav>
 
-            <div class=" container">
+            <table>
+                <div class=" container">
+                    <div class="btn-group" style="width: 100%">
+                        <input style="width:100%" type="button" value="Time Clock" onclick="@("window.location.href='" + @Url.Action("Index", "TimeClock") + "'");" />
+
+
+                    </div>
+                    <div class="btn-group" style="width: 100%">
+                        <input style="width:33%" type="button" value="Supervisors" onclick="@("window.location.href='" + @Url.Action("Index", "Supervisors") + "'");" />
+                        <input style="width:33%" type="button" value="Managers" onclick="@("window.location.href='" + @Url.Action("Index", "Managers") + "'");" />
+                        <input style="width:33%" type="button" value="Employees" onclick="@("window.location.href='" + @Url.Action("Index", "Employees") + "'");" />
+
+                    </div>
+                    <div class="btn-group" style="width: 100%">
+                        <input style="width:49%" type="button" value="Shop Orders" onclick="@("window.location.href='" + @Url.Action("Index", "ShopOrders") + "'");" />
+
+
+                        <input style="width:49%" type="button" value="Machine Schedule" onclick="@("window.location.href='" + @Url.Action("Index", "Machines") + "'");" />
+                    </div>
+
+                </div>
+            </table>
+
+
+            @*<div class=" container">
                 <div class="btn-group" style="width: 100%">
                     <button style="width:100%">Time Clock</button>
                 </div>
@@ -73,7 +97,7 @@
                     <button style="width:50%">Shop Orders</button>
                     <button style="width:50%">Machine Schedule</button>
                 </div>
-            </div>
+            </div>*@
 
             <partial name="_CookieConsentPartial" />
 

@@ -109,6 +109,10 @@ namespace AutomatedManagementPilot_AMP.Migrations
                         .IsUnique();
 
                     b.ToTable("Machine");
+
+                    b.HasData(
+                        new { MachineId = 1, CycleTime = 0m, ShopOrderNumber = 1, Utilization = 0m }
+                    );
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Manager", b =>
@@ -144,15 +148,11 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
                     b.Property<decimal>("NetProductionRate");
 
-                    b.Property<decimal>("OperationEmpBreakHours");
+                    b.Property<TimeSpan>("OperationProductionHours");
 
-                    b.Property<decimal>("OperationMachineBreakHours");
+                    b.Property<TimeSpan>("OperationSetUpHours");
 
-                    b.Property<decimal>("OperationProductionHours");
-
-                    b.Property<decimal>("OperationSetUpHours");
-
-                    b.Property<decimal>("OperationTearDownHours");
+                    b.Property<TimeSpan>("OperationTearDownHours");
 
                     b.Property<DateTime>("OrderDueDate");
 
@@ -180,6 +180,12 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.HasKey("ShopOrderNumber");
 
                     b.ToTable("ShopOrder");
+
+                    b.HasData(
+                        new { ShopOrderNumber = 1, Customer = "Terrill Inc.", GrossProductionRate = 0m, MachineId = 1, NetProductionRate = 0m, OperationProductionHours = new TimeSpan(0, 2, 30, 0, 0), OperationSetUpHours = new TimeSpan(0, 0, 30, 0, 0), OperationTearDownHours = new TimeSpan(0, 0, 45, 0, 0), OrderDueDate = new DateTime(2019, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), OrderQuantity = 10000, OrderRecDate = new DateTime(2019, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), PartName = "Widget", PartNumber = 12345, Profitability = 0m, RawMatlInventoryId = "00277", ScheduleEndTime = new DateTime(2019, 7, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), ScheduleStartTime = new DateTime(2019, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { ShopOrderNumber = 2, Customer = "Bradley Industries.", GrossProductionRate = 0m, MachineId = 1, NetProductionRate = 0m, OperationProductionHours = new TimeSpan(0, 5, 30, 0, 0), OperationSetUpHours = new TimeSpan(0, 1, 0, 0, 0), OperationTearDownHours = new TimeSpan(0, 1, 30, 0, 0), OrderDueDate = new DateTime(2019, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), OrderQuantity = 200000, OrderRecDate = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), PartName = "Clip", PartNumber = 2, Profitability = 0m, RawMatlInventoryId = "00244", ScheduleEndTime = new DateTime(2019, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), ScheduleStartTime = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { ShopOrderNumber = 3, Customer = "ACME Solutions", GrossProductionRate = 0m, MachineId = 1, NetProductionRate = 0m, OperationProductionHours = new TimeSpan(0, 2, 30, 0, 0), OperationSetUpHours = new TimeSpan(0, 0, 30, 0, 0), OperationTearDownHours = new TimeSpan(0, 0, 45, 0, 0), OrderDueDate = new DateTime(2019, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), OrderQuantity = 15000, OrderRecDate = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), PartName = "Washer", PartNumber = 321, Profitability = 0m, RawMatlInventoryId = "00101", ScheduleEndTime = new DateTime(2019, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), ScheduleStartTime = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    );
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Supervisor", b =>

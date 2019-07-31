@@ -84,8 +84,6 @@ namespace AutomatedManagementPilot_AMP.Controllers
             //return View(applicationDbContext.ToList());
         //}
 
-
-
         // GET: Supervisors/Details/5
         public async Task<IActionResult> Details(int? id)
         {

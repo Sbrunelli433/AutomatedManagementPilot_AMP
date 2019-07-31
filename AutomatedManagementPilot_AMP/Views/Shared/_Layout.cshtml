@@ -30,9 +30,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
                     <li>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -56,28 +56,6 @@
             </div>
         </div>
     </nav>
-
-    <div class=" container">
-        <div class="btn-group" style="width: 100%">
-            <input style="width:100%" type="button" value="Time Clock" onclick="@("window.location.href='" + @Url.Action("Index", "TimeClock") + "'");" />
-
-
-        </div>
-        <div class="btn-group" style="width: 100%">
-            <input style="width:33%" type="button" value="Supervisors" onclick="@("window.location.href='" + @Url.Action("Index", "Supervisors") + "'");" />
-            <input style="width:33%" type="button" value="Managers" onclick="@("window.location.href='" + @Url.Action("Index", "Managers") + "'");" />
-            <input style="width:33%" type="button" value="Employees" onclick="@("window.location.href='" + @Url.Action("Index", "Employees") + "'");" />
-
-        </div>
-        <div class="btn-group" style="width: 100%">
-            <input style="width:49%" type="button" value="Shop Orders" onclick="@("window.location.href='" + @Url.Action("Index", "ShopOrders") + "'");" />
-            <input style="width:49%" type="button" value="Machine Schedule" onclick="@("window.location.href='" + @Url.Action("Index", "Machine") + "'");" />
-        </div>
-
-    </div>
-
-
-
     <div class="container body-content">
         @RenderBody()
         <hr />

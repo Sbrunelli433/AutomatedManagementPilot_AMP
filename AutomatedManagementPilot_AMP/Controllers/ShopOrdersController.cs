@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
@@ -20,12 +21,14 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: ShopOrders
+        [Authorize(Roles = "Supervisor, Manager, Employee")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.ShopOrder.ToListAsync());
         }
 
         // GET: ShopOrders/Details/5
+        [Authorize(Roles = "Supervisor, Manager, Employee")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +47,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: ShopOrders/Create
+        [Authorize(Roles = "Supervisor ")]
         public IActionResult Create()
         {
             return View();
@@ -52,9 +56,11 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // POST: ShopOrders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Supervisor")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShopOrderNumber,Customer,PartNumber,PartName,OrderQuantity,RawMatlInventoryId,OrderRecDate,OrderDueDate,MachineId,ScheduleStartTime,ScheduleEndTime,OperationSetUpHours,OperationProductionHours,OperationEmpBreakHours,OperationMachineBreakHours,OperationTearDownHours,GrossProductionRate,NetProductionRate,Profitability")] ShopOrder shopOrder)
+        public async Task<IActionResult> Create([Bind("ShopOrderNumber,Customer,PartNumber,PartName,OrderQuantity,RawMatlInventoryId,OrderRecDate,OrderDueDate,MachineId,ScheduleStartTime,ScheduleEndTime,OperationSetUpHours,OperationProductionHours,OperationTearDownHours,GrossProductionRate,NetProductionRate,Profitability")] ShopOrder shopOrder)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +72,8 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: ShopOrders/Edit/5
+        [Authorize(Roles = "Supervisor")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,9 +92,11 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // POST: ShopOrders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Supervisor")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShopOrderNumber,Customer,PartNumber,PartName,OrderQuantity,RawMatlInventoryId,OrderRecDate,OrderDueDate,MachineId,ScheduleStartTime,ScheduleEndTime,OperationSetUpHours,OperationProductionHours,OperationEmpBreakHours,OperationMachineBreakHours,OperationTearDownHours,GrossProductionRate,NetProductionRate,Profitability")] ShopOrder shopOrder)
+        public async Task<IActionResult> Edit(int id, [Bind("ShopOrderNumber,Customer,PartNumber,PartName,OrderQuantity,RawMatlInventoryId,OrderRecDate,OrderDueDate,MachineId,ScheduleStartTime,ScheduleEndTime,OperationSetUpHours,OperationProductionHours,OperationTearDownHours,GrossProductionRate,NetProductionRate,Profitability")] ShopOrder shopOrder)
         {
             if (id != shopOrder.ShopOrderNumber)
             {
@@ -117,6 +127,8 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: ShopOrders/Delete/5
+        [Authorize(Roles = "Supervisor")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +147,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // POST: ShopOrders/Delete/5
+        [Authorize(Roles = "Supervisor")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

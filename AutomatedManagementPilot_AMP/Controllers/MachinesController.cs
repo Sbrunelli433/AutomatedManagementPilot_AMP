@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
@@ -20,6 +21,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: Machines
+        [Authorize(Roles = "Supervisor, Manager, Employee")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Machine.Include(m => m.ShopOrder);
@@ -27,6 +29,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: Machines/Details/5
+        [Authorize(Roles = "Supervisor, Manager, Employee")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -57,6 +60,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Supervisor")]
         public async Task<IActionResult> Create([Bind("MachineId,CycleTime,Utilization,ShopOrderNumber")] Machine machine)
         {
             if (ModelState.IsValid)
@@ -70,6 +74,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: Machines/Edit/5
+        [Authorize(Roles = "Supervisor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,6 +94,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // POST: Machines/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Supervisor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("MachineId,CycleTime,Utilization,ShopOrderNumber")] Machine machine)
@@ -123,6 +129,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: Machines/Delete/5
+        [Authorize(Roles = "Supervisor")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -142,6 +149,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // POST: Machines/Delete/5
+        [Authorize(Roles = "Supervisor")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

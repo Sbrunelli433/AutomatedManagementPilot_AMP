@@ -64,11 +64,9 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     MachineId = table.Column<int>(nullable: false),
                     ScheduleStartTime = table.Column<DateTime>(nullable: false),
                     ScheduleEndTime = table.Column<DateTime>(nullable: false),
-                    OperationSetUpHours = table.Column<decimal>(nullable: false),
-                    OperationProductionHours = table.Column<decimal>(nullable: false),
-                    OperationEmpBreakHours = table.Column<decimal>(nullable: false),
-                    OperationMachineBreakHours = table.Column<decimal>(nullable: false),
-                    OperationTearDownHours = table.Column<decimal>(nullable: false),
+                    OperationSetUpHours = table.Column<TimeSpan>(nullable: false),
+                    OperationProductionHours = table.Column<TimeSpan>(nullable: false),
+                    OperationTearDownHours = table.Column<TimeSpan>(nullable: false),
                     GrossProductionRate = table.Column<decimal>(nullable: false),
                     NetProductionRate = table.Column<decimal>(nullable: false),
                     Profitability = table.Column<decimal>(nullable: false)
@@ -296,6 +294,26 @@ namespace AutomatedManagementPilot_AMP.Migrations
                         principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "ShopOrder",
+                columns: new[] { "ShopOrderNumber", "Customer", "GrossProductionRate", "MachineId", "NetProductionRate", "OperationProductionHours", "OperationSetUpHours", "OperationTearDownHours", "OrderDueDate", "OrderQuantity", "OrderRecDate", "PartName", "PartNumber", "Profitability", "RawMatlInventoryId", "ScheduleEndTime", "ScheduleStartTime" },
+                values: new object[] { 1, "Terrill Inc.", 0m, 1, 0m, new TimeSpan(0, 2, 30, 0, 0), new TimeSpan(0, 0, 30, 0, 0), new TimeSpan(0, 0, 45, 0, 0), new DateTime(2019, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 10000, new DateTime(2019, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "Widget", 12345, 0m, "00277", new DateTime(2019, 7, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+
+            migrationBuilder.InsertData(
+                table: "ShopOrder",
+                columns: new[] { "ShopOrderNumber", "Customer", "GrossProductionRate", "MachineId", "NetProductionRate", "OperationProductionHours", "OperationSetUpHours", "OperationTearDownHours", "OrderDueDate", "OrderQuantity", "OrderRecDate", "PartName", "PartNumber", "Profitability", "RawMatlInventoryId", "ScheduleEndTime", "ScheduleStartTime" },
+                values: new object[] { 2, "Bradley Industries.", 0m, 1, 0m, new TimeSpan(0, 5, 30, 0, 0), new TimeSpan(0, 1, 0, 0, 0), new TimeSpan(0, 1, 30, 0, 0), new DateTime(2019, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 200000, new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Clip", 2, 0m, "00244", new DateTime(2019, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+
+            migrationBuilder.InsertData(
+                table: "ShopOrder",
+                columns: new[] { "ShopOrderNumber", "Customer", "GrossProductionRate", "MachineId", "NetProductionRate", "OperationProductionHours", "OperationSetUpHours", "OperationTearDownHours", "OrderDueDate", "OrderQuantity", "OrderRecDate", "PartName", "PartNumber", "Profitability", "RawMatlInventoryId", "ScheduleEndTime", "ScheduleStartTime" },
+                values: new object[] { 3, "ACME Solutions", 0m, 1, 0m, new TimeSpan(0, 2, 30, 0, 0), new TimeSpan(0, 0, 30, 0, 0), new TimeSpan(0, 0, 45, 0, 0), new DateTime(2019, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 15000, new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Washer", 321, 0m, "00101", new DateTime(2019, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+
+            migrationBuilder.InsertData(
+                table: "Machine",
+                columns: new[] { "MachineId", "CycleTime", "ShopOrderNumber", "Utilization" },
+                values: new object[] { 1, 0m, 1, 0m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
