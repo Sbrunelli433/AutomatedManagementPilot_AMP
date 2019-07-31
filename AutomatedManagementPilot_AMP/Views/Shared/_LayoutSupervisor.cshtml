@@ -30,78 +30,82 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @*<li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Supervisors" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Supervisors" asp-action="Contact">Contact</a></li>*@
                     <li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             @if (User.IsInRole("Supervisor"))
                             {
-                                <a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisor Page</a>
-                            }
+                            <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisor Page</a></li>
+                            <li><a asp-area="" asp-controller="Supervisors" asp-action="About">About</a></li>
+                            <li><a asp-area="" asp-controller="Supervisors" asp-action="Contact">Contact</a></li>
                         }
-                    </li>
-                    <li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            @if (User.IsInRole("Supervisor,Manager"))
+                        }
+                        </li>
+                        <li>
+                            @if (User.Identity.IsAuthenticated)
                             {
-                                <a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a>
+                                @if (User.IsInRole("Supervisor,Manager"))
+                                {
+                                <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a></li>
+                                <li><a asp-area="" asp-controller="Managers" asp-action="About">About</a></li>
+                                <li><a asp-area="" asp-controller="Managers" asp-action="Contact">Contact</a></li>
                             }
-                        }
-                    </li>
-                </ul>
-                <partial name="_LoginPartial" />
+                            }
+                            </li>
+                        </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
+
+            <div class=" container">
+                <div class="btn-group" style="width: 100%">
+                    <button style="width:100%">Time Clock</button>
+                </div>
+                <div class="btn-group" style="width: 100%">
+                    <button style="width:33.3%">Managers</button>
+                    <button style="width:33.3%">Employees</button>
+                </div>
+                <div class="btn-group" style="width: 100%">
+                    <button style="width:50%">Shop Orders</button>
+                    <button style="width:50%">Machine Schedule</button>
+                </div>
             </div>
-        </div>
-    </nav>
 
-    <div class=" container">
-        <div class="btn-group" style="width: 100%">
-            <button style="width:100%">Time Clock</button>
-        </div>
-        <div class="btn-group" style="width: 100%">
-            <button style="width:33.3%">Managers</button>
-            <button style="width:33.3%">Employees</button>
-        </div>
-        <div class="btn-group" style="width: 100%">
-            <button style="width:50%">Shop Orders</button>
-            <button style="width:50%">Machine Schedule</button>
-        </div>
-    </div>
+            <partial name="_CookieConsentPartial" />
 
-    <partial name="_CookieConsentPartial" />
+            <div class="container body-content">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; 2019 - AutomatedManagementPilot_AMP</p>
+                </footer>
+            </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2019 - AutomatedManagementPilot_AMP</p>
-        </footer>
-    </div>
+            <environment include="Development">
+                <script src="~/lib/jquery/dist/jquery.js"></script>
+                <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+                <script src="~/js/site.js" asp-append-version="true"></script>
+            </environment>
+            <environment exclude="Development">
+                <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                        asp-fallback-test="window.jQuery"
+                        crossorigin="anonymous"
+                        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+                </script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                        crossorigin="anonymous"
+                        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+                </script>
+                <script src="~/js/site.min.js" asp-append-version="true"></script>
+            </environment>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
-    @RenderSection("Scripts", required: false)
-</body>
-</html>
+            @RenderSection("Scripts", required: false)
+        </body>
+    </html>

@@ -176,63 +176,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
             }
             return RedirectToAction("Index", "Supervisors");
         }
-            //RegisterModel newManager = new RegisterModel();
-
-            //var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
-            //var result = await _userManager.CreateAsync(user, Input.Password);
-            //if (result.Succeeded)
-            //{
-            //    _logger.LogInformation("User created a new account with password.");
-
-            //    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            //    var callbackUrl = Url.Page(
-            //        "/Account/ConfirmEmail",
-            //        pageHandler: null,
-            //        values: new { userId = user.Id, code = code },
-            //        protocol: Request.Scheme);
-
-            //    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-            //        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-            //    await _signInManager.SignInAsync(user, isPersistent: false);
-            //    if (Input.IsSupervisor)
-            //    {
-            //        return RedirectToAction("Create", "Supervisors");
-            //    }
-            //}
-
-
-            //if (ModelState.IsValid)
-            //{
-            //    Manager newManager = new Manager();
-
-            //    newManager.ApplicationId = createUserViewModel.Manager.ApplicationId;
-            //    newManager.ApplicationUser = createUserViewModel.Manager.ApplicationUser;
-            //    newManager.ManagerId = createUserViewModel.Manager.ManagerId;
-            //    newManager.Name = createUserViewModel.Manager.Name;
-            //    newManager.PayRoll = createUserViewModel.Manager.PayRoll;
-
-
-            //    _context.Add(newManager);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction("Index", "Supervisors");
-            //}
-            //ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
-            //return View(null);
-        //}
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreateManager(string returnUrl = null)
-        //{
-        //    returnUrl = returnUrl ?? Url.Content("~/");
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
-        //    }
-
-        //}
-
-
+           
         // GET: Supervisors/Create
         public IActionResult CreateEmployee()
         {
@@ -253,19 +197,34 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // POST: Supervisors/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateEmployee([Bind("SupervisorId,Name,ApplicationId,PayRoll")] Supervisor supervisor)
+        public async Task<IActionResult> CreateEmployee(CreateUserViewModel createUserViewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(supervisor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var user = new ApplicationUser
+
+                {
+                    UserName = createUserViewModel.Email,
+                    Email = createUserViewModel.Email,
+                };
+
+                var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, StaticDetails.Employee);
+                }
+                _logger.LogInformation("A Manager account was cereated with password");
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
             }
-            ViewData["ApplicationId"] = new SelectList(_context.ApplicationUser, "Id", "Id", supervisor.ApplicationId);
-            return View(supervisor);
+            return RedirectToAction("Index", "Supervisors");
         }
+
 
         // GET: Supervisors/Edit/5
         public async Task<IActionResult> Edit(int? id)
