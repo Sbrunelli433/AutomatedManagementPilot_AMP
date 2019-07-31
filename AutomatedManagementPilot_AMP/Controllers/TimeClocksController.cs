@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
+using System.Security.Claims;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
@@ -69,6 +70,81 @@ namespace AutomatedManagementPilot_AMP.Controllers
             return View(timeClock);
         }
 
+        // GET: TimeClocks/Create
+        public IActionResult ClockIn()
+        {
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
+            return View();
+        }
+
+        // POST: TimeClocks/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ClockIn(TimeClock timeClock)
+        {
+            if (ModelState.IsValid)
+            {
+                timeClock = new TimeClock();
+                string empId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                Employee loggedInEmployee = _context.Employee.Where(i => i.ApplicationId == empId).SingleOrDefault();
+                timeClock.EmployeeId = loggedInEmployee.EmployeeId;
+                timeClock.ClockIn = DateTime.Now;
+
+                _context.Add(timeClock);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("ClockIn", "TimeClocks");
+            }
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", timeClock.EmployeeId);
+            return View(timeClock);
+        }
+
+
+        //public async Task<IActionResult> CreateManager(CreateUserViewModel createUserViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = new ApplicationUser
+        //        {
+        //            UserName = createUserViewModel.Email,
+        //            Email = createUserViewModel.Email,
+        //        };
+        //        var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
+        //        if (result.Succeeded)
+        //        {
+        //            var newManager = new Manager();
+        //            {
+        //                await _userManager.AddToRoleAsync(user, StaticDetails.Manager);
+        //                newManager.ApplicationId = user.Id;
+        //                newManager.UserName = user.UserName;
+        //                newManager.PayRoll = createUserViewModel.Manager.PayRoll;
+        //                _context.Add(newManager);
+        //                await _context.SaveChangesAsync();
+
+                        // GET: TimeClocks/Create
+        public IActionResult ClockOut()
+        {
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
+            return View();
+        }
+
+        // POST: TimeClocks/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ClockOut([Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId")] TimeClock timeClock)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(timeClock);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", timeClock.EmployeeId);
+            return View(timeClock);
+        }
         // GET: TimeClocks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
