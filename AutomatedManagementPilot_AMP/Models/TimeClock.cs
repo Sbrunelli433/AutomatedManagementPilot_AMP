@@ -13,11 +13,20 @@ namespace AutomatedManagementPilot_AMP.Models
         public int TimeClockId { get; set; }
 
         public DateTime ClockIn { get; set; }
+
         public DateTime ClockOut { get; set; }
-        public DateTime HoursWorked { get; set; }
+        public TimeSpan HoursWorked { get; set; }
 
         [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
+
+        public string Summary { get; set; }
+
+
+        public TimeClock()
+        {
+            ClockIn = DateTime.Now;
+        }
     }
 }

@@ -4,35 +4,41 @@
     ViewData["Title"] = "ClockOut";
 }
 
-<h2>ClockOut</h2>
+<h2>Clock Out</h2>
 
-<h4>TimeClock</h4>
+<h4>Time Clock</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="ClockOut">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<div class="form-group">
+            <input type="hidden" asp-for="TimeClockId" />
+            <input type="hidden" asp-for="EmployeeId" />
+            <input type="hidden" asp-for="Employee" />
+            <input type="hidden" asp-for="HoursWorked" />
+            <input type="hidden" asp-for="ClockIn" />
+            <div class="form-group">
                 <label asp-for="ClockIn" class="control-label"></label>
-                <input asp-for="ClockIn" class="form-control" />
-                <span asp-validation-for="ClockIn" class="text-danger"></span>
-            </div>*@
+                @*<input asp-for="ClockIn" class="form-control" />*@
+                @*<span asp-validation-for="ClockIn" class="text-danger"></span>*@
+            </div>
             <div class="form-group">
                 <label asp-for="ClockOut" class="control-label"></label>
-                <input asp-for="ClockOut" class="form-control" />
+                @*<input asp-for="ClockOut" class="form-control" />*@
                 <span asp-validation-for="ClockOut" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="HoursWorked" class="control-label"></label>
-                <input asp-for="HoursWorked" class="form-control" />
-                <span asp-validation-for="HoursWorked" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
-                <label asp-for="EmployeeId" class="control-label"></label>
-                <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <label asp-for="HoursWorked" class="control-label"></label>
+                @*<input asp-for="HoursWorked" class="form-control" />*@
+                <span asp-validation-for="HoursWorked" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <label asp-for="Summary" class="control-label"></label>
+                <input asp-for="Summary" class="form-control" />
+                <span asp-validation-for="Summary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Clock Out" class="btn btn-default" />
             </div>
         </form>
     </div>

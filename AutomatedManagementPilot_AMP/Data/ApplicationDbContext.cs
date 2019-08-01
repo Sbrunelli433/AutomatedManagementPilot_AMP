@@ -101,6 +101,7 @@ namespace AutomatedManagementPilot_AMP.Data
         public DbSet<Models.Supervisor> Supervisor { get; set; }
         public DbSet<TimeClock> TimeClock { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<AutomatedManagementPilot_AMP.Models.TimeClockSummary> TimeClockSummary { get; set; }
         //public DbSet<AddedValue> AddedValue { get; set; }
         //public DbSet<MRP> MRPs { get; set; }
         //public DbSet<Purchasing> Purchasing { get; set; }

@@ -5,55 +5,55 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Timeclock Index</h2>
 
-<p>
-    @*<input style="width:33%" class="btn-default" type="button" id="clockIn" value="Clock In"/>*@
-    @*<input style="width:33%" type="button" id="clockIn" value="ClockIn" title="Clock In" onclick="location.href='@Url.Action("ClockIn", "TimeClocks")'" />*@
-    <input style="width:33%" type="button" value="ClockOut" title="Clock Out" onclick="location.href='@Url.Action("ClockOut", "TimeClocks")'" />
-    <input style="width:33%" type="button" id="clockIn" value="ClockIn" onclick="@Html.ActionLink("ClockIn", "TimeClocks")% />
-</p>
+<a asp-action="ClockIn">Clock In</a>
 
 
-<table class="table">
-    @*<thead>
+<table class=" table">
+    <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeClockId)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ClockIn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClockOut)
+                @Html.DisplayNameFor(model => model.HoursWorked.TotalHours)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HoursWorked)
+                @Html.DisplayNameFor(model => model.HoursWorked.TotalMinutes)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Employee)
+                @Html.DisplayNameFor(model => model.EmployeeId)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeClockId)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ClockIn)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ClockOut)
+                @Html.DisplayFor(modelItem => item.HoursWorked.TotalHours)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HoursWorked)
+                @Html.DisplayFor(modelItem => item.HoursWorked.TotalMinutes)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
+                @Html.DisplayFor(modelItem => item.EmployeeId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.TimeClockId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TimeClockId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TimeClockId">Delete</a>
+                <a asp-action="ClockOut" asp-route-id="@item.TimeClockId">Clock Out</a> |
             </td>
-        </tr>*@
-}
+        </tr>
+        }
     </tbody>
 </table>
+

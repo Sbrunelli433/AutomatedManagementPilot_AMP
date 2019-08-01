@@ -91,60 +91,83 @@ namespace AutomatedManagementPilot_AMP.Controllers
                 Employee loggedInEmployee = _context.Employee.Where(i => i.ApplicationId == empId).SingleOrDefault();
                 timeClock.EmployeeId = loggedInEmployee.EmployeeId;
                 timeClock.ClockIn = DateTime.Now;
-
-                _context.Add(timeClock);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("ClockIn", "TimeClocks");
+                if (timeClock.ClockOut == null)
+                {
+                    throw new System.ArgumentException("You need to clock out first!");
+                    //return RedirectToAction("ClockIn", "TimeClocks");
+                }
+                else
+                {
+                    _context.Add(timeClock);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("ClockIn", "TimeClocks");
+                }
             }
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", timeClock.EmployeeId);
             return View(timeClock);
         }
 
-
-        //public async Task<IActionResult> CreateManager(CreateUserViewModel createUserViewModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = new ApplicationUser
-        //        {
-        //            UserName = createUserViewModel.Email,
-        //            Email = createUserViewModel.Email,
-        //        };
-        //        var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
-        //        if (result.Succeeded)
-        //        {
-        //            var newManager = new Manager();
-        //            {
-        //                await _userManager.AddToRoleAsync(user, StaticDetails.Manager);
-        //                newManager.ApplicationId = user.Id;
-        //                newManager.UserName = user.UserName;
-        //                newManager.PayRoll = createUserViewModel.Manager.PayRoll;
-        //                _context.Add(newManager);
-        //                await _context.SaveChangesAsync();
-
-                        // GET: TimeClocks/Create
-        public IActionResult ClockOut()
+        // GET: TimeClocks/Edit/5
+        public async Task<IActionResult> ClockOut(int? id)
         {
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var timeClock = await _context.TimeClock.FindAsync(id);
+            if (timeClock == null)
+            {
+                return NotFound();
+            }
+            //ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", timeClock.EmployeeId);
+            return View(timeClock);
         }
 
-        // POST: TimeClocks/Create
+        // POST: TimeClocks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ClockOut([Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId")] TimeClock timeClock)
+        public async Task<IActionResult> ClockOut(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId,Summary")] TimeClock timeClock)
         {
+            if (id != timeClock.TimeClockId)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
-                _context.Add(timeClock);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    timeClock.ClockOut = DateTime.Now;
+                    timeClock.HoursWorked = timeClock.ClockOut.Subtract(timeClock.ClockIn);
+                    timeClock.Summary = timeClock.Summary;
+                    
+                    _context.Update(timeClock);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TimeClockExists(timeClock.TimeClockId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return View("Index", "TimeClocks");
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", timeClock.EmployeeId);
+            //ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", timeClock.EmployeeId);
             return View(timeClock);
         }
+
+
+
+
+
         // GET: TimeClocks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
