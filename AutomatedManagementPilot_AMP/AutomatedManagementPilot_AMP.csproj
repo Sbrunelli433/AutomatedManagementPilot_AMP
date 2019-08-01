@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190801195347_Initial.cs" />
+    <Compile Remove="Migrations\20190801195347_Initial.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="2.2.6" />
@@ -31,6 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Machines\MachineDetails.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\_LayoutEmployee.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.Utilization)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ShopOrder)
+                @Html.DisplayNameFor(model => model.ShopOrder.ShopOrderNumber)
             </th>
             <th></th>
         </tr>
@@ -39,7 +39,9 @@
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.MachineId">Details</a> |
-                
+                <a asp-action="MachineDetails" asp-route-id="@item.MachineId">Machine Details</a> |
+
+
             </td>
 
             @if (User.Identity.IsAuthenticated)

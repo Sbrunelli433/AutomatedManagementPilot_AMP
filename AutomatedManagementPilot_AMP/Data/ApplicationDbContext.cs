@@ -50,7 +50,7 @@ namespace AutomatedManagementPilot_AMP.Data
                     RawMatlInventoryId = "00244",
                     OrderRecDate = new DateTime(2019, 07, 07),
                     OrderDueDate = new DateTime(2019, 07, 11),
-                    MachineId = 02,
+                    MachineId = 01,
                     ScheduleStartTime = new DateTime(2019, 07, 07),
                     ScheduleEndTime = new DateTime(2019, 07, 10),
                     OperationSetUpHours = new TimeSpan(1, 0, 0),
@@ -88,6 +88,7 @@ namespace AutomatedManagementPilot_AMP.Data
                 {
                     MachineId = 01,
                     ShopOrderNumber = 001,
+                    
                 });
 
             modelBuilder.Entity<Machine>().HasData(
@@ -95,7 +96,9 @@ namespace AutomatedManagementPilot_AMP.Data
                 {
                     MachineId = 02,
                     ShopOrderNumber = 002,
+
                 });
+
 
 
         }

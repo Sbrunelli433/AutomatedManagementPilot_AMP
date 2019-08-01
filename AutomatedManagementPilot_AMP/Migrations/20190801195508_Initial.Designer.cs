@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutomatedManagementPilot_AMP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190801154126_UpdateTCModel")]
-    partial class UpdateTCModel
+    [Migration("20190801195508_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,7 +113,8 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.ToTable("Machine");
 
                     b.HasData(
-                        new { MachineId = 1, CycleTime = 0m, ShopOrderNumber = 1, Utilization = 0m }
+                        new { MachineId = 1, CycleTime = 0m, ShopOrderNumber = 1, Utilization = 0m },
+                        new { MachineId = 2, CycleTime = 0m, ShopOrderNumber = 2, Utilization = 0m }
                     );
                 });
 
@@ -234,23 +235,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("TimeClock");
-                });
-
-            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.TimeClockSummary", b =>
-                {
-                    b.Property<int>("TimeClockSumId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Summary");
-
-                    b.Property<int>("TimeClockId");
-
-                    b.HasKey("TimeClockSumId");
-
-                    b.HasIndex("TimeClockId");
-
-                    b.ToTable("TimeClockSummary");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -401,14 +385,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.HasOne("AutomatedManagementPilot_AMP.Models.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.TimeClockSummary", b =>
-                {
-                    b.HasOne("AutomatedManagementPilot_AMP.Models.TimeClock", "TimeClock")
-                        .WithMany()
-                        .HasForeignKey("TimeClockId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

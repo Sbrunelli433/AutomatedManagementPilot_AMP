@@ -20,12 +20,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.PartName)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.OrderQuantity)
-            </th>
-            <th>
+            </th>*@
+            @*<th>
                 @Html.DisplayNameFor(model => model.RawMatlInventoryId)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.OrderRecDate)
             </th>
@@ -41,7 +41,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ScheduleEndTime)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.OperationSetUpHours)
             </th>
             <th>
@@ -58,7 +58,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Profitability)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -74,12 +74,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PartName)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.OrderQuantity)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RawMatlInventoryId)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.OrderRecDate)
             </td>
@@ -95,7 +95,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ScheduleEndTime)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.OperationSetUpHours)
             </td>
             <td>
@@ -112,7 +112,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Profitability)
-            </td>
+            </td>*@
             <td>
 
                 <a asp-action="Edit" asp-route-id="@item.ShopOrderNumber">Edit</a> |

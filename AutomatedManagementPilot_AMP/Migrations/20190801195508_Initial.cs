@@ -281,8 +281,9 @@ namespace AutomatedManagementPilot_AMP.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ClockIn = table.Column<DateTime>(nullable: false),
                     ClockOut = table.Column<DateTime>(nullable: false),
-                    HoursWorked = table.Column<DateTime>(nullable: false),
-                    EmployeeId = table.Column<int>(nullable: false)
+                    HoursWorked = table.Column<TimeSpan>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    Summary = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -314,6 +315,11 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 table: "Machine",
                 columns: new[] { "MachineId", "CycleTime", "ShopOrderNumber", "Utilization" },
                 values: new object[] { 1, 0m, 1, 0m });
+
+            migrationBuilder.InsertData(
+                table: "Machine",
+                columns: new[] { "MachineId", "CycleTime", "ShopOrderNumber", "Utilization" },
+                values: new object[] { 2, 0m, 2, 0m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

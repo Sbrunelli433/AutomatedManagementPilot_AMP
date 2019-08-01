@@ -15,9 +15,11 @@ namespace AutomatedManagementPilot_AMP.Models
         public Decimal CycleTime { get; set; }
         public Decimal Utilization { get; set; }
 
+
         [ForeignKey("ShopOrder")]
         public int ShopOrderNumber { get; set; }
         public ShopOrder ShopOrder { get; set; }
+
 
     }
 }
