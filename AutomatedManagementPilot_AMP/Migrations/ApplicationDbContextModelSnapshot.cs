@@ -91,6 +91,35 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.ToTable("Employee");
                 });
 
+            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.JobCard", b =>
+                {
+                    b.Property<int>("JobCardId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<DateTime>("OperationClockIn");
+
+                    b.Property<DateTime>("OperationClockOut");
+
+                    b.Property<TimeSpan>("OperationTotal");
+
+                    b.Property<int>("PartsMade");
+
+                    b.Property<int>("ShopOrderNumber");
+
+                    b.Property<string>("Summary");
+
+                    b.HasKey("JobCardId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ShopOrderNumber");
+
+                    b.ToTable("JobCard");
+                });
+
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Machine", b =>
                 {
                     b.Property<int>("MachineId")
@@ -350,6 +379,19 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationId");
+                });
+
+            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.JobCard", b =>
+                {
+                    b.HasOne("AutomatedManagementPilot_AMP.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AutomatedManagementPilot_AMP.Models.ShopOrder", "ShopOrder")
+                        .WithMany()
+                        .HasForeignKey("ShopOrderNumber")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Machine", b =>

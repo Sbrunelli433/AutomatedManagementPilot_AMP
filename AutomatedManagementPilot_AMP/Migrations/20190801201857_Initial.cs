@@ -274,6 +274,37 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "JobCard",
+                columns: table => new
+                {
+                    JobCardId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    OperationClockIn = table.Column<DateTime>(nullable: false),
+                    OperationClockOut = table.Column<DateTime>(nullable: false),
+                    OperationTotal = table.Column<TimeSpan>(nullable: false),
+                    PartsMade = table.Column<int>(nullable: false),
+                    Summary = table.Column<string>(nullable: true),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    ShopOrderNumber = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobCard", x => x.JobCardId);
+                    table.ForeignKey(
+                        name: "FK_JobCard_Employee_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employee",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JobCard_ShopOrder_ShopOrderNumber",
+                        column: x => x.ShopOrderNumber,
+                        principalTable: "ShopOrder",
+                        principalColumn: "ShopOrderNumber",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TimeClock",
                 columns: table => new
                 {
@@ -366,6 +397,16 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_JobCard_EmployeeId",
+                table: "JobCard",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobCard_ShopOrderNumber",
+                table: "JobCard",
+                column: "ShopOrderNumber");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Machine_ShopOrderNumber",
                 table: "Machine",
                 column: "ShopOrderNumber",
@@ -408,6 +449,9 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "JobCard");
 
             migrationBuilder.DropTable(
                 name: "Machine");

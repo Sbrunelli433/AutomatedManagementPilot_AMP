@@ -128,7 +128,7 @@ namespace AutomatedManagementPilot_AMP
             //Adding Admin Role
             foreach (var roleName in roleNames)
             {
-                var roleCheck = await RoleManager.RoleExistsAsync(roleName);
+                var roleCheck = await RoleManager.RoleExistsAsync(roleName);    
                 if (!roleCheck)
                 {
                     //create the roles and seed them to the database

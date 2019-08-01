@@ -1,0 +1,71 @@
+﻿@model IEnumerable<AutomatedManagementPilot_AMP.Models.JobCard>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationClockIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationClockOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PartsMade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Summary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShopOrder)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationClockIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationClockOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperationTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PartsMade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShopOrder.ShopOrderNumber)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.JobCardId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.JobCardId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.JobCardId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

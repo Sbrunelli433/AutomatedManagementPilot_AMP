@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutomatedManagementPilot_AMP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190801195508_Initial")]
+    [Migration("20190801201857_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,6 +91,35 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.HasIndex("ApplicationId");
 
                     b.ToTable("Employee");
+                });
+
+            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.JobCard", b =>
+                {
+                    b.Property<int>("JobCardId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<DateTime>("OperationClockIn");
+
+                    b.Property<DateTime>("OperationClockOut");
+
+                    b.Property<TimeSpan>("OperationTotal");
+
+                    b.Property<int>("PartsMade");
+
+                    b.Property<int>("ShopOrderNumber");
+
+                    b.Property<string>("Summary");
+
+                    b.HasKey("JobCardId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ShopOrderNumber");
+
+                    b.ToTable("JobCard");
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Machine", b =>
@@ -352,6 +381,19 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationId");
+                });
+
+            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.JobCard", b =>
+                {
+                    b.HasOne("AutomatedManagementPilot_AMP.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("AutomatedManagementPilot_AMP.Models.ShopOrder", "ShopOrder")
+                        .WithMany()
+                        .HasForeignKey("ShopOrderNumber")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Machine", b =>

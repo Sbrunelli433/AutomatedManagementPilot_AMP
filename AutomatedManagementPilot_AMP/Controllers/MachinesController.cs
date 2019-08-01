@@ -37,7 +37,6 @@ namespace AutomatedManagementPilot_AMP.Controllers
             {
                 return NotFound();
             }
-            
             var machine = await _context.Machine
                 .Include(m => m.ShopOrder)
                 .FirstOrDefaultAsync(m => m.MachineId == id);
@@ -61,7 +60,9 @@ namespace AutomatedManagementPilot_AMP.Controllers
             {
                 return NotFound();
             }
-            var machine = await _context.Machine
+            IEnumerable<Machine> machineShopOrderViewModels = await _context.Machine.ToListAsync();
+
+                var machine = await _context.Machine
                 .Include(m => m.ShopOrder)
                 .FirstOrDefaultAsync(m => m.MachineId == id);
 
