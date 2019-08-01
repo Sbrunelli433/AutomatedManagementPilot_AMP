@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
@@ -21,6 +22,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: TimeClocks
+        [Authorize(Roles = "Supervisor, Manager, Employee")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.TimeClock.Include(t => t.Employee);
@@ -28,6 +30,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: TimeClocks/Details/5
+        [Authorize(Roles = "Supervisor, Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,6 +50,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: TimeClocks/Create
+        [Authorize(Roles = "Supervisor")]
         public IActionResult Create()
         {
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
@@ -56,6 +60,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // POST: TimeClocks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Supervisor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId")] TimeClock timeClock)
@@ -71,6 +76,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: TimeClocks/Create
+        [Authorize(Roles = "Employee")]
         public IActionResult ClockIn()
         {
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
@@ -80,6 +86,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // POST: TimeClocks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ClockIn(TimeClock timeClock)
@@ -108,6 +115,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: TimeClocks/Edit/5
+        [Authorize(Roles = "Employee")]
         public async Task<IActionResult> ClockOut(int? id)
         {
             if (id == null)
@@ -127,6 +135,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // POST: TimeClocks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ClockOut(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId,Summary")] TimeClock timeClock)
@@ -169,6 +178,8 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
 
         // GET: TimeClocks/Edit/5
+        [Authorize(Roles = " Supervisor, Manager")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -188,6 +199,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // POST: TimeClocks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = " Supervisor, Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId")] TimeClock timeClock)
@@ -222,6 +234,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: TimeClocks/Delete/5
+        [Authorize(Roles = " Supervisor, Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -241,6 +254,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // POST: TimeClocks/Delete/5
+        [Authorize(Roles = " Supervisor, Manager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

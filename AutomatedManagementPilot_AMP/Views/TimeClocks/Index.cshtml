@@ -7,7 +7,16 @@
 
 <h2>Timeclock Index</h2>
 
-<a asp-action="ClockIn">Clock In</a>
+
+@if (User.Identity.IsAuthenticated)
+{
+    @if (User.IsInRole("Employee"))
+    {
+        <h1> <a asp-action="ClockIn">Clock In</a>   </h1>
+
+    }
+}
+
 
 
 <table class=" table">
@@ -18,6 +27,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ClockIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClockOut)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.HoursWorked.TotalHours)
@@ -33,26 +45,38 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeClockId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClockIn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoursWorked.TotalHours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoursWorked.TotalMinutes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmployeeId)
-            </td>
-            <td>
-                <a asp-action="ClockOut" asp-route-id="@item.TimeClockId">Clock Out</a> |
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeClockId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClockIn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClockOut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoursWorked.TotalHours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoursWorked.TotalMinutes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeId)
+                </td>
+                <td>
+                    <a asp-action="ClockOut" asp-route-id="@item.TimeClockId">Clock Out</a> |
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole("Manager"))
+                        {
+                            <a asp-action="Details" asp-route-id="@item.TimeClockId">Details</a>
+
+                        }
+                    }
+                </td>
+
+            </tr>
         }
     </tbody>
 </table>
