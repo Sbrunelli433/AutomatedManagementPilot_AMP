@@ -18,5 +18,6 @@ namespace AutomatedManagementPilot_AMP.Models
         [ForeignKey("ShopOrder")]
         public int ShopOrderNumber { get; set; }
         public ShopOrder ShopOrder { get; set; }
+
     }
 }

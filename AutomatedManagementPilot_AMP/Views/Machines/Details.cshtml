@@ -32,6 +32,14 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.MachineId">Edit</a> |
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (User.IsInRole("Supervisor, Manager"))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.MachineId">Edit</a> 
+}
+    }
     <a asp-action="Index">Back to List</a>
 </div>

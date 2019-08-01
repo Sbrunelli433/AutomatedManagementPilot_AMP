@@ -50,7 +50,7 @@ namespace AutomatedManagementPilot_AMP.Data
                     RawMatlInventoryId = "00244",
                     OrderRecDate = new DateTime(2019, 07, 07),
                     OrderDueDate = new DateTime(2019, 07, 11),
-                    MachineId = 01,
+                    MachineId = 02,
                     ScheduleStartTime = new DateTime(2019, 07, 07),
                     ScheduleEndTime = new DateTime(2019, 07, 10),
                     OperationSetUpHours = new TimeSpan(1, 0, 0),
@@ -90,6 +90,13 @@ namespace AutomatedManagementPilot_AMP.Data
                     ShopOrderNumber = 001,
                 });
 
+            modelBuilder.Entity<Machine>().HasData(
+                new Machine
+                {
+                    MachineId = 02,
+                    ShopOrderNumber = 002,
+                });
+
 
         }
         //public DbSet<Dashboard> Dashboard { get; set; }
@@ -101,7 +108,6 @@ namespace AutomatedManagementPilot_AMP.Data
         public DbSet<Models.Supervisor> Supervisor { get; set; }
         public DbSet<TimeClock> TimeClock { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
-        public DbSet<AutomatedManagementPilot_AMP.Models.TimeClockSummary> TimeClockSummary { get; set; }
         //public DbSet<AddedValue> AddedValue { get; set; }
         //public DbSet<MRP> MRPs { get; set; }
         //public DbSet<Purchasing> Purchasing { get; set; }
