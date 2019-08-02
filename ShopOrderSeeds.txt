@@ -20,3 +20,11 @@ migrationBuilder.Sql("SET Identity_Insert ShopOrder ON INSERT INTO ShopOrder (Sh
 										netProductionRate, Profitability)
 	VALUES (01, 'Terrill Inc.', 12345, 'Widget', 10000, 00277RCS, 08/06/2019, 08/09/2019, 01, 08/06/2019 06:00:00, 08/08/2019 12:00:00,
 		.50, 2.50, 0.0, 0.0, .75)");
+
+
+                .Include(m => m.ShopOrder.Customer)
+                .Include(m => m.ShopOrder.PartName)
+                .Include(m => m.ShopOrder.PartNumber)
+                .Include(m => m.ShopOrder.OperationSetUpHours)
+                    .Include(m => m.ShopOrder.OperationProductionHours)
+                .Include(m => m.ShopOrder.OperationTearDownHours)

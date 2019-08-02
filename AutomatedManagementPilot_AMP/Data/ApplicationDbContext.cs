@@ -29,12 +29,16 @@ namespace AutomatedManagementPilot_AMP.Data
                     RawMatlInventoryId = "00277",
                     OrderRecDate = new DateTime(2019, 07, 06),
                     OrderDueDate = new DateTime(2019, 07, 09),
-                    MachineId = 01,
+                    MachineId = null,
                     ScheduleStartTime = new DateTime(2019, 07, 06),
                     ScheduleEndTime = new DateTime(2019, 07, 08),
                     OperationSetUpHours = new TimeSpan(0, 30, 0),
+                    OperationSetUp = "Set Up",
                     OperationProductionHours = new TimeSpan(2, 30, 0),
+                    OperationProduction = "Production",
                     OperationTearDownHours = new TimeSpan(0, 45, 0),
+                    OperationTearDown = "Tear Down",
+
                     //GrossProductionRate = null,
                     //NetProductionRate = null,
                     //Profitability = null,   
@@ -50,7 +54,7 @@ namespace AutomatedManagementPilot_AMP.Data
                     RawMatlInventoryId = "00244",
                     OrderRecDate = new DateTime(2019, 07, 07),
                     OrderDueDate = new DateTime(2019, 07, 11),
-                    MachineId = 01,
+                    MachineId = null,
                     ScheduleStartTime = new DateTime(2019, 07, 07),
                     ScheduleEndTime = new DateTime(2019, 07, 10),
                     OperationSetUpHours = new TimeSpan(1, 0, 0),
@@ -72,7 +76,7 @@ namespace AutomatedManagementPilot_AMP.Data
                     RawMatlInventoryId = "00101",
                     OrderRecDate = new DateTime(2019, 07, 07),
                     OrderDueDate = new DateTime(2019, 07, 09),
-                    MachineId = 01,
+                    MachineId = null,
                     ScheduleStartTime = new DateTime(2019, 07, 07),
                     ScheduleEndTime = new DateTime(2019, 07, 10),
                     OperationSetUpHours = new TimeSpan(0, 30, 0),
@@ -87,7 +91,6 @@ namespace AutomatedManagementPilot_AMP.Data
                 new Machine
                 {
                     MachineId = 01,
-                    ShopOrderNumber = 001,
                     
                 });
 
@@ -95,7 +98,6 @@ namespace AutomatedManagementPilot_AMP.Data
                 new Machine
                 {
                     MachineId = 02,
-                    ShopOrderNumber = 002,
 
                 });
 
@@ -114,6 +116,7 @@ namespace AutomatedManagementPilot_AMP.Data
 
         public DbSet<Models.Supervisor> Supervisor { get; set; }
         public DbSet<TimeClock> TimeClock { get; set; }
+        public DbSet<Operation> Operation { get; set; }
 
 
         //public DbSet<AddedValue> AddedValue { get; set; }

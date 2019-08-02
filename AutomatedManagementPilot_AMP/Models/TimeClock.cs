@@ -21,6 +21,11 @@ namespace AutomatedManagementPilot_AMP.Models
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
+        [ForeignKey("ShopOrder")]
+        public int? ShopOrderNumber { get; set; }
+        public ShopOrder ShopOrder { get; set; }
+
+
         public string Summary { get; set; }
 
 

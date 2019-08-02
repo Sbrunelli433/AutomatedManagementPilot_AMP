@@ -23,12 +23,8 @@
         <dd>
             @Html.DisplayFor(model => model.Utilization)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ShopOrder.ShopOrderNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ShopOrder.ShopOrderNumber)
-        </dd>
+       
+
     </dl>
 </div>
 <div>
@@ -38,8 +34,12 @@
     {
         @if (User.IsInRole("Supervisor, Manager"))
         {
-            <a asp-action="Edit" asp-route-id="@Model.MachineId">Edit</a> 
-}
+            <a asp-action="Edit" asp-route-id="@Model.MachineId">Edit</a>
+        }
     }
+    @*<a asp-area="" asp-controller="JobCards" asp-action="Create">Enter Job Card</a> |*@
+    <a asp-area="" asp-controller="JobCards" asp-action="CreateJobCard">Enter Job Card</a> |
+
+
     <a asp-action="Index">Back to List</a>
 </div>

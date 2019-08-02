@@ -4,14 +4,16 @@ using AutomatedManagementPilot_AMP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AutomatedManagementPilot_AMP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190802160310_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,7 +273,7 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
                     b.Property<TimeSpan>("HoursWorked");
 
-                    b.Property<int?>("ShopOrderNumber");
+                    b.Property<int>("ShopOrderNumber");
 
                     b.Property<string>("Summary");
 
@@ -448,7 +450,8 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
                     b.HasOne("AutomatedManagementPilot_AMP.Models.ShopOrder", "ShopOrder")
                         .WithMany()
-                        .HasForeignKey("ShopOrderNumber");
+                        .HasForeignKey("ShopOrderNumber")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

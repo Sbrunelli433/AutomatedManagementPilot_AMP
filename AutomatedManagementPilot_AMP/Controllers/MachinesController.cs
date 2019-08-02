@@ -9,6 +9,7 @@ using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
 using Microsoft.AspNetCore.Authorization;
 using AutomatedManagementPilot_AMP.ViewModels;
+using System.Security.Claims;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
@@ -25,7 +26,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = "Supervisor, Manager, Employee")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Machine.Include(m => m.ShopOrder);
+            var applicationDbContext = _context.Machine;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -38,34 +39,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
                 return NotFound();
             }
             var machine = await _context.Machine
-                .Include(m => m.ShopOrder)
                 .FirstOrDefaultAsync(m => m.MachineId == id);
-            if (machine == null)
-            {
-                return NotFound();
-            }
-
-            return View(machine);
-        }
-
-        // GET: Machines/Details/5
-        [Authorize(Roles = "Supervisor, Manager, Employee")]
-        public async Task<IActionResult> MachineDetails(int? id, MachineShopOrderViewModel machineShopOrderViewModel)
-        {
-            //machineDetails = new Machine();
-
-            
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-            IEnumerable<Machine> machineShopOrderViewModels = await _context.Machine.ToListAsync();
-
-                var machine = await _context.Machine
-                .Include(m => m.ShopOrder)
-                .FirstOrDefaultAsync(m => m.MachineId == id);
-
             if (machine == null)
             {
                 return NotFound();
@@ -96,7 +70,6 @@ namespace AutomatedManagementPilot_AMP.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShopOrderNumber"] = new SelectList(_context.ShopOrder, "ShopOrderNumber", "ShopOrderNumber", machine.ShopOrder);
             return View(machine);
         }
 
@@ -114,7 +87,6 @@ namespace AutomatedManagementPilot_AMP.Controllers
             {
                 return NotFound();
             }
-            ViewData["ShopOrderNumber"] = new SelectList(_context.ShopOrder, "ShopOrderNumber", "ShopOrderNumber", machine.ShopOrder);
             return View(machine);
         }
 
@@ -151,7 +123,6 @@ namespace AutomatedManagementPilot_AMP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShopOrderNumber"] = new SelectList(_context.ShopOrder, "ShopOrderNumber", "ShopOrderNumber", machine.ShopOrder);
             return View(machine);
         }
 
@@ -165,7 +136,6 @@ namespace AutomatedManagementPilot_AMP.Controllers
             }
 
             var machine = await _context.Machine
-                .Include(m => m.ShopOrder)
                 .FirstOrDefaultAsync(m => m.MachineId == id);
             if (machine == null)
             {

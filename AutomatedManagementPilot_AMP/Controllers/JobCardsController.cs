@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using AutomatedManagementPilot_AMP.ViewModels;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
@@ -47,10 +50,13 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: JobCards/Create
-        public IActionResult Create()
+        public IActionResult CreateJobCard()
         {
+
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
             ViewData["ShopOrderNumber"] = new SelectList(_context.ShopOrder, "ShopOrderNumber", "ShopOrderNumber");
+            ViewData["Operation"] = new SelectList(_context.ShopOrder, "OperationSetUp", "OperationProduction", "OperationTearDown");
+
             return View();
         }
 
@@ -59,18 +65,86 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("JobCardId,OperationClockIn,OperationClockOut,OperationTotal,PartsMade,Summary,EmployeeId,ShopOrderNumber")] JobCard jobCard)
+        public async Task<IActionResult> CreateJobCard( JobCard jobCard, JobCardViewModel jobCardViewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(jobCard);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                jobCard = new JobCard();
+                string empId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                Employee loggedInEmployee = _context.Employee.Where(i => i.ApplicationId == empId).SingleOrDefault();
+                jobCard.EmployeeId = loggedInEmployee.EmployeeId;
+                jobCard.OperationClockIn = DateTime.Now;
+                
+                if (jobCard.OperationClockOut == null)
+                {
+                    throw new System.ArgumentException("You need to clock out of the current operation first!");
+                    //return RedirectToAction("ClockIn", "TimeClocks");
+                }
+                else
+                {
+                    _context.Add(jobCard);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index", "Machines");
+                }
+
             }
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", jobCard.EmployeeId);
             ViewData["ShopOrderNumber"] = new SelectList(_context.ShopOrder, "ShopOrderNumber", "ShopOrderNumber", jobCard.ShopOrderNumber);
             return View(jobCard);
         }
+
+        public async Task<IActionResult> ClockIn(TimeClock timeClock)
+        {
+            if (ModelState.IsValid)
+            {
+                timeClock = new TimeClock();
+                string empId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                Employee loggedInEmployee = _context.Employee.Where(i => i.ApplicationId == empId).SingleOrDefault();
+                timeClock.EmployeeId = loggedInEmployee.EmployeeId;
+                timeClock.ClockIn = DateTime.Now;
+                if (timeClock.ClockOut == null)
+                {
+                    throw new System.ArgumentException("You need to clock out first!");
+                    //return RedirectToAction("ClockIn", "TimeClocks");
+                }
+                else
+                {
+                    _context.Add(timeClock);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("ClockIn", "TimeClocks");
+                }
+            }
+            ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", timeClock.EmployeeId);
+            return View(timeClock);
+        }
+
+
+        //// GET: JobCards/Create
+        //public IActionResult Create()
+        //{
+
+        //    ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId");
+        //    ViewData["ShopOrderNumber"] = new SelectList(_context.ShopOrder, "ShopOrderNumber", "ShopOrderNumber");
+        //    return View();
+        //}
+
+        //// POST: JobCards/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("JobCardId,OperationClockIn,OperationClockOut,OperationTotal,PartsMade,Summary,EmployeeId,ShopOrderNumber")] JobCard jobCard)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(jobCard);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", jobCard.EmployeeId);
+        //    ViewData["ShopOrderNumber"] = new SelectList(_context.ShopOrder, "ShopOrderNumber", "ShopOrderNumber", jobCard.ShopOrderNumber);
+        //    return View(jobCard);
+        //}
 
         // GET: JobCards/Edit/5
         public async Task<IActionResult> Edit(int? id)

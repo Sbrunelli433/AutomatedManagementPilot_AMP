@@ -1,5 +1,6 @@
 ﻿@model AutomatedManagementPilot_AMP.Models.TimeClock
 
+
 @{
     ViewData["Title"] = "ClockOut";
 }
@@ -12,26 +13,33 @@
     <div class="col-md-4">
         <form asp-action="ClockOut">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="TimeClockId" />
+            @*<input type="hidden" asp-for="TimeClockId" />
             <input type="hidden" asp-for="EmployeeId" />
             <input type="hidden" asp-for="Employee" />
             <input type="hidden" asp-for="HoursWorked" />
-            <input type="hidden" asp-for="ClockIn" />
+            <input type="hidden" asp-for="ClockIn" />*@
+            @*<div class="form-group">
+                    <label asp-for="ClockIn" class="control-label"></label>
+                    <input asp-for="ClockIn" class="form-control" />
+                    <span asp-validation-for="ClockIn" class="text-danger"></span>
+                </div>*@
+            @*<div class="form-group">
+                    <label asp-for="ClockOut" class="control-label"></label>
+                    <input asp-for="ClockOut" class="form-control" />
+                    <span asp-validation-for="ClockOut" class="text-danger"></span>
+                </div>*@
+            @*<div class="form-group">
+                    <label asp-for="HoursWorked" class="control-label"></label>
+                    <input asp-for="HoursWorked" class="form-control" />
+                    <span asp-validation-for="HoursWorked" class="text-danger"></span>
+                </div>*@
             <div class="form-group">
-                <label asp-for="ClockIn" class="control-label"></label>
-                @*<input asp-for="ClockIn" class="form-control" />*@
-                @*<span asp-validation-for="ClockIn" class="text-danger"></span>*@
+                <label asp-for="ShopOrderNumber" class="control-label"></label>
+                <input asp-for="ShopOrderNumber" class="form-control" />
+                <span asp-validation-for="ShopOrderNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ClockOut" class="control-label"></label>
-                @*<input asp-for="ClockOut" class="form-control" />*@
-                <span asp-validation-for="ClockOut" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HoursWorked" class="control-label"></label>
-                @*<input asp-for="HoursWorked" class="form-control" />*@
-                <span asp-validation-for="HoursWorked" class="text-danger"></span>
-            </div>
+
+
             <div class="form-group">
                 <label asp-for="Summary" class="control-label"></label>
                 <input asp-for="Summary" class="form-control" />

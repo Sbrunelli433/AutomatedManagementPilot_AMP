@@ -31,9 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Machines\MachineDetails.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\Shared\_LayoutEmployee.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

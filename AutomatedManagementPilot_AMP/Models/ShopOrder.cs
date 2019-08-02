@@ -32,8 +32,10 @@ namespace AutomatedManagementPilot_AMP.Models
         public DateTime OrderDueDate { get; set; }
 
         [ForeignKey("MachineId")]
-        public int MachineId { get; set; }
+        public int? MachineId { get; set; }
         public Machine Machine { get; set; }
+
+
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyy}")]
         public DateTime ScheduleStartTime { get; set; }
@@ -41,8 +43,14 @@ namespace AutomatedManagementPilot_AMP.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyy}")]
         public DateTime ScheduleEndTime { get; set; }
 
+        public string OperationSetUp { get; set; }
+
         public TimeSpan OperationSetUpHours { get; set; }
+        public string OperationProduction { get; set; }
         public TimeSpan OperationProductionHours { get; set; }
+
+        public string OperationTearDown { get; set; }
+
         public TimeSpan OperationTearDownHours { get; set; }
         public decimal GrossProductionRate { get; set; }
         public decimal NetProductionRate { get; set; }

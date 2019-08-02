@@ -19,9 +19,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Utilization)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShopOrder.ShopOrderNumber)
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -34,12 +32,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Utilization)
             </td>
+
             <td>
-                @Html.DisplayFor(modelItem => item.ShopOrder.ShopOrderNumber)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.MachineId">Details</a> |
-                <a asp-action="MachineDetails" asp-route-id="@item.MachineId">Machine Details</a> |
+                <a asp-action="Details" asp-route-id="@item.MachineId">Details</a> 
 
 
             </td>

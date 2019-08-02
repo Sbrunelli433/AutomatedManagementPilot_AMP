@@ -19,5 +19,7 @@ namespace AutomatedManagementPilot_AMP.Models
 
 
         public double PayRoll { get; set; }
+
+
     }
 }

@@ -138,7 +138,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = "Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ClockOut(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId,Summary")] TimeClock timeClock)
+        public async Task<IActionResult> ClockOut(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId,ShopOrderNumber,Summary")] TimeClock timeClock)
         {
             if (id != timeClock.TimeClockId)
             {
@@ -152,7 +152,10 @@ namespace AutomatedManagementPilot_AMP.Controllers
                     timeClock.ClockOut = DateTime.Now;
                     timeClock.HoursWorked = timeClock.ClockOut.Subtract(timeClock.ClockIn);
                     timeClock.Summary = timeClock.Summary;
-                    
+                    timeClock.ShopOrderNumber = timeClock.ShopOrderNumber;
+                    //ViewData["ShopOrderNumber"] = new SelectList(_context.ShopOrder, "ShopOrderNumber", "ShopOrderNumber");
+
+
                     _context.Update(timeClock);
                     await _context.SaveChangesAsync();
                 }
@@ -167,7 +170,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
                         throw;
                     }
                 }
-                return View("Index", "TimeClocks");
+                return View("Index", "Home");
             }
             //ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", timeClock.EmployeeId);
             return View(timeClock);

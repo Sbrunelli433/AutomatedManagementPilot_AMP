@@ -3,23 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System.ComponentModel.DataAnnotations;
 
 namespace AutomatedManagementPilot_AMP.ViewModels
 {
-    public class TimeClockViewModel
+    public class JobCardViewModel
     {
+        public Machine Machine { get; set; }
+        public IEnumerable<Machine> Machines { get; set; }
+        public ShopOrder ShopOrder { get; set; }
+        public IEnumerable<ShopOrder> ShopOrders { get; set; }
+
         public Employee Employee { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
         public TimeClock TimeClock { get; set; }
         public IEnumerable<TimeClock> TimeClocks { get; set; }
-        public ShopOrder ShopOrder { get; set; }
-        public IEnumerable<ShopOrder> ShopOrders { get; set; }
+
+        public JobCard JobCard { get; set; }
+        public IEnumerable<JobCard> JobCards { get; set; }
 
 
     }
