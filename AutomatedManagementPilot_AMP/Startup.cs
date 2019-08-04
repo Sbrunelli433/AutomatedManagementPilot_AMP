@@ -16,6 +16,8 @@ using AutomatedManagementPilot_AMP.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using SignalRChat.Hubs;
+
 
 namespace AutomatedManagementPilot_AMP
 {
@@ -45,7 +47,7 @@ namespace AutomatedManagementPilot_AMP
 
             services.AddAuthorization(options =>
             {
-                
+
                 options.AddPolicy("RequireSupervisorRole",
                     policy => policy.RequireRole("Supervisor"));
                 options.AddPolicy("RequireManagerRole",
@@ -85,6 +87,8 @@ namespace AutomatedManagementPilot_AMP
                 options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
             });
 
+            services.AddSignalR();
+
             //using Microsoft.AspNetCore.Identity.UI.Services;
             services.AddSingleton<IEmailSender, EmailSender>();
         }
@@ -108,6 +112,11 @@ namespace AutomatedManagementPilot_AMP
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
 
             app.UseMvc(routes =>
             {
@@ -142,6 +151,7 @@ namespace AutomatedManagementPilot_AMP
             var User = new ApplicationUser();
             await UserManager.AddToRoleAsync(user, "Supervisor");
         }
+
     }
 }
     
