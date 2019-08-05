@@ -7,33 +7,52 @@
 
 <h2>Shop Order List</h2>
 
+<form asp-action="Index" method="get">
+    <div class="form-actions k-var--normal-text-color">
+        <p>
+            Find by Customer or Part Number: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default"/> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Customer)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CustSortParm"]">@Html.DisplayNameFor(model => model.Customer)</a>
+
             </th>
             <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ShopNumberParm"]">@Html.DisplayNameFor(model => model.ShopOrderNumber)</a>
+
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.PartName)*@
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PartNameParm"]">@Html.DisplayNameFor(model => model.PartName)</a>
+            </th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.PartNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PartName)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.OrderQuantity)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PartNumberParm"]">@Html.DisplayNameFor(model => model.PartNumber)</a>
             </th>*@
+
             @*<th>
-                @Html.DisplayNameFor(model => model.RawMatlInventoryId)
-            </th>*@
+            @Html.DisplayNameFor(model => model.OrderQuantity)
+        </th>*@
+            @*<th>
+            @Html.DisplayNameFor(model => model.RawMatlInventoryId)
+        </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.OrderRecDate)
+                @*@Html.DisplayNameFor(model => model.OrderRecDate)*@
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["OrderRecDateSortParm"]">@Html.DisplayNameFor(model => model.OrderRecDate)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OrderDueDate)
+                @*@Html.DisplayNameFor(model => model.OrderDueDate)*@
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["OrderDueDateSortParm"]">@Html.DisplayNameFor(model => model.OrderDueDate)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MachineId)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["MachineSortParm"]">@Html.DisplayNameFor(model => model.MachineId)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ScheduleStartTime)
@@ -42,23 +61,23 @@
                 @Html.DisplayNameFor(model => model.ScheduleEndTime)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.OperationSetUpHours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OperationProductionHours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OperationTearDownHours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GrossProductionRate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NetProductionRate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Profitability)
-            </th>*@
+            @Html.DisplayNameFor(model => model.OperationSetUpHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OperationProductionHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OperationTearDownHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GrossProductionRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NetProductionRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Profitability)
+        </th>*@
             <th></th>
         </tr>
     </thead>

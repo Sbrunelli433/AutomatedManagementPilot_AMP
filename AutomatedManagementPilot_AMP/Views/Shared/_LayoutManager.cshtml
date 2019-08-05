@@ -45,10 +45,10 @@
                         {
                             @if (User.IsInRole("Supervisor,Manager"))
                             {
-                                <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a></li>
-                                <li><a asp-area="" asp-controller="Managers" asp-action="About">About</a></li>
-                                <li><a asp-area="" asp-controller="Managers" asp-action="Contact">Contact</a></li>
-                            }
+                            <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a></li>
+                            <li><a asp-area="" asp-controller="Managers" asp-action="About">About</a></li>
+                            <li><a asp-area="" asp-controller="Managers" asp-action="Contact">Contact</a></li>
+                        }
                         }
                         </li>
                     </ul>
@@ -75,6 +75,32 @@
             </div>
 
         </div>
+
+        <div class="container">
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-6">&nbsp;</div>
+                <div class="col-6">
+                    <input type="text" id="userInput" hidden />
+                    <br />
+                    Message...<input type="text" id="messageInput" />
+                    <input type="button" id="sendButton" value="Send Message" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <hr />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">&nbsp;</div>
+                <div class="col-6">
+                    <ul id="messagesList"></ul>
+                </div>
+            </div>
+        </div>
+        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/chat.js"></script>
 
 
 

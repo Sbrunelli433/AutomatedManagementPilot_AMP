@@ -52,10 +52,10 @@ namespace AutomatedManagementPilot_AMP.Models
                };
 
                 jobs.ForEach(s => context.Jobs.Add(s));
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Tasks ON;");
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Jobs ON;");
                 context.SaveChanges();
 
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Tasks OFF;");
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Jobs OFF;");
                 List<Link> links = new List<Link>()
                {
                    new Link() {Id = 1, SourceTaskId = 1, TargetTaskId = 2, Type = "1"},

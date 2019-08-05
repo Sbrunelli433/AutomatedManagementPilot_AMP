@@ -20,12 +20,73 @@ namespace AutomatedManagementPilot_AMP.Controllers
             _context = context;
         }
 
-        // GET: ShopOrders
+        //// GET: ShopOrders
         [Authorize(Roles = "Supervisor, Manager, Employee")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString, int searchInt)
         {
-            return View(await _context.ShopOrder.ToListAsync());
+            ViewData["ShopNumberParm"] = String.IsNullOrEmpty(sortOrder) ? "shopNum_desc" : "";
+            ViewData["CustSortParm"] = String.IsNullOrEmpty(sortOrder) ? "cust_desc" : "";
+            ViewData["PartNumberParm"] = String.IsNullOrEmpty(sortOrder) ? "partNum_desc" : "";
+            ViewData["PartNameParm"] = String.IsNullOrEmpty(sortOrder) ? "partName_desc" : "";
+            ViewData["OrderRecDateSortParm"] = sortOrder == "Date" ? "OrderRecDate_desc" : "Date";
+            ViewData["OrderDueDateSortParm"] = sortOrder == "Date" ? "OrderDueDate_desc" : "Date";
+            ViewData["MachineSortParm"] = String.IsNullOrEmpty(sortOrder) ?  "machine_desc" : "";
+            ViewData["CurrentFilter"] = searchString;
+
+
+
+            var shopOrders = from s in _context.ShopOrder
+                             select s;
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    shopOrders = shopOrders.Where(s => s.ShopOrderNumber.Contains(searchInt)
+            //                                || s.Customer.Contains(searchString)
+            //                                || s.PartNumber.Contains(searchString)
+            //                                || s.PartName.Contains(searchString)
+            //                                || s.OrderRecDate.Contains(searchString)
+            //                                || s.OrderDueDate.Contains(searchString)
+            //                                || s.MachineId.Contains(searchString));
+            //}
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                shopOrders = shopOrders.Where(s => s.Customer.Contains(searchString)
+                                            || s.PartName.Contains(searchString));
+
+            }
+
+
+            switch (sortOrder)
+            {
+                case "cust_desc":
+                    shopOrders = shopOrders.OrderByDescending(s => s.ShopOrderNumber);
+                    break;
+                case "partNum_desc":
+                    shopOrders = shopOrders.OrderByDescending(s => s.PartNumber);
+                    break;
+                case "OrderRecDate_desc":
+                    shopOrders = shopOrders.OrderByDescending(s => s.OrderRecDate);
+                    break;
+                case "OrderDueDate_desc":
+                    shopOrders = shopOrders.OrderByDescending(s => s.OrderDueDate);
+                    break;
+                case "machine_desc":
+                    shopOrders = shopOrders.OrderByDescending(s => s.MachineId);
+                    break;
+                default:
+                    shopOrders = shopOrders.OrderBy(s => s.ShopOrderNumber);
+                    break;
+
+            }
+            return View(await shopOrders.AsNoTracking().ToListAsync());
         }
+
+
+        //// GET: ShopOrders
+        //[Authorize(Roles = "Supervisor, Manager, Employee")]
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.ShopOrder.ToListAsync());
+        //}
 
         // GET: ShopOrders/Details/5
         [Authorize(Roles = "Supervisor, Manager, Employee")]
