@@ -106,6 +106,8 @@ namespace AutomatedManagementPilot_AMP.Data
         }
         //public DbSet<Dashboard> Dashboard { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<Link> Links { get; set; }
 
         public DbSet<Employee> Employee { get; set; }
         public DbSet<JobCard> JobCard { get; set; }

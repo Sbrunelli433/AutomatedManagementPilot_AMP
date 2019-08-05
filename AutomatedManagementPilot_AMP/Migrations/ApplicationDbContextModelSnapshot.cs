@@ -91,6 +91,29 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.ToTable("Employee");
                 });
 
+            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Job", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Duration");
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<decimal>("Progress");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<string>("Text");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Jobs");
+                });
+
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.JobCard", b =>
                 {
                     b.Property<int>("JobCardId")
@@ -118,6 +141,23 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.HasIndex("ShopOrderNumber");
 
                     b.ToTable("JobCard");
+                });
+
+            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Link", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("SourceTaskId");
+
+                    b.Property<int>("TargetTaskId");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Links");
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Machine", b =>
