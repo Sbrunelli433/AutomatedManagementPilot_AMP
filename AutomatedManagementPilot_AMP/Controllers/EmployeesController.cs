@@ -21,6 +21,8 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: Employees
+        [Authorize(Roles = "Supervisor,Managers")]
+
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Employee.Include(e => e.ApplicationUser);
@@ -28,6 +30,8 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // GET: Employees/Details/5
+        [Authorize(Roles = "Supervisor,Managers")]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

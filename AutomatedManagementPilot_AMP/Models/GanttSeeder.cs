@@ -58,8 +58,8 @@ namespace AutomatedManagementPilot_AMP.Models
                 context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Jobs OFF;");
                 List<Link> links = new List<Link>()
                {
-                   new Link() {Id = 1, SourceTaskId = 1, TargetTaskId = 2, Type = "1"},
-                   new Link() {Id = 2, SourceTaskId = 2, TargetTaskId = 3, Type = "0"}
+                   new Link() {Id = 1, SourceJobId = 1, TargetJobId = 2, Type = "1"},
+                   new Link() {Id = 2, SourceJobId = 2, TargetJobId = 3, Type = "0"}
                };
 
                 links.ForEach(s => context.Links.Add(s));

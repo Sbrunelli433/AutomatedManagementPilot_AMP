@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AutomatedManagementPilot_AMP.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/data")]
     public class DataController : Controller
     {
 
@@ -28,7 +28,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         {
             return new
             {
-                data = _context.Jobs.ToList().Select(t => (WebApiJob)t),
+                data = _context.Jobs.OrderBy(t => t.SortOrder).ToList().Select(t => (WebApiJob)t),
                 links = _context.Links.ToList().Select(l => (WebApiLink)l)
             };
 

@@ -14,6 +14,7 @@ namespace AutomatedManagementPilot_AMP.Models
         public decimal progress { get; set; }
         public int? parent { get; set; }
         public string type { get; set; }
+        public string target { get; set; }
         public bool open
         {
             get { return true; }

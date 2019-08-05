@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
-    [Produces("applicat5ion/json")]
+    [Produces("application/json")]
     [Route("api/link")]
     public class LinkController : Controller
     {

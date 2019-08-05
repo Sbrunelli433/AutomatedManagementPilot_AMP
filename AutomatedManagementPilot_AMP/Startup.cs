@@ -109,6 +109,7 @@ namespace AutomatedManagementPilot_AMP
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseDefaultFiles();
             app.UseCookiePolicy();
 
             app.UseAuthentication();
