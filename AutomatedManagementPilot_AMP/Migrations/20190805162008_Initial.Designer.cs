@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutomatedManagementPilot_AMP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190805010649_AddSchedulerModels")]
-    partial class AddSchedulerModels
+    [Migration("20190805162008_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,11 +99,23 @@ namespace AutomatedManagementPilot_AMP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Customer");
+
                     b.Property<int>("Duration");
+
+                    b.Property<TimeSpan>("JobTimeSpan");
+
+                    b.Property<int?>("MachineId");
+
+                    b.Property<int>("OrderQuantity");
 
                     b.Property<int?>("ParentId");
 
+                    b.Property<string>("Part");
+
                     b.Property<decimal>("Progress");
+
+                    b.Property<int>("SortOrder");
 
                     b.Property<DateTime>("StartDate");
 
@@ -112,6 +124,8 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.Property<string>("Type");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MachineId");
 
                     b.ToTable("Jobs");
                 });
@@ -151,9 +165,9 @@ namespace AutomatedManagementPilot_AMP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("SourceTaskId");
+                    b.Property<int>("SourceJobId");
 
-                    b.Property<int>("TargetTaskId");
+                    b.Property<int>("TargetJobId");
 
                     b.Property<string>("Type");
 
@@ -170,6 +184,8 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
                     b.Property<decimal>("CycleTime");
 
+                    b.Property<string>("MachineNumber");
+
                     b.Property<decimal>("Utilization");
 
                     b.HasKey("MachineId");
@@ -177,8 +193,8 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.ToTable("Machine");
 
                     b.HasData(
-                        new { MachineId = 1, CycleTime = 0m, Utilization = 0m },
-                        new { MachineId = 2, CycleTime = 0m, Utilization = 0m }
+                        new { MachineId = 1, CycleTime = 0m, MachineNumber = "01", Utilization = 0m },
+                        new { MachineId = 2, CycleTime = 0m, MachineNumber = "02", Utilization = 0m }
                     );
                 });
 
@@ -242,22 +258,16 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
                     b.Property<DateTime>("OrderDueDate");
 
-                    b.Property<int>("OrderQuantity")
-                        .HasMaxLength(25);
+                    b.Property<int>("OrderQuantity");
 
                     b.Property<DateTime>("OrderRecDate")
-                        .HasMaxLength(8);
+                        .HasMaxLength(250000);
 
-                    b.Property<string>("PartName")
-                        .HasMaxLength(15);
+                    b.Property<string>("PartName");
 
-                    b.Property<int>("PartNumber")
-                        .HasMaxLength(6);
+                    b.Property<int>("PartNumber");
 
                     b.Property<decimal>("Profitability");
-
-                    b.Property<string>("RawMatlInventoryId")
-                        .HasMaxLength(250000);
 
                     b.Property<DateTime>("ScheduleEndTime");
 
@@ -270,9 +280,9 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.ToTable("ShopOrder");
 
                     b.HasData(
-                        new { ShopOrderNumber = 1, Customer = "Terrill Inc.", GrossProductionRate = 0m, NetProductionRate = 0m, OperationProduction = "Production", OperationProductionHours = new TimeSpan(0, 2, 30, 0, 0), OperationSetUp = "Set Up", OperationSetUpHours = new TimeSpan(0, 0, 30, 0, 0), OperationTearDown = "Tear Down", OperationTearDownHours = new TimeSpan(0, 0, 45, 0, 0), OrderDueDate = new DateTime(2019, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), OrderQuantity = 10000, OrderRecDate = new DateTime(2019, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), PartName = "Widget", PartNumber = 12345, Profitability = 0m, RawMatlInventoryId = "00277", ScheduleEndTime = new DateTime(2019, 7, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), ScheduleStartTime = new DateTime(2019, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ShopOrderNumber = 2, Customer = "Bradley Industries.", GrossProductionRate = 0m, NetProductionRate = 0m, OperationProductionHours = new TimeSpan(0, 5, 30, 0, 0), OperationSetUpHours = new TimeSpan(0, 1, 0, 0, 0), OperationTearDownHours = new TimeSpan(0, 1, 30, 0, 0), OrderDueDate = new DateTime(2019, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), OrderQuantity = 200000, OrderRecDate = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), PartName = "Clip", PartNumber = 2, Profitability = 0m, RawMatlInventoryId = "00244", ScheduleEndTime = new DateTime(2019, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), ScheduleStartTime = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                        new { ShopOrderNumber = 3, Customer = "ACME Solutions", GrossProductionRate = 0m, NetProductionRate = 0m, OperationProductionHours = new TimeSpan(0, 2, 30, 0, 0), OperationSetUpHours = new TimeSpan(0, 0, 30, 0, 0), OperationTearDownHours = new TimeSpan(0, 0, 45, 0, 0), OrderDueDate = new DateTime(2019, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), OrderQuantity = 15000, OrderRecDate = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), PartName = "Washer", PartNumber = 321, Profitability = 0m, RawMatlInventoryId = "00101", ScheduleEndTime = new DateTime(2019, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), ScheduleStartTime = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                        new { ShopOrderNumber = 1, Customer = "Terrill Inc.", GrossProductionRate = 0m, NetProductionRate = 0m, OperationProduction = "Production", OperationProductionHours = new TimeSpan(0, 2, 30, 0, 0), OperationSetUp = "Set Up", OperationSetUpHours = new TimeSpan(0, 0, 30, 0, 0), OperationTearDown = "Tear Down", OperationTearDownHours = new TimeSpan(0, 0, 45, 0, 0), OrderDueDate = new DateTime(2019, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), OrderQuantity = 10000, OrderRecDate = new DateTime(2019, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), PartName = "Widget", PartNumber = 12345, Profitability = 0m, ScheduleEndTime = new DateTime(2019, 7, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), ScheduleStartTime = new DateTime(2019, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { ShopOrderNumber = 2, Customer = "Bradley Industries.", GrossProductionRate = 0m, NetProductionRate = 0m, OperationProductionHours = new TimeSpan(0, 5, 30, 0, 0), OperationSetUpHours = new TimeSpan(0, 1, 0, 0, 0), OperationTearDownHours = new TimeSpan(0, 1, 30, 0, 0), OrderDueDate = new DateTime(2019, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), OrderQuantity = 200000, OrderRecDate = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), PartName = "Clip", PartNumber = 2, Profitability = 0m, ScheduleEndTime = new DateTime(2019, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), ScheduleStartTime = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                        new { ShopOrderNumber = 3, Customer = "ACME Solutions", GrossProductionRate = 0m, NetProductionRate = 0m, OperationProductionHours = new TimeSpan(0, 2, 30, 0, 0), OperationSetUpHours = new TimeSpan(0, 0, 30, 0, 0), OperationTearDownHours = new TimeSpan(0, 0, 45, 0, 0), OrderDueDate = new DateTime(2019, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), OrderQuantity = 15000, OrderRecDate = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), PartName = "Washer", PartNumber = 321, Profitability = 0m, ScheduleEndTime = new DateTime(2019, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), ScheduleStartTime = new DateTime(2019, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                     );
                 });
 
@@ -441,6 +451,13 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.HasOne("AutomatedManagementPilot_AMP.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationId");
+                });
+
+            modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Job", b =>
+                {
+                    b.HasOne("AutomatedManagementPilot_AMP.Models.Machine", "Machine")
+                        .WithMany()
+                        .HasForeignKey("MachineId");
                 });
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.JobCard", b =>

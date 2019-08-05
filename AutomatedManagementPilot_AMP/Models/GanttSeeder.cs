@@ -25,30 +25,44 @@ namespace AutomatedManagementPilot_AMP.Models
                   new Job()
                     {
                        Id = 1,
-                       Text = "Project #2",
+                       Text = "Terrill Inc.",
+                       Customer = "Terrill Inc.",
+                       Part = "Widget",
+                       OrderQuantity = 10000,
                        StartDate = DateTime.Today.AddDays(-3),
-                       Duration = 18,
+                       Duration = 10,
                        Progress = 0.4m,
-                       ParentId = null
+                       ParentId = null,
+                       MachineId = null
                     },
+
                     new Job()
                     {
                        Id = 2,
-                       Text = "Task #1",
+                        Text = "Bradley Industries",
+                       Customer = "Bradley Industries",
+                       Part = "Clip",
+                       OrderQuantity = 200000,
                        StartDate = DateTime.Today.AddDays(-2),
-                       Duration = 8,
-                       Progress = 0.6m,
-                       ParentId = 1
+                       Duration = 6,
+                       Progress = 0.4m,
+                       ParentId = null,
+                       MachineId = null
                     },
+
                     new Job()
                     {
                        Id = 3,
-                       Text = "Task #2",
-                       StartDate = DateTime.Today.AddDays(-1),
-                       Duration = 8,
-                       Progress = 0.6m,
-                       ParentId = 1
-                    }
+                       Text = "ACME Solutions",
+                       Customer = "ACME Solutions",
+                       Part = "Spring",
+                       OrderQuantity = 15000,
+                       StartDate = DateTime.Today.AddDays(-3),
+                       Duration = 10,
+                       Progress = 0.4m,
+                       ParentId = null,
+                       MachineId = null
+                    },
                };
 
                 jobs.ForEach(s => context.Jobs.Add(s));

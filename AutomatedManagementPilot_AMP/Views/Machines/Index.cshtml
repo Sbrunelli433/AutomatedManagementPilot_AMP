@@ -14,6 +14,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.MachineNumber)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.CycleTime)
             </th>
             <th>
@@ -27,6 +30,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.MachineNumber)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.CycleTime)
             </td>
             <td>
@@ -34,7 +40,7 @@
             </td>
 
             <td>
-                <a asp-action="Details" asp-route-id="@item.MachineId">Details</a> 
+                <a asp-action="Details" asp-route-id="@item.MachineId">Details</a>
 
 
             </td>
@@ -43,7 +49,7 @@
             {
                 @if (User.IsInRole("Supervisor, Manager"))
                 {
-                    <a asp-action="Edit" asp-route-id="@item.MachineId">Edit</a> 
+                    <a asp-action="Edit" asp-route-id="@item.MachineId">Edit</a>
                     <a asp-action="Delete" asp-route-id="@item.MachineId">Delete</a>
                 }
             }

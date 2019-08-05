@@ -26,7 +26,6 @@ namespace AutomatedManagementPilot_AMP.Data
                     PartNumber = 12345,
                     PartName = "Widget",
                     OrderQuantity = 10000,
-                    RawMatlInventoryId = "00277",
                     OrderRecDate = new DateTime(2019, 07, 06),
                     OrderDueDate = new DateTime(2019, 07, 09),
                     MachineId = null,
@@ -51,7 +50,6 @@ namespace AutomatedManagementPilot_AMP.Data
                     PartNumber = 002,
                     PartName = "Clip",
                     OrderQuantity = 200000,
-                    RawMatlInventoryId = "00244",
                     OrderRecDate = new DateTime(2019, 07, 07),
                     OrderDueDate = new DateTime(2019, 07, 11),
                     MachineId = null,
@@ -73,7 +71,6 @@ namespace AutomatedManagementPilot_AMP.Data
                     PartNumber = 321,
                     PartName = "Washer",
                     OrderQuantity = 15000,
-                    RawMatlInventoryId = "00101",
                     OrderRecDate = new DateTime(2019, 07, 07),
                     OrderDueDate = new DateTime(2019, 07, 09),
                     MachineId = null,
@@ -91,13 +88,16 @@ namespace AutomatedManagementPilot_AMP.Data
                 new Machine
                 {
                     MachineId = 01,
-                    
+                    MachineNumber = "01",
+
                 });
 
             modelBuilder.Entity<Machine>().HasData(
                 new Machine
                 {
                     MachineId = 02,
+                    MachineNumber = "02",
+
 
                 });
 

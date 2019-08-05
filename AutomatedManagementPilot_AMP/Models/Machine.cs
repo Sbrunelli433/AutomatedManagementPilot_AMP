@@ -12,6 +12,11 @@ namespace AutomatedManagementPilot_AMP.Models
         [Key]
         public int MachineId { get; set; }
 
+
+        public string MachineNumber { get; set; }
+
+  
+
         public Decimal CycleTime { get; set; }
         public Decimal Utilization { get; set; }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,6 +38,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         // POST api/<controller>
         [HttpPost]
+        [Authorize(Roles = "Supervisor,Manager")]
         public ObjectResult Post(WebApiLink apiLink)
         {
             var newLink = (Link)apiLink;
@@ -51,6 +53,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // PUT api/link/5
+        [Authorize(Roles = "Supervisor,Manager")]
         [HttpPut("{id}")]
         public ObjectResult Put(int id, WebApiLink apiLink)
         {
@@ -66,6 +69,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // DELETE api/link/5
+        [Authorize(Roles = "Supervisor,Manager")]
         [HttpDelete("{id}")]
         public ObjectResult DeleteLink(int id)
         {

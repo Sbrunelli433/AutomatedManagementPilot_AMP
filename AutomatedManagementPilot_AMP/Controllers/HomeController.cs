@@ -11,7 +11,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize(Roles = "Supervisor,Managers,Employees")]
+        [Authorize(Roles = "Supervisor,Manager,Employee")]
 
         public IActionResult Index()
         {

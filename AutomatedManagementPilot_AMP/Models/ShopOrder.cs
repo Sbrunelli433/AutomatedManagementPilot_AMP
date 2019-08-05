@@ -13,17 +13,11 @@ namespace AutomatedManagementPilot_AMP.Models
         public int ShopOrderNumber { get; set; }
 
         public string Customer { get; set; }
-        [MaxLength(6)]
         public int PartNumber { get; set; }
-        [MaxLength(15)]
         public string PartName { get; set; }
-        [MaxLength(25)]
 
         public int OrderQuantity { get; set; }
         [MaxLength(250000)]
-
-        public string RawMatlInventoryId { get; set; }
-        [MaxLength(8)]
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyy}")]
         public DateTime OrderRecDate { get; set; }
@@ -42,6 +36,7 @@ namespace AutomatedManagementPilot_AMP.Models
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyy}")]
         public DateTime ScheduleEndTime { get; set; }
+
 
         public string OperationSetUp { get; set; }
 

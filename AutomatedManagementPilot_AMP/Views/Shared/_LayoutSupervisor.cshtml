@@ -39,8 +39,7 @@
                             @if (User.IsInRole("Supervisor"))
                             {
                             <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisor Page</a></li>
-                            <li><a asp-area="" asp-controller="Supervisors" asp-action="About">About</a></li>
-                            <li><a asp-area="" asp-controller="Supervisors" asp-action="Contact">Contact</a></li>
+
                         }
                         }
                         </li>
@@ -50,8 +49,7 @@
                                 @if (User.IsInRole("Supervisor,Manager"))
                                 {
                                 <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a></li>
-                                <li><a asp-area="" asp-controller="Managers" asp-action="About">About</a></li>
-                                <li><a asp-area="" asp-controller="Managers" asp-action="Contact">Contact</a></li>
+
                             }
                             }
                             </li>

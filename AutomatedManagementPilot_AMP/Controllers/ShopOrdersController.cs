@@ -157,7 +157,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShopOrderNumber,Customer,PartNumber,PartName,OrderQuantity,RawMatlInventoryId,OrderRecDate,OrderDueDate,MachineId,ScheduleStartTime,ScheduleEndTime,OperationSetUpHours,OperationProductionHours,OperationTearDownHours,GrossProductionRate,NetProductionRate,Profitability")] ShopOrder shopOrder)
+        public async Task<IActionResult> Edit(int id, ShopOrder shopOrder)
         {
             if (id != shopOrder.ShopOrderNumber)
             {

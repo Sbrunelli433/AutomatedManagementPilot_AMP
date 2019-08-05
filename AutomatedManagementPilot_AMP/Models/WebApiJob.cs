@@ -9,8 +9,12 @@ namespace AutomatedManagementPilot_AMP.Models
     {
         public int id { get; set; }
         public string text { get; set; }
+        public string customer { get; set; }
+        public string part { get; set; }
+        public int order_quantity { get; set; }
         public string start_date { get; set; }
         public int duration { get; set; }
+        
         public decimal progress { get; set; }
         public int? parent { get; set; }
         public string type { get; set; }
@@ -27,6 +31,9 @@ namespace AutomatedManagementPilot_AMP.Models
             {
                 id = job.Id,
                 text = job.Text,
+                customer = job.Customer,
+                part = job.Part,
+                order_quantity = job.OrderQuantity,
                 start_date = job.StartDate.ToString("yyyy-MM-dd HH:mm"),
                 duration = job.Duration,
                 parent = job.ParentId,
@@ -41,6 +48,9 @@ namespace AutomatedManagementPilot_AMP.Models
             {
                 Id = job.id,
                 Text = job.text,
+                Customer = job.customer,
+                Part = job.part,
+                OrderQuantity = job.order_quantity,
                 StartDate = DateTime.Parse(job.start_date,
                     System.Globalization.CultureInfo.InvariantCulture),
                 Duration = job.duration,

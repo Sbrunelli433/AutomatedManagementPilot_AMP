@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -36,10 +37,12 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // POST api/task
+        [Authorize(Roles = "Supervisor,Manager")]
         [HttpPost]
         public ObjectResult Post(WebApiJob apiJob)
         {
             var newJob = (Job)apiJob;
+            
             newJob.SortOrder = _context.Jobs.Max(t => t.SortOrder) + 1;
             _context.Jobs.Add(newJob);
             _context.SaveChanges();
@@ -51,6 +54,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // PUT api/task/5
+        [Authorize(Roles = "Supervisor,Manager")]
         [HttpPut("{id}")]
         public ObjectResult Put(int id, WebApiJob apiJob)
         {
@@ -77,6 +81,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         // DELETE api/task/5
+        [Authorize(Roles = "Supervisor,Manager")]
         [HttpDelete("{id}")]
         public ObjectResult Delete(int id)
         {
@@ -93,6 +98,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
         //UPDATE api/task
+        [Authorize(Roles = "Supervisor,Manager")]
         private void _UpdateOrders(Job updatedJob, string orderTarget)
         {
             int adjacentJobId;
