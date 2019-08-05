@@ -1,66 +1,14 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title>Welcome to Kendo UI!</title>
-    <!-- Common Kendo UI CSS for web widgets and widgets for data visualization. -->
-    <link href="~/js/Kendo/styles/kendo.common.min.css" rel="stylesheet" />
-
-    <!-- (Optional) RTL CSS for Kendo UI widgets for the web. Include only in right-to-left applications. -->
-    <link href="~/js/Kendo/styles/kendo.rtl.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- Default Kendo UI theme CSS for web widgets and widgets for data visualization. -->
-    <link href="~/js/Kendo/styles/kendo.default.min.css" rel="stylesheet" />
-
-    <!-- (Optional) Kendo UI Hybrid CSS. Include only if you will use the mobile devices features. -->
-    <link href="~/js/Kendo/styles/kendo.default.mobile.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- jQuery JavaScript -->
-    <script src="~/js/Kendo/js/jquery.min.js"></script>
-
-    <!-- Kendo UI combined JavaScript -->
-    <script src="~/js/Kendo/js/kendo.all.min.js"></script>
-
-    <meta name="viewport" content="width=device-width" />
-    <link href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css"
-          rel="stylesheet" type="text/css" />
-    <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function (event) {
-            // specifying the date format
-            gantt.config.date_format = "%Y-%m-%d %H:%i";
-            // initializing gantt
-            gantt.init("gantt_here");
-
-            // initiating data loading
-            gantt.load("/api/data");
-            // initializing dataProcessor
-            var dp = new gantt.dataProcessor("/api/");
-            // and attaching it to gantt
-            dp.init(gantt);
-            // setting the REST mode for dataProcessor
-            dp.setTransactionMode("REST");
-        });
-    </script>
-
-</head>
-
+﻿
 
 @{
     ViewData["Title"] = "Home Page";
-    var name = Guid.NewGuid().ToString();
 }
-
-
-
-<div id="gantt_here" style="width: 100%; height: 100vh;"></div>
-
-
 <div class="container">
     <div class="row">&nbsp;</div>
     <div class="row">
         <div class="col-6">&nbsp;</div>
         <div class="col-6">
-            User..........<input type="text" id="userInput" />
+            <input type="text" id="userInput"  hidden/>
             <br />
             Message...<input type="text" id="messageInput" />
             <input type="button" id="sendButton" value="Send Message" />
@@ -82,6 +30,31 @@
 <script src="~/js/chat.js"></script>
 
 
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <link href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css"
+              rel="stylesheet" type="text/css" />
+        <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function (event) {
+                // specifying the date format
+                gantt.config.date_format = "%Y-%m-%d %H:%i";
+                // initializing gantt
+                gantt.init("gantt_here");
 
+                // initiating data loading
+                gantt.load("/api/data");
+                // initializing dataProcessor
+                var dp = new gantt.dataProcessor("/api/");
+                // and attaching it to gantt
+                dp.init(gantt);
+                // setting the REST mode for dataProcessor
+                dp.setTransactionMode("REST");
+            });
+        </script>
+    </head>
+    </html>
 
-</html>
+    <div id="gantt_here" style="width: 100%; height: 100vh;"></div>
+

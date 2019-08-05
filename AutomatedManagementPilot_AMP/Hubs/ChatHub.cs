@@ -5,7 +5,8 @@ namespace SignalRChat.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessage(string message)
+        //THIS WORKS AND SENDS MESSAGE AS "SUPERVISOR@GMAIL.COM SAYS ASDOIGUASLDJGALS;DGJ"
+        public async Task SendMessage(string user, string message)
         {
             await Clients.All.SendAsync("ReceiveMessage", Context.User.Identity.Name, message);
         }
@@ -15,9 +16,6 @@ namespace SignalRChat.Hubs
             return Clients.User(user).SendAsync("ReceiveMessage", message);
         }
 
-        public async Task SendTyping (object sender)
-        {
-            await Clients.Others.SendAsync("typing", sender);
-        }
+    
     }
 }
