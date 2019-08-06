@@ -268,36 +268,6 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Jobs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Text = table.Column<string>(nullable: true),
-                    Customer = table.Column<string>(nullable: true),
-                    Part = table.Column<string>(nullable: true),
-                    OrderQuantity = table.Column<int>(nullable: false),
-                    StartDate = table.Column<DateTime>(nullable: false),
-                    Duration = table.Column<int>(nullable: false),
-                    JobTimeSpan = table.Column<TimeSpan>(nullable: false),
-                    Progress = table.Column<decimal>(nullable: false),
-                    ParentId = table.Column<int>(nullable: true),
-                    Type = table.Column<string>(nullable: true),
-                    SortOrder = table.Column<int>(nullable: false),
-                    MachineId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Jobs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Jobs_Machine_MachineId",
-                        column: x => x.MachineId,
-                        principalTable: "Machine",
-                        principalColumn: "MachineId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ShopOrder",
                 columns: table => new
                 {
@@ -327,6 +297,42 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     table.PrimaryKey("PK_ShopOrder", x => x.ShopOrderNumber);
                     table.ForeignKey(
                         name: "FK_ShopOrder_Machine_MachineId",
+                        column: x => x.MachineId,
+                        principalTable: "Machine",
+                        principalColumn: "MachineId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Jobs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Text = table.Column<string>(nullable: true),
+                    Customer = table.Column<string>(nullable: true),
+                    Part = table.Column<string>(nullable: true),
+                    OrderQuantity = table.Column<int>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    Duration = table.Column<int>(nullable: false),
+                    Progress = table.Column<decimal>(nullable: false),
+                    ParentId = table.Column<int>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    SortOrder = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: true),
+                    MachineId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Jobs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Jobs_Employee_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employee",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Jobs_Machine_MachineId",
                         column: x => x.MachineId,
                         principalTable: "Machine",
                         principalColumn: "MachineId",
@@ -466,6 +472,11 @@ namespace AutomatedManagementPilot_AMP.Migrations
                 name: "IX_JobCard_ShopOrderNumber",
                 table: "JobCard",
                 column: "ShopOrderNumber");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Jobs_EmployeeId",
+                table: "Jobs",
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jobs_MachineId",

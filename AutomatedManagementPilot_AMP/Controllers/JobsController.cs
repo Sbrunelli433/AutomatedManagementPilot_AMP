@@ -60,7 +60,13 @@ namespace AutomatedManagementPilot_AMP.Controllers
         {
             var updatedJob = (Job)apiJob;
             var dbJob = _context.Jobs.Find(id);
-            dbJob.Text = updatedJob.Text;
+            dbJob.Customer = updatedJob.Customer;
+            dbJob.MachineId = updatedJob.MachineId;
+
+            dbJob.Machine = updatedJob.Machine;
+            dbJob.Employee = updatedJob.Employee;
+            dbJob.EmployeeId = updatedJob.EmployeeId;
+
             dbJob.StartDate = updatedJob.StartDate;
             dbJob.Duration = updatedJob.Duration;
             dbJob.ParentId = updatedJob.ParentId;

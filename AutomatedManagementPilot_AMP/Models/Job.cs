@@ -18,11 +18,15 @@ namespace AutomatedManagementPilot_AMP.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime StartDate { get; set; }
         public int Duration { get; set; }
-        public TimeSpan JobTimeSpan { get; set; }
         public decimal Progress { get; set; }
         public int? ParentId { get; set; }
         public string Type { get; set; }
         public int SortOrder { get; set; }
+
+        [ForeignKey("EmployeeId")]
+        public int? EmployeeId { get; set; }
+        public Employee Employee{ get; set; }
+
 
         [ForeignKey("MachineId")]
         public int? MachineId { get; set; }

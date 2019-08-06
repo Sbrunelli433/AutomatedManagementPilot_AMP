@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AutomatedManagementPilot_AMP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190805162008_Initial")]
+    [Migration("20190806025349_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,7 +103,7 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
                     b.Property<int>("Duration");
 
-                    b.Property<TimeSpan>("JobTimeSpan");
+                    b.Property<int?>("EmployeeId");
 
                     b.Property<int?>("MachineId");
 
@@ -124,6 +124,8 @@ namespace AutomatedManagementPilot_AMP.Migrations
                     b.Property<string>("Type");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("MachineId");
 
@@ -455,6 +457,10 @@ namespace AutomatedManagementPilot_AMP.Migrations
 
             modelBuilder.Entity("AutomatedManagementPilot_AMP.Models.Job", b =>
                 {
+                    b.HasOne("AutomatedManagementPilot_AMP.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
                     b.HasOne("AutomatedManagementPilot_AMP.Models.Machine", "Machine")
                         .WithMany()
                         .HasForeignKey("MachineId");

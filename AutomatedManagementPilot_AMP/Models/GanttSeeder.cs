@@ -39,29 +39,45 @@ namespace AutomatedManagementPilot_AMP.Models
                     new Job()
                     {
                        Id = 2,
-                        Text = "Bradley Industries",
-                       Customer = "Bradley Industries",
-                       Part = "Clip",
-                       OrderQuantity = 200000,
+                       Text = "Operation: Set Up",
+                       
+                       Customer = null,
+                       Part = null,
+                       OrderQuantity = 0,
                        StartDate = DateTime.Today.AddDays(-2),
-                       Duration = 6,
-                       Progress = 0.4m,
-                       ParentId = null,
-                       MachineId = null
+                       Duration = 1,
+                       Progress = 1,
+                       ParentId = 1,
+                       MachineId = 01
                     },
+
 
                     new Job()
                     {
                        Id = 3,
-                       Text = "ACME Solutions",
-                       Customer = "ACME Solutions",
-                       Part = "Spring",
-                       OrderQuantity = 15000,
-                       StartDate = DateTime.Today.AddDays(-3),
-                       Duration = 10,
-                       Progress = 0.4m,
-                       ParentId = null,
-                       MachineId = null
+                       Text = "Operation: Production",
+                       Customer = null,
+                       Part = null,
+                       OrderQuantity = 10000,
+                       StartDate = DateTime.Today.AddDays(-2),
+                       Duration = 6,
+                       Progress = 3,
+                       ParentId = 2,
+                       MachineId = 01
+                    },
+
+                    new Job()
+                    {
+                       Id = 4,
+                       Text = "Operation: Tear Down",
+                       Customer = null,
+                       Part = null,
+                       OrderQuantity = 0,
+                       StartDate = DateTime.Today.AddDays(-2),
+                       Duration = 1,
+                       Progress = 0,
+                       ParentId = 3,
+                       MachineId = 01
                     },
                };
 
@@ -85,4 +101,3 @@ namespace AutomatedManagementPilot_AMP.Models
         }
     }
 }
-
