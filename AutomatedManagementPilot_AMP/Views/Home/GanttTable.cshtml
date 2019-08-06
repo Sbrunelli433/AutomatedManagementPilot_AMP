@@ -94,6 +94,15 @@
             gantt.attachEvent("onBeforeAutoSchedule", function (jobId, updatedJob) {
                 gantt.message({ text: "|| onBeforeAutoSchedule ||", expire: 10000 });
             });
+
+                        gantt.attachEvent("onAfterAutoSchedule", function (taskId, updatedTasks) {
+                gantt.message(gantt.getTask(taskId).text + " auto scheduled");
+                while (updatedTasks.length)
+                    gantt.message(gantt.getTask(updatedTasks.pop()).text + " auto scheduled");
+            });
+            gantt.attachEvent("onAfterTaskUpdate", function (id, item) {
+                gantt.message(gantt.getTask(id).text + " Updated");
+            });
         });
     </script>
 </head>

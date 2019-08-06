@@ -107,7 +107,8 @@ namespace AutomatedManagementPilot_AMP.Controllers
                 {
                     _context.Add(timeClock);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("ClockIn", "TimeClocks");
+                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("ClockIn", "TimeClocks");
                 }
             }
             ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", timeClock.EmployeeId);
@@ -170,7 +171,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
                         throw;
                     }
                 }
-                return View("Index", "Home");
+                return RedirectToAction("Index", "TimeClocks");
             }
             //ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", timeClock.EmployeeId);
             return View(timeClock);

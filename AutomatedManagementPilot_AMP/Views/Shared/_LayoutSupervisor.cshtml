@@ -26,22 +26,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AutomatedManagementPilot_AMP</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AutomatedManagementPilot (AMP)</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="GanttTable">Home</a></li>
+                    <li><a asp-area="" asp-controller="ShopOrders" asp-action="Index">Shop Orders</a></li>
+                    <li><a asp-area="" asp-controller="TimeClocks" asp-action="Index">Time Clock</a></li>
 
-                    @*<li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Home</a></li>
-        <li><a asp-area="" asp-controller="Supervisors" asp-action="About">About</a></li>
-        <li><a asp-area="" asp-controller="Supervisors" asp-action="Contact">Contact</a></li>*@
+
                     <li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             @if (User.IsInRole("Supervisor"))
                             {
-                            <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisor Page</a></li>
-
+                                @*<li><a asp-area="" asp-controller="Home" asp-action="GanttTable">Gantt Table</a></li>*@
+                            <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisors</a></li>
+                            <li><a asp-area="" asp-controller="Managers" asp-action="Index">Managers</a></li>
+                            <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
                         }
                         }
                         </li>
@@ -51,6 +52,8 @@
                                 @if (User.IsInRole("Supervisor,Manager"))
                                 {
                                 <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a></li>
+                                <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
+
 
                             }
                             }
@@ -63,28 +66,28 @@
 
             <table>
                 <div class=" container">
-                    <div class="btn-group" style="width: 100%">
+                    @*<div class="btn-group" style="width: 100%">
                         <input style="width:100%" type="button" value="Time Clock" onclick="@("window.location.href='" + @Url.Action("Index", "TimeClocks") + "'");" />
-
-
-                    </div>
-                    <div class="btn-group" style="width: 100%">
+                    </div>*@
+                    @*<div class="btn-group" style="width: 100%">
                         <input style="width:33%" type="button" value="Supervisors" onclick="@("window.location.href='" + @Url.Action("Index", "Supervisors") + "'");" />
                         <input style="width:33%" type="button" value="Managers" onclick="@("window.location.href='" + @Url.Action("Index", "Managers") + "'");" />
                         <input style="width:33%" type="button" value="Employees" onclick="@("window.location.href='" + @Url.Action("Index", "Employees") + "'");" />
 
-                    </div>
+                    </div>*@
                     <div class="btn-group" style="width: 100%">
-                        <input style="width:49%" type="button" value="Shop Orders" onclick="@("window.location.href='" + @Url.Action("Index", "ShopOrders") + "'");" />
+                        @*<input style="width:49%" type="button" value="Shop Orders" onclick="@("window.location.href='" + @Url.Action("Index", "ShopOrders") + "'");" />*@
 
 
-                        <input style="width:49%" type="button" value="Machine Schedule" onclick="@("window.location.href='" + @Url.Action("Index", "Machines") + "'");" />
+                        @*<input style="width:49%" type="button" value="Machine Schedule" onclick="@("window.location.href='" + @Url.Action("Index", "Machines") + "'");" />*@
                     </div>
 
                 </div>
             </table>
             <div class="container">
                 <div class="row">&nbsp;</div>
+                <h3>SignalR Chat Bar!</h3>
+
                 <div class="row">
                     <div class="col-6">&nbsp;</div>
                     <div class="col-6">

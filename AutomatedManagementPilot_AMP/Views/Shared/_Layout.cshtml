@@ -26,38 +26,43 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AutomatedManagementPilot_AMP</a>
-                <a asp-area="" asp-controller="Home" asp-action="GanttTable" class="navbar-brand">GanttTable</a>
-
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AutomatedManagementPilot (AMP)</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="GanttTable">Home</a></li>
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+                    <li><a asp-area="" asp-controller="ShopOrders" asp-action="Index">Shop Orders</a></li>
+                    <li><a asp-area="" asp-controller="TimeClocks" asp-action="Index">Time Clock</a></li>
+
+
                     <li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             @if (User.IsInRole("Supervisor"))
                             {
-                                <a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisor Page</a>
-                            }
+                                @*<li><a asp-area="" asp-controller="Home" asp-action="GanttTable">Gantt Table</a></li>*@
+                            <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisors</a></li>
+                            <li><a asp-area="" asp-controller="Managers" asp-action="Index">Managers</a></li>
+                            <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
                         }
-                    </li>
-                    <li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            @if (User.IsInRole("Manager"))
+                        }
+                        </li>
+                        <li>
+                            @if (User.Identity.IsAuthenticated)
                             {
-                                <a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a>
+                                @if (User.IsInRole("Supervisor, Manager"))
+                                {
+                                <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a></li>
+                                <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
+
+
                             }
-                        }
-                    </li>
-                </ul>
-                <partial name="_LoginPartial" />
-            </div>
-        </div>
-    </nav>
+                            }
+                            </li>
+                        </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
 
 
     <div class="container body-content">

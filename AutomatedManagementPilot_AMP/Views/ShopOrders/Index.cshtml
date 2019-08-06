@@ -94,11 +94,11 @@
                 @Html.DisplayFor(modelItem => item.PartName)
             </td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.OrderQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RawMatlInventoryId)
-            </td>*@
+            @Html.DisplayFor(modelItem => item.OrderQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RawMatlInventoryId)
+        </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.OrderRecDate)
             </td>
@@ -115,29 +115,45 @@
                 @Html.DisplayFor(modelItem => item.ScheduleEndTime)
             </td>
             @*<td>
-                @Html.DisplayFor(modelItem => item.OperationSetUpHours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OperationProductionHours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OperationTearDownHours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GrossProductionRate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NetProductionRate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Profitability)
-            </td>*@
-            <td>
+            @Html.DisplayFor(modelItem => item.OperationSetUpHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OperationProductionHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OperationTearDownHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GrossProductionRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NetProductionRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Profitability)
+        </td>*@
 
-                <a asp-action="Edit" asp-route-id="@item.ShopOrderNumber">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ShopOrderNumber">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ShopOrderNumber">Delete</a>
-            </td>
+
+        <td>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Manager"))
+                {
+                    <a asp-action="Edit" asp-route-id="@item.ShopOrderNumber">Edit</a>
+
+                }
+            }
+
+            <a asp-action="Details" asp-route-id="@item.ShopOrderNumber">Details</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Manager"))
+                {
+                    <a asp-action="Delete" asp-route-id="@item.ShopOrderNumber">Delete</a>
+
+                }
+            }
+        </td>
         </tr>
 }
     </tbody>

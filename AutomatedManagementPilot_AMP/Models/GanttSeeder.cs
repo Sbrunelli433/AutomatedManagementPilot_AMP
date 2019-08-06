@@ -33,7 +33,7 @@ namespace AutomatedManagementPilot_AMP.Models
                        Duration = 10,
                        Progress = 0.4m,
                        ParentId = null,
-                       MachineId = null
+                       MachineId = 01
                     },
 
                     new Job()

@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using SignalRChat.Hubs;
-
+using Microsoft.AspNet.SignalR;
 
 namespace AutomatedManagementPilot_AMP
 {
