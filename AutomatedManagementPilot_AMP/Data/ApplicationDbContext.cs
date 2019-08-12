@@ -30,7 +30,6 @@ namespace AutomatedManagementPilot_AMP.Data
                     OrderDueDate = new DateTime(2019, 07, 09),
                     MachineId = null,
                     ScheduleStartTime = new DateTime(2019, 07, 06),
-                    ScheduleEndTime = new DateTime(2019, 07, 08),
                     OperationSetUpHours = new TimeSpan(0, 30, 0),
                     OperationSetUp = "Set Up",
                     OperationProductionHours = new TimeSpan(2, 30, 0),

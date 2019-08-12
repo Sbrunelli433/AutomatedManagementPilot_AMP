@@ -2,30 +2,30 @@
     ViewData["Title"] = "Home Page";
 }
 @*<div class="container">
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col-6">&nbsp;</div>
-            <div class="col-6">
-                <input type="text" id="userInput" hidden />
-                <br />
-                Message...<input type="text" id="messageInput" />
-                <input type="button" id="sendButton" value="Send Message" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <hr />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">&nbsp;</div>
-            <div class="col-6">
-                <ul id="messagesList"></ul>
-            </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <input type="text" id="userInput" hidden />
+            <br />
+            Message...<input type="text" id="messageInput" />
+            <input type="button" id="sendButton" value="Send Message" />
         </div>
     </div>
-    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/chat.js"></script>*@
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+</div>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>*@
 
 
 <html>
@@ -35,70 +35,43 @@
           rel="stylesheet" type="text/css" />
     <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
     <script src="~/codebase/ext/dhtmlxgantt_auto_scheduling.js"></script>
-    <div id="gantt_here" style="width:100%; height:100%;"></div>
     <script src="~/codebase/dhtmlxgantt.js"></script>
+    <script src="~/codebase/ext/dhtmlxgantt_tooltip.js"></script>
     <script>
-        gantt.config.resource_store = "users";
-        gantt.config.resource_property = "user_id";
-        gantt.config.order_branch = true;
-        gantt.config.order_branch_free = true;
-        gantt.config.auto_scheduling = true;
-
-        gantt.config.autosize = "xy";
-        gantt.config.grid_width = 230;
-        gantt.config.columns = [
-            { name: "customer", label: "Customer", tree: true, resize: true },
-            { name: "part", label: "Part", align: "center", resize: true },
-            { name: "order_quantity", label: "Order Quantity", align: "center", resize: true },
-            { name: "duration", label: "Duration", align: "center", resize: true },
-            { name: "machine", label: "Machine", align: "center", resize: true },
-            { name: "employee", label: "Operator", align: "center", resize: true },
-            { name: "add", label: "" },
-        ];
-        gantt.serverList("people", [
-            { key: 1, label: "John" },
-            { key: 2, label: "Mike" },
-            { key: 3, label: "Anna" },
-            { key: 4, label: "Bill" },
-            { key: 7, label: "Floe" }
-        ]);
-        gantt.serverList("machines", [
-            { key: 1, label: "Machine 1" },
-            { key: 2, label: "Machine 2" },
-        ]);
-        gantt.locale.labels.section_employee = "Employee";
-        gantt.locale.labels.section_machine = "Machine";
-        gantt.config.lightbox.sections = [
-            { name: "description", height: 38, map_to: "text", type: gantt.config.types.project, focus: true },
-            { name: "employee", map_to: "employee_id", type: "select", options: gantt.serverList("people") },
-            { name: "machine", map_to: "machine_id", type: "select", options: gantt.serverList("machines") },
-            { name: "time", type: "duration", map_to: "auto" }
-        ]
-        gantt.config.lightbox.project_sections = [
-            { name: "description", height: 70, map_to: "text", type: "textarea", focus: true },
-            { name: "type", type: "typeselect", map_to: "type" },
-            { name: "time", type: "duration", readonly: true, map_to: "auto" }
-        ];
-        var jobs = {
-            data: [
-                { id: 1, text: "Project #1", type: gantt.config.types.project, "progress": 0.5, "open": true },
-                //{ id: 2, text: "Setup", start_date: "12-04-2019", duration: 1, parent: 1, "progress": 1, "open": true },
-                { id: 3, text: "Production", start_date: "12-05-2019", duration: 3, parent: 2, "progress": 0.8, "open": true },
-                { id: 4, text: "Teardown", start_date: "12-08-2019", duration: 1, parent: 3, "progress": 0, "open": true, machine: 01 },
-            ]
-        };
-
-        gantt.attachEvent("onBeforeAutoSchedule", function (jobId, item) {
-            gantt.message({ text: "onBeforeJobUpdate: " + item.text, expire: 10000 })
-            if (gantt.getJob(jobId).$index == 1) return false;
-            return true;
-        });
-        gantt.attachEvent("onBeforeAutoSchedule", function (jobId, updatedJob) {
-            gantt.message({ text: "|| onBeforeAutoSchedule ||", expire: 10000 });
-        });
         document.addEventListener("DOMContentLoaded", function (event) {
+
+            gantt.config.scale_height = 54;
+            gantt.templates.scale_cell_class = function (date) {
+                if (date.getDay() == 0 || date.getDay() == 6) {
+                    return "weekend";
+                }
+            };
+            gantt.templates.timeline_cell_class = function (task, date) {
+                if (date.getDay() == 0 || date.getDay() == 6) {
+                    return "weekend";
+                }
+            };
+            gantt.config.scales = [
+                { unit: "month", step: 1, format: "%F, %Y" },
+                { unit: "day", step: 1, format: "%j, %D" },
+                { unit: "hour", step: 1, format: "%H:%i" }
+            ];
+            gantt.config.fit_tasks = true;
+            gantt.config.duration_unit = "hour";
+            gantt.config.work_time = true;
+            gantt.config.correct_work_time = true;
+            gantt.setWorkTime({ hours: [0, 24] });
+            gantt.setWorkTime({ day: 6, hours: false });
+            gantt.setWorkTime({ day: 7, hours: false });
+
+            gantt.config.resource_store = "users";
+            gantt.config.resource_property = "user_id";
+            gantt.config.order_branch = true;
+            gantt.config.order_branch_free = true;
+            gantt.config.auto_scheduling = true;
+
             // specifying the date format
-            gantt.config.date_format = "%Y-%m-%d %H:%i";
+            gantt.config.xml_date = "%Y-%m-%d %H:%i";
             // initializing gantt
             gantt.init("gantt_here");
             // initiating data loading
@@ -109,6 +82,77 @@
             dp.init(gantt);
             // setting the REST mode for dataProcessor
             dp.setTransactionMode("REST");
+
+            gantt.config.autosize = "xy";
+            gantt.config.grid_width = 230;
+            gantt.config.columns = [
+                { name: "customer", label: "Customer", tree: true, resize: true },
+                { name: "part", label: "Part", align: "center", resize: true },
+                { name: "order_quantity", label: "Order Quantity", align: "center", resize: true },
+                { name: "progress", label: "Progress", align: "center", resize: true },
+                { name: "duration", label: "Duration", align: "center", resize: true },
+                { name: "machine", label: "Machine", align: "center", resize: true },
+                { name: "employee", label: "Employee", align: "center", resize: true },
+                { name: "add", label: "" },
+            ];
+            gantt.serverList("people", [
+                { key: 1, label: "John" },
+                { key: 2, label: "Mike" },
+                { key: 3, label: "Anna" },
+                { key: 4, label: "Bill" },
+                { key: 7, label: "Floe" }
+            ]);
+            gantt.serverList("machines", [
+                { key: 1, label: "Machine 1" },
+                { key: 2, label: "Machine 2" },
+            ]);
+            gantt.locale.labels.section_employee = "Employee";
+            gantt.locale.labels.section_machine = "Machine";
+            gantt.locale.labels.section_time2 = "Actual Duration";
+
+
+
+            gantt.config.lightbox.sections = [
+                { name: "description", height: 38, map_to: "text", type: "textarea", focus: true },
+                { name: "time2", height: 72, map_to: "auto", type: "duration" },
+                { name: "time", height: 72, map_to: "auto", time_format: ["%d", "%m", "%Y", "%H:%i"] },
+                { name: "machine", height: 22, map_to: "machine", type: "select", options: gantt.serverList("machines") },
+                {
+                    name: "employee", height: 60, type: "select", options: gantt.serverList("people"),
+                    map_to: "auto", default_value: 8
+                },
+                { name: "type", type: "typeselect", map_to: "type" }
+            ];
+
+            //gantt.config.lightbox.sections = [
+            //    { name: "customer", height: 38, map_to: "customer", type: gantt.config.types.project, focus: true },
+            //    { name: "employee", map_to: "employee_id", type: "select", options: gantt.serverList("people") },
+            //    { name: "machine", map_to: "machine_id", type: "select", options: gantt.serverList("machines") },
+            //    { name: "time", type: "duration", map_to: "auto" }
+            //]
+            gantt.config.lightbox.project_sections = [
+                { name: "description", height: 70, map_to: "text", type: "textarea", focus: true },
+                { name: "type", type: "typeselect", map_to: "type" },
+                { name: "time", type: "duration", readonly: true, map_to: "auto" }
+            ];
+            var jobs = {
+                data: [
+                    { id: 1, text: "Project #1", type: gantt.config.types.project, "progress": 0.5, "open": true },
+                    //{ id: 2, text: "Setup", start_date: "12-04-2019", duration: 1, parent: 1, "progress": 1, "open": true },
+                    { id: 3, text: "Production", start_date: "12-05-2019", duration: 3, parent: 2, "progress": 0.8, "open": true },
+                    { id: 4, text: "Teardown", start_date: "12-08-2019", duration: 1, parent: 3, "progress": 0, "open": true, machine: 01 },
+                ]
+            };
+
+            gantt.attachEvent("onBeforeAutoSchedule", function (jobId, item) {
+                gantt.message({ text: "onBeforeJobUpdate: " + item.text, expire: 10000 })
+                if (gantt.getJob(jobId).$index == 1) return false;
+                return true;
+            });
+            gantt.attachEvent("onBeforeAutoSchedule", function (jobId, updatedJob) {
+                gantt.message({ text: "|| onBeforeAutoSchedule ||", expire: 10000 });
+            });
+
             var resourcesStore = gantt.createDatastore({
                 name: gantt.config.resource_store
             });
@@ -116,4 +160,8 @@
         });
     </script>
 </head>
+<body>
+    <div id="gantt_here" style="width:100%; height:100%;"></div>
+
+</body>
 </html>
