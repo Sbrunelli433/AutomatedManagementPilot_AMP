@@ -106,13 +106,12 @@ namespace AutomatedManagementPilot_AMP
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseDefaultFiles();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
+            app.UseHttpsRedirection();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
 
             app.UseSignalR(routes =>
             {

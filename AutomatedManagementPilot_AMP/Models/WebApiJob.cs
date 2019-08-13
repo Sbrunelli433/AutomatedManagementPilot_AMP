@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +20,15 @@ namespace AutomatedManagementPilot_AMP.Models
         public int? parent { get; set; }
         public string type { get; set; }
         public string target { get; set; }
+        [ForeignKey("EmployeeId")]
+        public int? employeeId { get; set; }
+        public Employee Employee { get; set; }
+
+
+        [ForeignKey("MachineId")]
+        public int? machineId { get; set; }
+        public Machine Machine { get; set; }
+
         public bool open
         {
             get { return true; }
@@ -38,7 +48,9 @@ namespace AutomatedManagementPilot_AMP.Models
                 duration = job.Duration,
                 parent = job.ParentId,
                 type = job.Type,
-                progress = job.Progress
+                progress = job.Progress,
+                employeeId = job.EmployeeId, 
+                machineId = job.MachineId
             };
         }
 
@@ -56,7 +68,9 @@ namespace AutomatedManagementPilot_AMP.Models
                 Duration = job.duration,
                 ParentId = job.parent,
                 Type = job.type,
-                Progress = job.progress
+                Progress = job.progress,
+                EmployeeId = job.employeeId,
+                MachineId = job.machineId
             };
         }
 

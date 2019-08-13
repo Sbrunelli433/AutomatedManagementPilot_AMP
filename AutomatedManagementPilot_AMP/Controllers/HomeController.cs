@@ -18,6 +18,11 @@ namespace AutomatedManagementPilot_AMP.Controllers
             return View();
         }
 
+        public IActionResult AppIndex()
+        {
+            return View();
+        }
+
         public IActionResult GanttTable()
         {
             return View();
