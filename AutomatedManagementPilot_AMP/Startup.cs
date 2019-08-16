@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using SignalRChat.Hubs;
 using Microsoft.AspNet.SignalR;
+using AutomatedManagementPilot_AMP.Controllers;
 
 namespace AutomatedManagementPilot_AMP
 {
@@ -63,6 +64,8 @@ namespace AutomatedManagementPilot_AMP
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddMvc();
+
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
@@ -106,6 +109,7 @@ namespace AutomatedManagementPilot_AMP
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            app.UseGanttErrorMiddleware();
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseHttpsRedirection();
@@ -118,6 +122,7 @@ namespace AutomatedManagementPilot_AMP
                 routes.MapHub<ChatHub>("/chatHub");
             });
 
+            app.UseMvc();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -128,7 +133,7 @@ namespace AutomatedManagementPilot_AMP
             CreateUserRoles(serviceProvider).Wait();
 
         }
-        private async Task CreateUserRoles(IServiceProvider serviceProvider)
+        private async System.Threading.Tasks.Task CreateUserRoles(IServiceProvider serviceProvider)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();

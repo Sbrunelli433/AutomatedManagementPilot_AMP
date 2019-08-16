@@ -1,95 +1,63 @@
-﻿using System;
+﻿using AutomatedManagementPilot_AMP.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutomatedManagementPilot_AMP.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace AutomatedManagementPilot_AMP.Models
 {
-    public static class GanttSeeder
+    public class GanttSeeder
     {
-
-
         public static void Seed(ApplicationDbContext context)
         {
-            if (context.Jobs.Any())
+            if (context.Tasks.Any())
             {
                 return;   // DB has been seeded
             }
 
             using (var transaction = context.Database.BeginTransaction())
             {
-                List<Job> jobs = new List<Job>()
+                List<Task> tasks = new List<Task>()
                {
-                  new Job()
+                  new Task()
                     {
                        Id = 1,
-                       Text = "Terrill Inc.",
-                       Customer = "Terrill Inc.",
-                       Part = "Widget",
-                       OrderQuantity = 10000,
+                       Text = "Project #2",
                        StartDate = DateTime.Today.AddDays(-3),
-                       Duration = 10,
+                       Duration = 18,
                        Progress = 0.4m,
-                       ParentId = null,
-                       MachineId = 01
+                       ParentId = null
                     },
-
-                    new Job()
+                    new Task()
                     {
                        Id = 2,
-                       Text = "Operation: Set Up",
-                       
-                       Customer = null,
-                       Part = null,
-                       OrderQuantity = 0,
+                       Text = "Task #1",
                        StartDate = DateTime.Today.AddDays(-2),
-                       Duration = 1,
-                       Progress = 1,
-                       ParentId = 1,
-                       MachineId = 01
+                       Duration = 8,
+                       Progress = 0.6m,
+                       ParentId = 1
                     },
-
-
-                    new Job()
+                    new Task()
                     {
                        Id = 3,
-                       Text = "Operation: Production",
-                       Customer = null,
-                       Part = null,
-                       OrderQuantity = 10000,
-                       StartDate = DateTime.Today.AddDays(-2),
-                       Duration = 6,
-                       Progress = 3,
-                       ParentId = 2,
-                       MachineId = 01
-                    },
-
-                    new Job()
-                    {
-                       Id = 4,
-                       Text = "Operation: Tear Down",
-                       Customer = null,
-                       Part = null,
-                       OrderQuantity = 0,
-                       StartDate = DateTime.Today.AddDays(-2),
-                       Duration = 1,
-                       Progress = 0,
-                       ParentId = 3,
-                       MachineId = 01
-                    },
+                       Text = "Task #2",
+                       StartDate = DateTime.Today.AddDays(-1),
+                       Duration = 8,
+                       Progress = 0.6m,
+                       ParentId = 1
+                    }
                };
 
-                jobs.ForEach(s => context.Jobs.Add(s));
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Jobs ON;");
+                tasks.ForEach(s => context.Tasks.Add(s));
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Tasks ON;");
                 context.SaveChanges();
 
-                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Jobs OFF;");
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Tasks OFF;");
                 List<Link> links = new List<Link>()
                {
-                   new Link() {Id = 1, SourceJobId = 1, TargetJobId = 2, Type = "1"},
-                   new Link() {Id = 2, SourceJobId = 2, TargetJobId = 3, Type = "0"}
+                   new Link() {Id = 1, SourceTaskId = 1, TargetTaskId = 2, Type = "1"},
+                   new Link() {Id = 2, SourceTaskId = 2, TargetTaskId = 3, Type = "0"}
                };
 
                 links.ForEach(s => context.Links.Add(s));
@@ -101,3 +69,4 @@ namespace AutomatedManagementPilot_AMP.Models
         }
     }
 }
+

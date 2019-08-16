@@ -14,24 +14,27 @@ namespace AutomatedManagementPilot_AMP.Controllers
     [Route("api/data")]
     public class DataController : Controller
     {
-
         private readonly ApplicationDbContext _context;
         public DataController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-
-        // GET: api/data
+        // GET api/data
         [HttpGet]
         public object Get()
         {
             return new
             {
-                data = _context.Jobs.OrderBy(t => t.SortOrder).ToList().Select(t => (WebApiJob)t),
-                links = _context.Links.ToList().Select(l => (WebApiLink)l)
+                data = _context.Tasks
+                   .OrderBy(t => t.SortOrder)
+                   .ToList()
+                   .Select(t => (WebApiTask)t),
+                links = _context.Links
+                        .ToList()
+                        .Select(l => (WebApiLink)l)
             };
-
         }
+
     }
 }

@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace AutomatedManagementPilot_AMP.Models
 {
+
     public static class GanttInitializerExtension
     {
         public static IWebHost InitializeDatabase(this IWebHost webHost)
         {
             var serviceScopeFactory =
-                (IServiceScopeFactory)webHost.Services.GetService(typeof(IServiceScopeFactory));
+             (IServiceScopeFactory)webHost.Services.GetService(typeof(IServiceScopeFactory));
 
             using (var scope = serviceScopeFactory.CreateScope())
             {
@@ -22,8 +23,9 @@ namespace AutomatedManagementPilot_AMP.Models
                 dbContext.Database.EnsureCreated();
                 GanttSeeder.Seed(dbContext);
             }
+
             return webHost;
         }
-
     }
+
 }

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,26 +21,30 @@ namespace AutomatedManagementPilot_AMP.Controllers
             _context = context;
         }
 
-        // GET: api/link
+        // GET api/Link
         [HttpGet]
         public IEnumerable<WebApiLink> Get()
         {
-            return _context.Links.ToList().Select(t => (WebApiLink)t);
+            return _context.Links
+                .ToList()
+                .Select(t => (WebApiLink)t);
         }
 
-        // GET api/link/5
+        // GET api/Link/5
         [HttpGet("{id}")]
         public WebApiLink Get(int id)
         {
-            return (WebApiLink)_context.Links.Find(id);
+            return (WebApiLink)_context
+                .Links
+                .Find(id);
         }
 
-        // POST api/<controller>
+        // POST api/Link
         [HttpPost]
-        [Authorize(Roles = "Supervisor,Manager")]
         public ObjectResult Post(WebApiLink apiLink)
         {
             var newLink = (Link)apiLink;
+
             _context.Links.Add(newLink);
             _context.SaveChanges();
 
@@ -52,34 +55,34 @@ namespace AutomatedManagementPilot_AMP.Controllers
             });
         }
 
-        // PUT api/link/5
-        [Authorize(Roles = "Supervisor,Manager")]
+        // PUT api/Link/5
         [HttpPut("{id}")]
         public ObjectResult Put(int id, WebApiLink apiLink)
         {
             var updatedLink = (Link)apiLink;
             updatedLink.Id = id;
             _context.Entry(updatedLink).State = EntityState.Modified;
+
+
             _context.SaveChanges();
 
             return Ok(new
-                {
-                Action = "updated"
+            {
+                action = "updated"
             });
         }
 
-        // DELETE api/link/5
-        [Authorize(Roles = "Supervisor,Manager")]
+        // DELETE api/Link/5
         [HttpDelete("{id}")]
         public ObjectResult DeleteLink(int id)
         {
-
             var Link = _context.Links.Find(id);
             if (Link != null)
             {
                 _context.Links.Remove(Link);
                 _context.SaveChanges();
             }
+
             return Ok(new
             {
                 action = "deleted"

@@ -66,6 +66,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Home\Index - Copy.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\_LayoutEmployee.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

@@ -18,8 +18,8 @@ namespace AutomatedManagementPilot_AMP.Models
             {
                 id = link.Id,
                 type = link.Type,
-                source = link.SourceJobId,
-                target = link.TargetJobId
+                source = link.SourceTaskId,
+                target = link.TargetTaskId
             };
         }
 
@@ -29,8 +29,8 @@ namespace AutomatedManagementPilot_AMP.Models
             {
                 Id = link.id,
                 Type = link.type,
-                SourceJobId = link.source,
-                TargetJobId = link.target
+                SourceTaskId = link.source,
+                TargetTaskId = link.target
             };
         }
     }

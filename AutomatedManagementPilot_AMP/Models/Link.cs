@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +9,7 @@ namespace AutomatedManagementPilot_AMP.Models
     {
         public int Id { get; set; }
         public string Type { get; set; }
-        public int SourceJobId { get; set; }
-        public int TargetJobId { get; set; }
+        public int SourceTaskId { get; set; }
+        public int TargetTaskId { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace AutomatedManagementPilot_AMP.Models
 {
     public class DbInitializer
     {
-        public static async Task InitializeAsync(ApplicationDbContext context, IServiceProvider serviceProvider)
+        public static async System.Threading.Tasks.Task InitializeAsync(ApplicationDbContext context, IServiceProvider serviceProvider)
         {
             //context.Database.EnsureCreated();
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();

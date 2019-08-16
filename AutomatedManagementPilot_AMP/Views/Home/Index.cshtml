@@ -1,32 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@*<div class="container">
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-6">&nbsp;</div>
-        <div class="col-6">
-            <input type="text" id="userInput" hidden />
-            <br />
-            Message...<input type="text" id="messageInput" />
-            <input type="button" id="sendButton" value="Send Message" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <hr />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">&nbsp;</div>
-        <div class="col-6">
-            <ul id="messagesList"></ul>
-        </div>
-    </div>
-</div>
-<script src="~/lib/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/chat.js"></script>*@
-
 
 <html>
 <head>
@@ -87,8 +61,7 @@
             gantt.config.grid_width = 230;
             gantt.config.columns = [
                 { name: "customer", label: "Customer", tree: true, resize: true },
-                { name: "text", label: "Customer", tree: true, resize: true },
-
+                { name: "text", label: "Task", tree: true, resize: true },
                 { name: "part", label: "Part", align: "center", resize: true },
                 { name: "order_quantity", label: "Order Quantity", align: "center", resize: true },
                 { name: "progress", label: "Progress", align: "center", resize: true },
@@ -99,10 +72,7 @@
             ];
             gantt.serverList("people", [
                 { key: 1, label: "John" },
-                { key: 2, label: "Mike" },
-                { key: 3, label: "Anna" },
-                { key: 4, label: "Bill" },
-                { key: 7, label: "Floe" }
+                { key: 2, label: "Mike" }
             ]);
             gantt.serverList("machines", [
                 { key: 1, label: "Machine 1" },
@@ -136,14 +106,7 @@
                 { name: "type", type: "typeselect", map_to: "type" },
                 { name: "time", type: "duration", readonly: true, map_to: "auto" }
             ];
-            var jobs = {
-                data: [
-                    { id: 1, text: "Project #1", type: gantt.config.types.project, "progress": 0.5, "open": true },
-                    { id: 2, text: "Setup", start_date: "12-04-2019", duration: 1, parent: 1, "progress": 1, "open": true },
-                    { id: 3, text: "Production", start_date: "12-05-2019", duration: 3, parent: 2, "progress": 0.8, "open": true },
-                    { id: 4, text: "Teardown", start_date: "12-08-2019", duration: 1, parent: 3, "progress": 0, "open": true, machine: 01 },
-                ]
-            };
+  
 
             gantt.attachEvent("onBeforeAutoSchedule", function (jobId, updatedJobs) {
                 gantt.message({ text: "|| onBeforeAutoSchedule ||", expire: 10000 });
