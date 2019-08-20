@@ -15,29 +15,6 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
-
-
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" />
-    <style rel="stylesheet" id="themelink"></style>
-    <link href="~/Views/Sidebar/icons/style.css" rel="stylesheet" />
-    <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
-    <script type="text/javascript">
-        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
-            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"><\/script>');
-        }
-    </script>
-    <script id='sample-datasource' type='text/javascript'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-signals/1.0.0/js-signals.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crossroads/0.12.0/crossroads.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hasher/1.2.0/hasher.min.js"></script>
-    <script src="~/scripts/samplelist.js"></script>
-    <script src="~/scripts/search-index.js"></script>
-    <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -68,42 +45,68 @@
                         }
                         }
                         </li>*@
-                        <li>
-                            @if (User.Identity.IsAuthenticated)
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole(" Manager"))
                             {
-                                @if (User.IsInRole(" Manager"))
-                                {
-                                <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a></li>
-                                <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
+                            <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a></li>
+                            <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
 
 
-                            }
-                            }
-                            </li>
-                        </ul>
-                        <partial name="_LoginPartial" />
-                    </div>
+                        }
+                        }
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
                 </div>
-            </nav>
+            </div>
+        </nav>
 
         @*<div class=" container">
-            <div class="btn-group" style="width: 100%">
-                <input style="width:100%" type="button" value="Time Clock" onclick="@("window.location.href='" + @Url.Action("Index", "TimeClocks") + "'");" />
+                <div class="btn-group" style="width: 100%">
+                    <input style="width:100%" type="button" value="Time Clock" onclick="@("window.location.href='" + @Url.Action("Index", "TimeClocks") + "'");" />
+                </div>
+                <div class="btn-group" style="width: 100%">
+                    <input style="width:33%" type="button" value="Supervisors" onclick="@("window.location.href='" + @Url.Action("Index", "Supervisors") + "'");" />
+                    <input style="width:33%" type="button" value="Managers" onclick="@("window.location.href='" + @Url.Action("Index", "Managers") + "'");" />
+                    <input style="width:33%" type="button" value="Employees" onclick="@("window.location.href='" + @Url.Action("Index", "Employees") + "'");" />
+                </div>
+                <div class="btn-group" style="width: 100%">
+                    <input style="width:49%" type="button" value="Shop Orders" onclick="@("window.location.href='" + @Url.Action("Index", "ShopOrders") + "'");" />
+                    <input style="width:49%" type="button" value="Machine Schedule" onclick="@("window.location.href='" + @Url.Action("Index", "Machines") + "'");" />
+                </div>
+            </div>*@
 
+        <div class="container">
+            <div class="row">&nbsp;</div>
+            <h3>SignalR Chat Bar!</h3>
 
+            <div class="row">
+                <div class="col-6">&nbsp;</div>
+                <div class="col-6">
+                    <input type="text" id="userInput" hidden />
+                    <br />
+                    Message...<input type="text" id="messageInput" />
+                    <input type="button" id="sendButton" value="Send Message" />
+                </div>
             </div>
-            <div class="btn-group" style="width: 100%">
-                <input style="width:33%" type="button" value="Supervisors" onclick="@("window.location.href='" + @Url.Action("Index", "Supervisors") + "'");" />
-                <input style="width:33%" type="button" value="Managers" onclick="@("window.location.href='" + @Url.Action("Index", "Managers") + "'");" />
-                <input style="width:33%" type="button" value="Employees" onclick="@("window.location.href='" + @Url.Action("Index", "Employees") + "'");" />
-
+            <div class="row">
+                <div class="col-12">
+                    <hr />
+                </div>
             </div>
-            <div class="btn-group" style="width: 100%">
-                <input style="width:49%" type="button" value="Shop Orders" onclick="@("window.location.href='" + @Url.Action("Index", "ShopOrders") + "'");" />
-                <input style="width:49%" type="button" value="Machine Schedule" onclick="@("window.location.href='" + @Url.Action("Index", "Machines") + "'");" />
+            <div class="row">
+                <div class="col-6">&nbsp;</div>
+                <div class="col-6">
+                    <ul id="messagesList"></ul>
+                </div>
             </div>
+        </div>
+        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/chat.js"></script>
 
-        </div>*@
+
 
         <div class="container body-content">
             @RenderBody()

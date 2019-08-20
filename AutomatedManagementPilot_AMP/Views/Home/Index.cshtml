@@ -13,7 +13,6 @@
     <script src="~/codebase/ext/dhtmlxgantt_tooltip.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
-
             gantt.config.scale_height = 54;
             gantt.templates.scale_cell_class = function (date) {
                 if (date.getDay() == 0 || date.getDay() == 6) {
@@ -37,13 +36,11 @@
             gantt.setWorkTime({ hours: [0, 24] });
             gantt.setWorkTime({ day: 6, hours: false });
             gantt.setWorkTime({ day: 7, hours: false });
-
             gantt.config.resource_store = "users";
             gantt.config.resource_property = "user_id";
             gantt.config.order_branch = true;
             gantt.config.order_branch_free = true;
             gantt.config.auto_scheduling = true;
-
             // specifying the date format
             gantt.config.xml_date = "%Y-%m-%d %H:%i";
             // initializing gantt
@@ -56,18 +53,17 @@
             dp.init(gantt);
             // setting the REST mode for dataProcessor
             dp.setTransactionMode("REST");
-
             gantt.config.autosize = "xy";
             gantt.config.grid_width = 230;
             gantt.config.columns = [
                 { name: "customer", label: "Customer", tree: true, resize: true },
                 { name: "text", label: "Task", tree: true, resize: true },
-                { name: "part", label: "Part", align: "center", resize: true },
+                { name: "part_name", label: "Part Name", align: "center", resize: true },
                 { name: "order_quantity", label: "Order Quantity", align: "center", resize: true },
                 { name: "progress", label: "Progress", align: "center", resize: true },
                 { name: "duration", label: "Duration", align: "center", resize: true },
-                { name: "machine", label: "Machine", align: "center", resize: true, default_value: "unassigned" },
-                { name: "employee", label: "Employee", align: "center", resize: true, default_value: "unassigned" },
+                { name: "machine", label: "Machine", align: "center", resize: true },
+                { name: "employee", label: "Employee", align: "center", resize: true },
                 { name: "add", label: "" },
             ];
             gantt.serverList("people", [
@@ -81,9 +77,6 @@
             gantt.locale.labels.section_employee = "Employee";
             gantt.locale.labels.section_machine = "Machine";
             gantt.locale.labels.section_time2 = "Actual Duration";
-
-
-
             gantt.config.lightbox.sections = [
                 { name: "description", height: 38, map_to: "text", type: "textarea", focus: true },
                 { name: "time2", height: 72, map_to: "auto", type: "duration" },
@@ -92,53 +85,40 @@
                 { name: "employee", height: 60, map_to: "employee", type: "select", options: gantt.serverList("people"), default_value: 8 },
                 { name: "type", height: 22, type: "typeselect", map_to: "type" }
             ];
-
             //gantt.config.lightbox.sections = [
             //    { name: "customer", height: 38, map_to: "customer", type: gantt.config.types.project, focus: true },
             //    { name: "employee", map_to: "employee_id", type: "select", options: gantt.serverList("people") },
             //    { name: "machine", map_to: "machine_id", type: "select", options: gantt.serverList("machines") },
             //    { name: "time", type: "duration", map_to: "auto" },
             //    { name: "type", type: "typeselect", map_to: "type" }
-
             //]
             gantt.config.lightbox.project_sections = [
                 { name: "description", height: 70, map_to: "text", type: "textarea", focus: true },
                 { name: "type", type: "typeselect", map_to: "type" },
                 { name: "time", type: "duration", readonly: true, map_to: "auto" }
             ];
-  
 
             gantt.attachEvent("onBeforeAutoSchedule", function (jobId, updatedJobs) {
                 gantt.message({ text: "|| onBeforeAutoSchedule ||", expire: 10000 });
             });
-
-
             gantt.attachEvent("onAfterAutoSchedule", function (jobId, updatedJobs) {
                 gantt.message({ text: "|| onAfterAutoSchedule ||", expire: 10000 });
             });
-
-
             gantt.attachEvent("onLightboxSave", function (id, job, is_new) {
                 gantt.message({ text: "on Lightbox Save" + " " + job.text, expire: 10000 });
                 return true;
             })
-
             gantt.attachEvent("onAfterLightbox", function () {
                 gantt.message({ text: "on After Lightbox", expire: 10000 });
             });
-
-
             gantt.attachEvent("onBeforeLightbox", function (id) {
                 previous_state = JSON.parse(JSON.stringify(gantt.serialize().data))
                 return true;
             });
-
-
             gantt.attachEvent("onBeforeTaskDrag", function (id, mode, e) {
                 previous_state = JSON.parse(JSON.stringify(gantt.serialize().data))
                 return true;
             });
-
             gantt.attachEvent("onAfterTaskUpdate", function (id, item) {
                 var current_state = JSON.parse(JSON.stringify(gantt.serialize().data));
                 for (var i = 0; i < previous_state.length; i++) {

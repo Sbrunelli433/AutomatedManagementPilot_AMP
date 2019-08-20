@@ -15,5 +15,12 @@ namespace AutomatedManagementPilot_AMP.Models
         public int? ParentId { get; set; }
         public string Type { get; set; }
         public int SortOrder { get; set; }
+        public string Description { get; set; }
+        public string Machine { get; set; }
+        public string Customer { get; set; }
+        public string Employee { get; set; }
+        public string PartName { get; set; }
+        public decimal ShopOrderNumber { get; set; }
+        public int OrderQuantity { get; set; }
     }
 }

@@ -67,6 +67,12 @@ namespace AutomatedManagementPilot_AMP.Controllers
             dbTask.ParentId = updatedTask.ParentId;
             dbTask.Progress = updatedTask.Progress;
             dbTask.Type = updatedTask.Type;
+            dbTask.SortOrder = updatedTask.SortOrder;
+            dbTask.Description = updatedTask.Description;
+            dbTask.Machine = updatedTask.Machine;
+            dbTask.Customer = updatedTask.Customer;
+            dbTask.Employee = updatedTask.Employee;
+            dbTask.PartName = updatedTask.PartName;
 
             if (!string.IsNullOrEmpty(apiTask.target))
             {

@@ -15,6 +15,14 @@ namespace AutomatedManagementPilot_AMP.Models
         public int? parent { get; set; }
         public string type { get; set; }
         public string target { get; set; }
+        public int sort_order { get; set; }
+        public string description { get; set; }
+        public string machine { get; set; }
+        public string customer { get; set; }
+        public string employee { get; set; }
+        public string part_name { get; set; }
+        public decimal shop_order_number { get; set; }
+        public int order_quantity { get; set; }
         public bool open
         {
             get { return true; }
@@ -31,7 +39,16 @@ namespace AutomatedManagementPilot_AMP.Models
                 duration = task.Duration,
                 parent = task.ParentId,
                 type = task.Type,
-                progress = task.Progress
+                progress = task.Progress,
+                sort_order = task.SortOrder,
+                description = task.Description,
+                machine = task.Machine,
+                customer = task.Customer,
+                employee = task.Employee,
+                part_name = task.PartName,
+                shop_order_number = task.ShopOrderNumber,
+                order_quantity = task.OrderQuantity
+                
             };
         }
 
@@ -46,7 +63,15 @@ namespace AutomatedManagementPilot_AMP.Models
                 Duration = task.duration,
                 ParentId = task.parent,
                 Type = task.type,
-                Progress = task.progress
+                Progress = task.progress,
+                SortOrder = task.sort_order,
+                Description = task.description,
+                Machine = task.machine,
+                Customer = task.customer,
+                Employee = task.employee,
+                PartName = task.part_name,
+                ShopOrderNumber = task.shop_order_number,
+                OrderQuantity = task.order_quantity
             };
         }
     }
