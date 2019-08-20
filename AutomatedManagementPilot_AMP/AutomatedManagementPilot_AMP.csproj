@@ -58,6 +58,8 @@
     <PackageReference Include="Microsoft.Owin" Version="4.0.1" />
     <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="17.2.0.41" />
+    <PackageReference Include="Syncfusion.Licensing" Version="17.2.0.41" />
   </ItemGroup>
 
   <ItemGroup>

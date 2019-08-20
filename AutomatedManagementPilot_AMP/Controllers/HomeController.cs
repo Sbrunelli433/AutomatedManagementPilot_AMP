@@ -18,15 +18,9 @@ namespace AutomatedManagementPilot_AMP.Controllers
             return View();
         }
 
-        public IActionResult AppIndex()
-        {
-            return View();
-        }
 
-        public IActionResult GanttTable()
-        {
-            return View();
-        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
