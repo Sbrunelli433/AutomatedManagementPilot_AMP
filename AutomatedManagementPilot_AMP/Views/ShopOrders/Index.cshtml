@@ -21,16 +21,27 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["CustSortParm"]">@Html.DisplayNameFor(model => model.Customer)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CustSortParm"]">
+                    <label>Customer</label>
+
+                    @*@Html.DisplayNameFor(model => model.Customer)*@
+                </a>
 
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["ShopNumberParm"]">@Html.DisplayNameFor(model => model.ShopOrderNumber)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ShopNumberParm"]">
+                    <label>Shop Order Number</label>
+                    @*@Html.DisplayNameFor(model => model.ShopOrderNumber)*@ 
+                </a> 
 
             </th>
             <th>
                 @*@Html.DisplayNameFor(model => model.PartName)*@
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["PartNameParm"]">@Html.DisplayNameFor(model => model.PartName)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PartNameParm"]">
+                    <label>Part Name</label>
+
+                    @*@Html.DisplayNameFor(model => model.PartName)*@
+                </a>
             </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.PartNumber)
@@ -45,20 +56,36 @@
         </th>*@
             <th>
                 @*@Html.DisplayNameFor(model => model.OrderRecDate)*@
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["OrderRecDateSortParm"]">@Html.DisplayNameFor(model => model.OrderRecDate)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["OrderRecDateSortParm"]">
+                    <label>Order Received Date</label>
+
+                    @*@Html.DisplayNameFor(model => model.OrderRecDate)*@
+                </a>
             </th>
             <th>
                 @*@Html.DisplayNameFor(model => model.OrderDueDate)*@
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["OrderDueDateSortParm"]">@Html.DisplayNameFor(model => model.OrderDueDate)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["OrderDueDateSortParm"]">
+                    <label>Order Due Date</label>
+
+                    @*@Html.DisplayNameFor(model => model.OrderDueDate)*@
+                </a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["MachineSortParm"]">@Html.DisplayNameFor(model => model.MachineId)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["MachineSortParm"]">
+                    <label>Machine Number</label>
+
+                    @*@Html.DisplayNameFor(model => model.MachineId)*@
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ScheduleStartTime)
+                <label>Schedule Start Time</label>
+
+                @*@Html.DisplayNameFor(model => model.ScheduleStartTime)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ScheduleEndTime)
+                <label>Expected End Time</label>
+
+                @*@Html.DisplayNameFor(model => model.ScheduleEndTime)*@
             </th>
             @*<th>
             @Html.DisplayNameFor(model => model.OperationSetUpHours)

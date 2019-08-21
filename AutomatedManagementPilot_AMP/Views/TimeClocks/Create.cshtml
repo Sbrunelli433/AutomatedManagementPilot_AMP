@@ -14,22 +14,22 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ClockIn" class="control-label"></label>
+                <label asp-for="ClockIn" class="control-label">Clock In</label>
                 <input asp-for="ClockIn" class="form-control" />
                 <span asp-validation-for="ClockIn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ClockOut" class="control-label"></label>
+                <label asp-for="ClockOut" class="control-label">Clock Out</label>
                 <input asp-for="ClockOut" class="form-control" />
                 <span asp-validation-for="ClockOut" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HoursWorked" class="control-label"></label>
+                <label asp-for="HoursWorked" class="control-label">Hours Worked</label>
                 <input asp-for="HoursWorked" class="form-control" />
                 <span asp-validation-for="HoursWorked" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmployeeId" class="control-label"></label>
+                <label asp-for="EmployeeId" class="control-label">Employee Id</label>
                 <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
             </div>
             <div class="form-group">

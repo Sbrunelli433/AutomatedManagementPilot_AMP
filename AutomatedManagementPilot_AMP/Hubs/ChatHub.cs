@@ -20,6 +20,7 @@ namespace SignalRChat.Hubs
             return Clients.User(user).SendAsync("ReceiveMessage", message);
         }
 
+ 
 
 
     }

@@ -14,19 +14,21 @@
 
 </p>
 <table class="table">
-    <thead>
+    @*<thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+                <label>Application User</label>
+
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                <label>User Name</label>
+
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PayRoll)
+                <label>Pay Roll</label>
+
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Roles)
             </th>
             <th>
                 <label class="control-label">User Role</label>
@@ -34,7 +36,7 @@
 
             <th></th>
         </tr>
-    </thead>
+    </thead>*@
     <tbody>
         @foreach (var item in Model)
         {
