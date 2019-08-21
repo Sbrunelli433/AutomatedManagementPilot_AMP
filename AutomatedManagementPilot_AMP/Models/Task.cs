@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace AutomatedManagementPilot_AMP.Models
         public string Machine { get; set; }
         public string Customer { get; set; }
         public string Employee { get; set; }
+
         public string PartName { get; set; }
         public decimal ShopOrderNumber { get; set; }
         public int OrderQuantity { get; set; }

@@ -22,8 +22,8 @@ namespace AutomatedManagementPilot_AMP.ViewModels
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name="Confirm Password")]
-        [Compare("Password", ErrorMessage ="Password and confirmation password do not match")]
+        [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "Password and confirmation password do not match")]
         public string ConfirmPassword { get; set; }
 
         public Employee Employee { get; set; }
@@ -37,7 +37,7 @@ namespace AutomatedManagementPilot_AMP.ViewModels
         public PageModel PageModel { get; set; }
         public IEnumerable<PageModel> PageModels { get; set; }
 
-        public  IdentityRole IdentityRole { get; set; }
+        public IdentityRole IdentityRole { get; set; }
         public IEnumerable<IdentityRole> IdentityRoles { get; set; }
 
 
