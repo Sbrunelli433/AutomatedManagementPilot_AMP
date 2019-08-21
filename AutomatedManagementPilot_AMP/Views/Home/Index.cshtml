@@ -41,6 +41,14 @@
             gantt.config.order_branch = true;
             gantt.config.order_branch_free = true;
             gantt.config.auto_scheduling = true;
+            gantt.config.auto_scheduling_compatibility = true;
+            gantt.config.auto_scheduling_move_projects = false;
+            gantt.config.auto_scheduling_initial = true;
+            gantt.config.auto_scheduling_strict = true;
+
+            gantt.config.schedule_from_end = true;
+
+
             // specifying the date format
             gantt.config.xml_date = "%Y-%m-%d %H:%i";
             // initializing gantt
@@ -70,7 +78,7 @@
                 { key: 1, label: "John" },
                 { key: 2, label: "Mike" }
             ]);
-            
+
             gantt.serverList("machines", [
                 { key: 1, label: "Machine 1" },
                 { key: 2, label: "Machine 2" },
@@ -99,12 +107,73 @@
                 { name: "time", type: "duration", readonly: true, map_to: "auto" }
             ];
 
-            gantt.attachEvent("onBeforeAutoSchedule", function (jobId, updatedJobs) {
-                gantt.message({ text: "|| onBeforeAutoSchedule ||", expire: 10000 });
+            var constraintTypeEditor = {
+                type: "select", map_to: "constraint_type", options: [
+                    { key: "asap", label: gantt.locale.labels.asap },
+                    { key: "alap", label: gantt.locale.labels.alap },
+                    { key: "snet", label: gantt.locale.labels.snet },
+                    { key: "snlt", label: gantt.locale.labels.snlt },
+                    { key: "fnet", label: gantt.locale.labels.fnet },
+                    { key: "fnlt", label: gantt.locale.labels.fnlt },
+                    { key: "mso", label: gantt.locale.labels.mso },
+                    { key: "mfo", label: gantt.locale.labels.mfo }
+                ]
+            };
+
+            gantt.eachSuccessor = function (callback, root) {
+                if (!this.isTaskExists(root))
+                    return;
+
+                // remember tasks we've already iterated in order to avoid infinite loops
+                var traversedTasks = arguments[2] || {};
+                if (traversedTasks[root])
+                    return;
+                traversedTasks[root] = true;
+
+                var rootTask = this.getTask(root);
+                var links = rootTask.$source;
+                if (links) {
+                    for (var i = 0; i < links.length; i++) {
+                        var link = this.getLink(links[i]);
+                        if (this.isTaskExists(link.target) && !traversedTasks[link.target]) {
+                            callback.call(this, this.getTask(link.target));
+
+                            // iterate the whole branch, not only first-level dependencies
+                            this.eachSuccessor(callback, link.target, traversedTasks);
+                        }
+                    }
+                }
+            };
+            gantt.attachEvent("onTaskDrag", function (id, mode, task, original) {
+                var modes = gantt.config.drag_mode;
+                if (mode == modes.move) {
+                    var diff = task.start_date - original.start_date;
+                    gantt.eachTask(function (child) {
+                        child.start_date = new Date(+child.start_date + diff);
+                        child.end_date = new Date(+child.end_date + diff);
+                        gantt.refreshTask(child.id, true);
+                    }, id);
+                }
             });
-            gantt.attachEvent("onAfterAutoSchedule", function (jobId, updatedJobs) {
-                gantt.message({ text: "|| onAfterAutoSchedule ||", expire: 10000 });
+            //rounds positions of the child items to scale
+            gantt.attachEvent("onAfterTaskDrag", function (id, mode, e) {
+                var modes = gantt.config.drag_mode;
+                if (mode == modes.move) {
+                    var state = gantt.getState();
+                    gantt.eachTask(function (child) {
+                        child.start_date = gantt.roundDate({
+                            date: child.start_date,
+                            unit: state.scale_unit,
+                            step: state.scale_step
+                        });
+                        child.end_date = gantt.calculateEndDate(child.start_date,
+                            child.duration, gantt.config.duration_unit);
+                        gantt.updateTask(child.id);
+                    }, id);
+                }
             });
+
+
             gantt.attachEvent("onLightboxSave", function (id, job, is_new) {
                 gantt.message({ text: "on Lightbox Save" + " " + job.text, expire: 10000 });
                 return true;
@@ -131,6 +200,27 @@
                         }
                     }
                 }
+            });
+            gantt.attachEvent("onAfterTaskAutoSchedule", function (task, new_date, constraint, predecessor) {
+                if (task && predecessor) {
+                    gantt.message({
+                        text: "<b>" + task.text + "</b> has been rescheduled to " + gantt.templates.task_date(new_date) + " due to <b>" + predecessor.text + "</b> constraint",
+                        expire: 4000
+                    });
+                }
+            });
+
+
+            gantt.attachEvent("onAfterTaskAutoSchedule", function (task, new_date, link, predecessor) {
+                var reason = "";
+                if (predecessor) {
+                    reason = predecessor.text;
+                } else {
+                    var constraint = gantt.getConstraintType(task);
+                    reason = gantt.locale.labels[constraint];
+                }
+                var predecessor = predecessor ? predecessor : { text: task.constraint_type };
+                console.log("<b>" + task.text + "</b> has been rescheduled to " + gantt.templates.task_date(new_date) + " due to <b>" + reason + "</b> constraint");
             });
         });
     </script>
