@@ -22,7 +22,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         //// GET: ShopOrders
         [Authorize(Roles = "Supervisor, Manager, Employee")]
-        public async Task<IActionResult> Index(string sortOrder, string searchString, int searchInt)
+        public async System.Threading.Tasks.Task<IActionResult> Index(string sortOrder, string searchString, int searchInt)
         {
             ViewData["ShopNumberParm"] = String.IsNullOrEmpty(sortOrder) ? "shopNum_desc" : "";
             ViewData["CustSortParm"] = String.IsNullOrEmpty(sortOrder) ? "cust_desc" : "";
@@ -90,7 +90,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         // GET: ShopOrders/Details/5
         [Authorize(Roles = "Supervisor, Manager, Employee")]
-        public async Task<IActionResult> Details(int? id)
+        public async System.Threading.Tasks.Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -121,7 +121,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShopOrderNumber,Customer,PartNumber,PartName,OrderQuantity,RawMatlInventoryId,OrderRecDate,OrderDueDate,MachineId,ScheduleStartTime,ScheduleEndTime,OperationSetUpHours,OperationProductionHours,OperationTearDownHours,GrossProductionRate,NetProductionRate,Profitability")] ShopOrder shopOrder)
+        public async System.Threading.Tasks.Task<IActionResult> Create([Bind("ShopOrderNumber,Customer,PartNumber,PartName,OrderQuantity,RawMatlInventoryId,OrderRecDate,OrderDueDate,MachineId,ScheduleStartTime,ScheduleEndTime,OperationSetUpHours,OperationProductionHours,OperationTearDownHours,GrossProductionRate,NetProductionRate,Profitability")] ShopOrder shopOrder)
         {
             if (ModelState.IsValid)
             {
@@ -135,7 +135,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // GET: ShopOrders/Edit/5
         [Authorize(Roles = "Supervisor")]
 
-        public async Task<IActionResult> Edit(int? id)
+        public async System.Threading.Tasks.Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -154,10 +154,9 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Supervisor")]
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ShopOrder shopOrder)
+        public async System.Threading.Tasks.Task<IActionResult> Edit(int id, ShopOrder shopOrder)
         {
             if (id != shopOrder.ShopOrderNumber)
             {
@@ -168,6 +167,12 @@ namespace AutomatedManagementPilot_AMP.Controllers
             {
                 try
                 {
+                    shopOrder.Customer = shopOrder.Customer;
+                    shopOrder.PartName = shopOrder.PartName;
+                    shopOrder.OrderQuantity = shopOrder.OrderQuantity;
+                    shopOrder.MachineId = shopOrder.MachineId;
+
+
                     _context.Update(shopOrder);
                     await _context.SaveChangesAsync();
                 }
@@ -190,7 +195,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // GET: ShopOrders/Delete/5
         [Authorize(Roles = "Supervisor")]
 
-        public async Task<IActionResult> Delete(int? id)
+        public async System.Threading.Tasks.Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -211,7 +216,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = "Supervisor")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async System.Threading.Tasks.Task<IActionResult> DeleteConfirmed(int id)
         {
             var shopOrder = await _context.ShopOrder.FindAsync(id);
             _context.ShopOrder.Remove(shopOrder);

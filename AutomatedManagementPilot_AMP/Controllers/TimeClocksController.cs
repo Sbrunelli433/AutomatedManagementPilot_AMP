@@ -23,7 +23,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         // GET: TimeClocks
         [Authorize(Roles = "Supervisor, Manager, Employee")]
-        public async Task<IActionResult> Index()
+        public async System.Threading.Tasks.Task<IActionResult> Index()
         {
             var applicationDbContext = _context.TimeClock.Include(t => t.Employee);
             return View(await applicationDbContext.ToListAsync());
@@ -31,7 +31,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         // GET: TimeClocks/Details/5
         [Authorize(Roles = "Supervisor, Manager")]
-        public async Task<IActionResult> Details(int? id)
+        public async System.Threading.Tasks.Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -63,7 +63,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = "Supervisor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId")] TimeClock timeClock)
+        public async System.Threading.Tasks.Task<IActionResult> Create([Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId")] TimeClock timeClock)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = "Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ClockIn(TimeClock timeClock)
+        public async System.Threading.Tasks.Task<IActionResult> ClockIn(TimeClock timeClock)
         {
             if (ModelState.IsValid)
             {
@@ -117,7 +117,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         // GET: TimeClocks/Edit/5
         [Authorize(Roles = "Employee")]
-        public async Task<IActionResult> ClockOut(int? id)
+        public async System.Threading.Tasks.Task<IActionResult> ClockOut(int? id)
         {
             if (id == null)
             {
@@ -139,7 +139,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = "Employee")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ClockOut(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId,ShopOrderNumber,Summary")] TimeClock timeClock)
+        public async System.Threading.Tasks.Task<IActionResult> ClockOut(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId,MachineId,ShopOrderNumber,Task,Summary,Id,TaskId")] TimeClock timeClock)
         {
             if (id != timeClock.TimeClockId)
             {
@@ -153,7 +153,11 @@ namespace AutomatedManagementPilot_AMP.Controllers
                     timeClock.ClockOut = DateTime.Now;
                     timeClock.HoursWorked = timeClock.ClockOut.Subtract(timeClock.ClockIn);
                     timeClock.Summary = timeClock.Summary;
+                    timeClock.Task = timeClock.Task;
+                    timeClock.Id = timeClock.Id;
+                    timeClock.MachineId = timeClock.MachineId;
                     timeClock.ShopOrderNumber = timeClock.ShopOrderNumber;
+
                     //ViewData["ShopOrderNumber"] = new SelectList(_context.ShopOrder, "ShopOrderNumber", "ShopOrderNumber");
 
 
@@ -184,7 +188,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         // GET: TimeClocks/Edit/5
         [Authorize(Roles = " Supervisor, Manager")]
 
-        public async Task<IActionResult> Edit(int? id)
+        public async System.Threading.Tasks.Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -206,7 +210,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = " Supervisor, Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId")] TimeClock timeClock)
+        public async System.Threading.Tasks.Task<IActionResult> Edit(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId")] TimeClock timeClock)
         {
             if (id != timeClock.TimeClockId)
             {
@@ -239,7 +243,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         // GET: TimeClocks/Delete/5
         [Authorize(Roles = " Supervisor, Manager")]
-        public async Task<IActionResult> Delete(int? id)
+        public async System.Threading.Tasks.Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -261,7 +265,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = " Supervisor, Manager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async System.Threading.Tasks.Task<IActionResult> DeleteConfirmed(int id)
         {
             var timeClock = await _context.TimeClock.FindAsync(id);
             _context.TimeClock.Remove(timeClock);

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AutomatedManagementPilot_AMP.ViewModels
 {
@@ -20,6 +21,12 @@ namespace AutomatedManagementPilot_AMP.ViewModels
         public IEnumerable<TimeClock> TimeClocks { get; set; }
         public ShopOrder ShopOrder { get; set; }
         public IEnumerable<ShopOrder> ShopOrders { get; set; }
+
+        public Models.Task Task { get; set; }
+        public IEnumerable<Models.Task> Tasks { get; set; }
+
+        public SelectList TaskSelectList { get; set; }
+        public string TaskId { get; set; }
 
 
     }
