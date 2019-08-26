@@ -28,6 +28,10 @@ namespace AutomatedManagementPilot_AMP.ViewModels
         public SelectList TaskSelectList { get; set; }
         public string TaskId { get; set; }
 
+        public List<SelectListItem> MachineList {get;set;}
+        public List<SelectListItem> ShopOrderList { get; set; }
+        public List<SelectListItem> TaskList { get; set; }
+
 
     }
 }

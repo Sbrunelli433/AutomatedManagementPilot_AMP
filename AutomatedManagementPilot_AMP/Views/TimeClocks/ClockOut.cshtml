@@ -1,4 +1,6 @@
 ﻿@model AutomatedManagementPilot_AMP.Models.TimeClock
+@*@model AutomatedManagementPilot_AMP.ViewModels.TimeClockViewModel*@
+
 
 
 @{
@@ -18,7 +20,6 @@
             <input type="hidden" asp-for="Employee" />
             <input type="hidden" asp-for="HoursWorked" />
             <input type="hidden" asp-for="ClockIn" />
-
             @*<div class="form-group">
             <label asp-for="ClockIn" class="control-label"></label>
             <input asp-for="ClockIn" class="form-control" />
@@ -35,20 +36,19 @@
             <span asp-validation-for="HoursWorked" class="text-danger"></span>
         </div>*@
             <div class="form-group">
-                <label asp-for="ShopOrderNumber" class="control-label"></label>
+                <label asp-for="ShopOrderNumber" class="control-label">Shop Order Number</label>
                 <input asp-for="ShopOrderNumber" class="form-control" />
                 <span asp-validation-for="ShopOrderNumber" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="MachineId" class="control-label"></label>
+                <label asp-for="MachineId" class="control-label">Machine Id</label>
                 <input asp-for="MachineId" class="form-control" />
                 <span asp-validation-for="MachineId" class="text-danger"></span>
             </div>
 
 
             <div class="form-group">
-                <label asp-for="Summary" class="control-label"></label>
+                <label asp-for="Summary" class="control-label">End of Shift Summary</label>
                 <input asp-for="Summary" class="form-control" />
                 <span asp-validation-for="Summary" class="text-danger"></span>
             </div>
@@ -58,7 +58,6 @@
         </form>
     </div>
 </div>
-
 
 <div>
     <a asp-action="Index">Back to List</a>

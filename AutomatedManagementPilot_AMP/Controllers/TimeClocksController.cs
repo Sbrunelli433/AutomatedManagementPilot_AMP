@@ -9,6 +9,7 @@ using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using AutomatedManagementPilot_AMP.ViewModels;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
@@ -115,9 +116,35 @@ namespace AutomatedManagementPilot_AMP.Controllers
             return View(timeClock);
         }
 
+        //// GET: TimeClocks/Edit/5
+        //[Authorize(Roles = "Employee")]
+        //public async System.Threading.Tasks.Task<IActionResult> ClockOut(int? id, TimeClockViewModel timeClockViewModel)
+        //{
+        //    TimeClockViewModel ddl = new TimeClockViewModel();
+        //    var queryData = new SelectList(_context.Machine.Select(c => new
+        //    {
+        //        Machine = c.MachineId,
+        //    }), "MachineId"
+        //    ).ToList();
+        //    ddl.MachineList = queryData;
+
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var timeClock = await _context.TimeClock.FindAsync(id);
+        //    if (timeClock == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    //ViewData["EmployeeId"] = new SelectList(_context.Employee, "EmployeeId", "EmployeeId", timeClock.EmployeeId);
+        //    return View(timeClock);
+        //}
+
         // GET: TimeClocks/Edit/5
         [Authorize(Roles = "Employee")]
-        public async System.Threading.Tasks.Task<IActionResult> ClockOut(int? id)
+        public async Task<IActionResult> ClockOut(int? id)
         {
             if (id == null)
             {
@@ -141,6 +168,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [ValidateAntiForgeryToken]
         public async System.Threading.Tasks.Task<IActionResult> ClockOut(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId,MachineId,ShopOrderNumber,Task,Summary,Id,TaskId")] TimeClock timeClock)
         {
+
             if (id != timeClock.TimeClockId)
             {
                 return NotFound();
@@ -210,7 +238,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = " Supervisor, Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async System.Threading.Tasks.Task<IActionResult> Edit(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId")] TimeClock timeClock)
+        public async System.Threading.Tasks.Task<IActionResult> Edit(int id, [Bind("TimeClockId,ClockIn,ClockOut,HoursWorked,EmployeeId,Summary,ShopOrderNumber,MachineId,Id")] TimeClock timeClock)
         {
             if (id != timeClock.TimeClockId)
             {

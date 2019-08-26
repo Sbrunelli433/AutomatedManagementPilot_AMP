@@ -35,27 +35,27 @@
 
 
                     @*<li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            @if (User.IsInRole("Supervisor"))
-                            {
-                            <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisors</a></li>
-                            <li><a asp-area="" asp-controller="Managers" asp-action="Index">Managers</a></li>
-                            <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
-                        }
-                        }
-                        </li>*@
-                    <li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            @if (User.IsInRole(" Manager"))
-                            {
-                            <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a></li>
-                            <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
+        @if (User.Identity.IsAuthenticated)
+        {
+            @if (User.IsInRole("Supervisor"))
+            {
+            <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisors</a></li>
+            <li><a asp-area="" asp-controller="Managers" asp-action="Index">Managers</a></li>
+            <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
+        }
+        }
+        </li>*@
+                        <li>
+                             @if (User.Identity.IsAuthenticated)
+                                {
+                                    @if (User.IsInRole("Manager"))
+                                        {
+                                        <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a></li>
+                                        <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
 
 
-                        }
-                        }
+                                    }
+                            }
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
