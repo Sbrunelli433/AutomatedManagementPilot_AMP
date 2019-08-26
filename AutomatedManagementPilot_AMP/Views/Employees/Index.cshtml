@@ -20,8 +20,14 @@
             <th>
                 <label>Pay Roll</label>
 
-                @Html.DisplayNameFor(model => model.PayRoll)
+                @*@Html.DisplayNameFor(model => model.PayRoll)*@
             </th>
+            <th>
+                <label>Application Id</label>
+
+                @*@Html.DisplayNameFor(model => model.PayRoll)*@
+            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -34,6 +40,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PayRoll)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationId)
+            </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.EmployeeId">Details</a> |

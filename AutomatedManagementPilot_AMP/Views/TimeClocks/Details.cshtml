@@ -73,19 +73,6 @@
         }
     }
 </div>
-
-
 <div>
-
-    @if (User.Identity.IsAuthenticated)
-    {
-        @if (User.IsInRole("Supervisor,Manager"))
-        {
-            <a asp-action="Edit" asp-route-id="@Model.TimeClockId">Edit Time Clock Entry</a>
-        }
-    }
-    <br />
-    @*<a asp-action="Edit" asp-route-id="@Model.TimeClockId">Edit Time Clock Entry</a>*@
-
     <a asp-action="Index">Back to List</a>
 </div>

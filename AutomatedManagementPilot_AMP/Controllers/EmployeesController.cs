@@ -100,7 +100,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
         [Authorize(Roles = "Supervisor,Managers")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeId,UserName,PayRoll")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("EmployeeId,UserName,PayRoll,ApplicationUser,ApplicationId")] Employee employee)
         {
             if (id != employee.EmployeeId)
             {

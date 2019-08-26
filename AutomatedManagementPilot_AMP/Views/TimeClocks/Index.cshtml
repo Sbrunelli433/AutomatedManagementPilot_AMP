@@ -80,6 +80,7 @@
                     @*<a asp-action="ClockOut" asp-route-id="@item.TimeClockId">Clock Out</a> |*@
                     <a asp-action="ClockOut" asp-route-id="@item.TimeClockId">Clock Out</a> |
 
+
                     @if (User.Identity.IsAuthenticated)
                     {
                         @if (User.IsInRole("Manager"))
