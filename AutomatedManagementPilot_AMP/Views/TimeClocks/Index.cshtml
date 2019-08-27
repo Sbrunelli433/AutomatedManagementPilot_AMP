@@ -17,81 +17,79 @@
     }
 }
 
-
-
 <table class=" table">
     <thead>
         <tr>
             <th>
                 <label>Time Clock Id</label>
-
-                @*@Html.DisplayNameFor(model => model.TimeClockId)*@
             </th>
             <th>
                 <label>Clock In</label>
-
-                @*@Html.DisplayNameFor(model => model.ClockIn)*@
             </th>
             <th>
                 <label>Clock Out</label>
-
-                @*@Html.DisplayNameFor(model => model.ClockOut)*@
             </th>
             <th>
                 <label>Total Hours Worked</label>
-
-                @*@Html.DisplayNameFor(model => model.HoursWorked.TotalHours)*@
             </th>
             <th>
                 <label>Total Minutes Worked</label>
-
-                @*@Html.DisplayNameFor(model => model.HoursWorked.TotalMinutes)*@
             </th>
             <th>
                 <label>Employee Id</label>
-
-                @*@Html.DisplayNameFor(model => model.EmployeeId)*@
+            </th>
+            <th>
+                <label>Shop Order Number</label>
+            </th>
+            <th>
+                <label>Machine</label>
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TimeClockId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClockIn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClockOut)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoursWorked.TotalHours)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoursWorked.TotalMinutes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeId)
-                </td>
-                <td>
-                    @*<a asp-action="ClockOut" asp-route-id="@item.TimeClockId">Clock Out</a> |*@
-                    <a asp-action="ClockOut" asp-route-id="@item.TimeClockId">Clock Out</a> |
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeClockId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClockIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClockOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoursWorked.TotalHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoursWorked.TotalMinutes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShopOrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineId)
+            </td>
+            <td>
+                @*<a asp-action="ClockOut" asp-route-id="@item.TimeClockId">Clock Out</a> |*@
+                <a asp-action="ClockOut" asp-route-id="@item.TimeClockId">Clock Out</a> |
 
 
-                    @if (User.Identity.IsAuthenticated)
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (User.IsInRole("Manager"))
                     {
-                        @if (User.IsInRole("Manager"))
-                        {
-                            <a asp-action="Details" asp-route-id="@item.TimeClockId">Details</a>
+                        <a asp-action="Details" asp-route-id="@item.TimeClockId">Details</a>
 
-                        }
                     }
-                </td>
+                }
+            </td>
 
-            </tr>
+        </tr>
         }
     </tbody>
 </table>

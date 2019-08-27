@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AutomatedManagementPilot_AMP.Data;
 using AutomatedManagementPilot_AMP.Models;
 using Microsoft.AspNetCore.Authorization;
+using AutomatedManagementPilot_AMP.ViewModels;
 
 namespace AutomatedManagementPilot_AMP.Controllers
 {
@@ -28,6 +29,42 @@ namespace AutomatedManagementPilot_AMP.Controllers
             var applicationDbContext = _context.Manager.Include(m => m.ApplicationUser);
             return View(await applicationDbContext.ToListAsync());
         }
+
+        // GET: Managers
+        [Authorize(Roles = "Supervisor,Manager")]
+
+        public async Task<IActionResult> ReportIndex()
+        {
+
+
+            //IEnumerable<ShopOrder> shopOrdersWithTime = _context.ShopOrder.Where(s => (_context.TimeClock
+            // .Where(n => n.TimeClockId == s.ShopOrderNumber).
+            // Select(n => n.TimeClockId).Contains(s.ShopOrderNumber)) ||
+            // (_context.TimeClock.Where(n => n.EmployeeId == s.ShopOrderNumber).Select(n => n.EmployeeId).Contains(s.ShopOrderNumber))).ToList();
+
+            //IEnumerable<ShopOrder> shopOrders = await _context.ShopOrder.ToListAsync();
+
+            //var viewModel = new ReportViewModel();
+            //viewModel.shopOrdersWithTime = shopOrdersWithTime;
+            //viewModel.ShopOrders = shopOrders;
+
+            //return View(viewModel);
+
+
+
+
+            //seed report data here to display the three shop orders and the production & profitability metrics.
+            //This only needs to spit out a report, doesn't need to be interactive.
+
+            var applicationDbContext = _context.TimeClock.Include(e => e.EmployeeId)
+                .Include(t => t.TimeClockId)
+                .Include(s => s.ShopOrderNumber)
+                .Include(ta => ta.Task)
+                .Include(m => m.MachineId);
+                //.Include(s=>s.ShopOrderNumber).Where(s=> s.)
+            return View(await applicationDbContext.ToListAsync());
+        }
+
 
         // GET: Managers/Details/5
         [Authorize(Roles = "Supervisor,Manager")]

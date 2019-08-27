@@ -1,0 +1,79 @@
+﻿@model IEnumerable<AutomatedManagementPilot_AMP.Models.TimeClock>
+
+@{
+    ViewData["Title"] = "ReportIndex";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>Report Index</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClockIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClockOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoursWorked)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShopOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Machine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Task)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.ShopOrder.Profitability)
+            </th>*@
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClockIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClockOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoursWorked)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShopOrder.ShopOrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Machine.MachineId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Task.Id)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.ShopOrder.Profitability)
+            </td>*@
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TimeClockId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TimeClockId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TimeClockId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

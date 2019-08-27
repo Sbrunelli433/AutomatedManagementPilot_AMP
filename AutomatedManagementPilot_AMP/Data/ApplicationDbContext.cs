@@ -106,7 +106,6 @@ namespace AutomatedManagementPilot_AMP.Data
 
         }
 
-        //public DbSet<Dashboard> Dashboard { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
         public DbSet<Task> Tasks { get; set; }

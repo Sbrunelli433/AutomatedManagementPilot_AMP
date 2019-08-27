@@ -30,6 +30,18 @@ namespace AutomatedManagementPilot_AMP.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        // GET: TimeClocks
+        [Authorize(Roles = "Supervisor, Manager")]
+        public async System.Threading.Tasks.Task<IActionResult> ReportIndex()
+        {
+
+            var applicationDbContext = _context.TimeClock.Include(t => t.Employee)
+                .Include(s => s.ShopOrder)
+                .Include(m => m.Machine);
+                //.Include(p => p.ShopOrder.Profitability);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
         // GET: TimeClocks/Details/5
         [Authorize(Roles = "Supervisor, Manager")]
         public async System.Threading.Tasks.Task<IActionResult> Details(int? id)

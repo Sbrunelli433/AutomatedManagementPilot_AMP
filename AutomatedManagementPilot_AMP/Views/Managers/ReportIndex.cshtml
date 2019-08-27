@@ -1,0 +1,90 @@
+﻿@*@model IEnumerable<AutomatedManagementPilot_AMP.Models.Manager>*@
+@model  AutomatedManagementPilot_AMP.ViewModels.ReportViewModel
+
+
+@{
+    ViewData["Title"] = "ReportIndex";
+}
+
+<h2>Report Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ShopOrder.ShopOrderNumber)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.ShopOrder.ShopOrderNumber)
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.ShopOrder.Customer)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.ShopOrder.Customer)
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.ShopOrder.GrossProductionRate)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.ShopOrder.GrossProductionRate)
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.ShopOrder.NetProductionRate)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.ShopOrder.NetProductionRate)
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.ShopOrder.Profitability)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.ShopOrder.Profitability)
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee.EmployeeId)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Employee.EmployeeId)
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeClock.HoursWorked)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.TimeClock.HoursWorked)
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeClock.MachineId)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.TimeClock.MachineId)
+            </td>
+            <th></th>
+        </tr>
+    </thead>
+    @*<tbody>
+        @foreach (var item in Model.TimeClocks)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShopOrderNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShopOrder.GrossProductionRate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShopOrder.NetProductionRate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShopOrder.Profitability)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.EmployeeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeClockId)
+                </td>
+            </tr>
+        }
+    </tbody>*@
+</table>

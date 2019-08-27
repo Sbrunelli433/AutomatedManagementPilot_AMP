@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ReportModels\**" />
+    <Content Remove="ReportModels\**" />
+    <EmbeddedResource Remove="ReportModels\**" />
+    <None Remove="ReportModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DHTMLX.Gantt" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.4.1" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.1" />
@@ -64,7 +71,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
-    <Folder Include="ReportModels\" />
   </ItemGroup>
 
   <ItemGroup>
