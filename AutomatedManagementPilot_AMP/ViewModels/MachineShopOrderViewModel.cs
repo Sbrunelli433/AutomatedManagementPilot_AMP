@@ -18,8 +18,6 @@ namespace AutomatedManagementPilot_AMP.ViewModels
          public TimeClock TimeClock { get; set; }
         public IEnumerable<TimeClock> TimeClocks { get; set; }
 
-        public JobCard JobCard { get; set; }
-        public IEnumerable<JobCard> jobCards { get; set; }
 
     }
 }

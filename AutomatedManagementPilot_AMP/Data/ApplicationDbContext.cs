@@ -112,7 +112,6 @@ namespace AutomatedManagementPilot_AMP.Data
         public DbSet<Link> Links { get; set; }
 
         public DbSet<Employee> Employee { get; set; }
-        public DbSet<JobCard> JobCard { get; set; }
 
         public DbSet<Machine> Machine { get; set; }
         public DbSet<Manager> Manager { get; set; }
