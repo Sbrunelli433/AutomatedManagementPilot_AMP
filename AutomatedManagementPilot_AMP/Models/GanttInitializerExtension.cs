@@ -13,8 +13,7 @@ namespace AutomatedManagementPilot_AMP.Models
     {
         public static IWebHost InitializeDatabase(this IWebHost webHost)
         {
-            var serviceScopeFactory =
-             (IServiceScopeFactory)webHost.Services.GetService(typeof(IServiceScopeFactory));
+            var serviceScopeFactory = (IServiceScopeFactory)webHost.Services.GetService(typeof(IServiceScopeFactory));
 
             using (var scope = serviceScopeFactory.CreateScope())
             {

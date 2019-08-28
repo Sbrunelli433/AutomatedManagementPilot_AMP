@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace AutomatedManagementPilot_AMP.Models
@@ -16,7 +17,6 @@ namespace AutomatedManagementPilot_AMP.Models
         public int? parent { get; set; }
         public string type { get; set; }
         public string target { get; set; }
-        public int sort_order { get; set; }
         public string description { get; set; }
         public string machine { get; set; }
         public string customer { get; set; }
@@ -35,13 +35,12 @@ namespace AutomatedManagementPilot_AMP.Models
             return new WebApiTask
             {
                 id = task.Id,
-                text = task.Text,
-                start_date = task.StartDate.ToString("yyyy-MM-dd HH:mm"),
+                text = HtmlEncoder.Default.Encode(task.Text),
+                start_date = task.start_date.ToString("yyyy-MM-dd HH:mm"),
                 duration = task.Duration,
                 parent = task.ParentId,
                 type = task.Type,
                 progress = task.Progress,
-                sort_order = task.SortOrder,
                 description = task.Description,
                 machine = task.Machine,
                 customer = task.Customer,
@@ -59,13 +58,12 @@ namespace AutomatedManagementPilot_AMP.Models
             {
                 Id = task.id,
                 Text = task.text,
-                StartDate = DateTime.Parse(task.start_date,
+                start_date = DateTime.Parse(task.start_date,
                     System.Globalization.CultureInfo.InvariantCulture),
                 Duration = task.duration,
                 ParentId = task.parent,
                 Type = task.type,
                 Progress = task.progress,
-                SortOrder = task.sort_order,
                 Description = task.description,
                 Machine = task.machine,
                 Customer = task.customer,

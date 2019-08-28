@@ -60,14 +60,15 @@ namespace AutomatedManagementPilot_AMP.Controllers
         public IActionResult Put(int id, WebApiTask apiTask)
         {
             var updatedTask = (Models.Task)apiTask;
+            updatedTask.Id = id;
+
             var dbTask = _context.Tasks.Find(id);
             dbTask.Text = updatedTask.Text;
-            dbTask.StartDate = updatedTask.StartDate;
+            dbTask.start_date = updatedTask.start_date;
             dbTask.Duration = updatedTask.Duration;
             dbTask.ParentId = updatedTask.ParentId;
             dbTask.Progress = updatedTask.Progress;
             dbTask.Type = updatedTask.Type;
-            dbTask.SortOrder = updatedTask.SortOrder;
             dbTask.Description = updatedTask.Description;
             dbTask.Machine = updatedTask.Machine;
             dbTask.Customer = updatedTask.Customer;
@@ -90,7 +91,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         // DELETE api/task/5
         [HttpDelete("{id}")]
-        public ObjectResult DeleteTask(int id)
+        public IActionResult DeleteTask(int id)
         {
             var task = _context.Tasks.Find(id);
             if (task != null)

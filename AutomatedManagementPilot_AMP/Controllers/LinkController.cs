@@ -41,7 +41,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         // POST api/Link
         [HttpPost]
-        public ObjectResult Post(WebApiLink apiLink)
+        public IActionResult Post(WebApiLink apiLink)
         {
             var newLink = (Link)apiLink;
 
@@ -57,7 +57,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         // PUT api/Link/5
         [HttpPut("{id}")]
-        public ObjectResult Put(int id, WebApiLink apiLink)
+        public IActionResult Put(int id, WebApiLink apiLink)
         {
             var updatedLink = (Link)apiLink;
             updatedLink.Id = id;
@@ -74,7 +74,7 @@ namespace AutomatedManagementPilot_AMP.Controllers
 
         // DELETE api/Link/5
         [HttpDelete("{id}")]
-        public ObjectResult DeleteLink(int id)
+        public IActionResult DeleteLink(int id)
         {
             var Link = _context.Links.Find(id);
             if (Link != null)

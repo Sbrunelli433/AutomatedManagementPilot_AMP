@@ -10,7 +10,7 @@ namespace AutomatedManagementPilot_AMP.Models
     {
         public int Id { get; set; }
         public string Text { get; set; }
-        public DateTime StartDate { get; set; }
+        public DateTime start_date { get; set; }
         public int Duration { get; set; }
         public decimal Progress { get; set; }
         public int? ParentId { get; set; }
