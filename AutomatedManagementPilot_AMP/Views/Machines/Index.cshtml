@@ -51,8 +51,13 @@
             {
                 @if (User.IsInRole("Supervisor, Manager"))
                 {
-                    <a asp-action="Edit" asp-route-id="@item.MachineId">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.MachineId">Delete</a>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.MachineId">Edit</a> |
+        </td>
+        <td>
+            <a asp-action="Delete" asp-route-id="@item.MachineId">Delete</a>
+
+        </td>
                 }
             }
         </tr>

@@ -20,7 +20,8 @@ namespace AutomatedManagementPilot_AMP.Models
         public Decimal CycleTime { get; set; }
         public Decimal Utilization { get; set; }
 
-        
+        public virtual ICollection<ShopOrder> ShopOrders { get; set; }
+        public virtual ICollection<TimeClock> TimeClocks { get; set; }
 
 
 

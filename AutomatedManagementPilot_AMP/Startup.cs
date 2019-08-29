@@ -109,7 +109,7 @@ namespace AutomatedManagementPilot_AMP
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-            app.UseGanttErrorMiddleware();
+            //app.UseGanttErrorMiddleware();
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseHttpsRedirection();

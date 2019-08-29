@@ -24,7 +24,6 @@ namespace AutomatedManagementPilot_AMP.Data
                 {
                     ShopOrderNumber = 001,
                     Customer = "Terrill Inc.",
-                    PartNumber = 12345,
                     PartName = "Widget",
                     OrderQuantity = 10000,
                     OrderRecDate = new DateTime(2019, 07, 06),
@@ -48,7 +47,6 @@ namespace AutomatedManagementPilot_AMP.Data
                 {
                     ShopOrderNumber = 002,
                     Customer = "Bradley Industries.",
-                    PartNumber = 002,
                     PartName = "Clip",
                     OrderQuantity = 200000,
                     OrderRecDate = new DateTime(2019, 07, 07),
@@ -69,7 +67,6 @@ namespace AutomatedManagementPilot_AMP.Data
                 {
                     ShopOrderNumber = 003,
                     Customer = "ACME Solutions",
-                    PartNumber = 321,
                     PartName = "Washer",
                     OrderQuantity = 15000,
                     OrderRecDate = new DateTime(2019, 07, 07),

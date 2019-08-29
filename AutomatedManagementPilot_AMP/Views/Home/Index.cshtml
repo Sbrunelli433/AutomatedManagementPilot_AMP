@@ -70,6 +70,7 @@
             gantt.config.grid_width = 230;
 
             gantt.config.columns = [
+
                 { name: "customer", label: "Customer", tree: true, resize: true },
                 { name: "text", label: "Task", tree: true, resize: true },
                 { name: "part_name", label: "Part Name", align: "center", resize: true },
@@ -220,6 +221,7 @@
             gantt.attachEvent("onAfterAutoSchedule", function (taskId, updatedTasks) {
                 gantt.message({ text: "|| onAfterAutoSchedule ||", expire: 10000 });
             });
+
 
             //gantt.attachEvent("onAfterTaskAutoSchedule", function (task, new_date, link, predecessor) {
             //    var reason = "";

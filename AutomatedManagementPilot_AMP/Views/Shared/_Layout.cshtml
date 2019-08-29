@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - AutomatedManagementPilot_AMP</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-darkly.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
@@ -20,18 +20,18 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
+                </button>*@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AutomatedManagementPilot (AMP)</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="ShopOrders" asp-action="Index">Shop Orders</a></li>
-                    <li><a asp-area="" asp-controller="TimeClocks" asp-action="Index">Time Clock</a></li>
+                    <li><a asp-area="" asp-controller="ShopOrders" asp-action="Index">Shop Orders</a>|</li>
+                    <li><a asp-area="" asp-controller="TimeClocks" asp-action="Index">Time Clock</a>|</li>
 
 
 
@@ -41,9 +41,9 @@
                             @if (User.IsInRole("Supervisor"))
                             {
                                 @*<li><a asp-area="" asp-controller="Home" asp-action="GanttTable">Gantt Table</a></li>*@
-                            <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisors</a></li>
-                            <li><a asp-area="" asp-controller="Managers" asp-action="Index">Managers</a></li>
-                            <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
+                            <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisors</a>|</li>
+                            <li><a asp-area="" asp-controller="Managers" asp-action="Index">Managers</a>|</li>
+                            <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>|</li>
                         }
                         }
                         </li>
@@ -52,8 +52,8 @@
                             {
                                 @if (User.IsInRole("Supervisor,Manager"))
                                 {
-                                <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a></li>
-                                <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
+                                <li><a asp-area="" asp-controller="Managers" asp-action="Index">Manager's Page</a>|</li>
+                                <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>|</li>
 
 
                             }

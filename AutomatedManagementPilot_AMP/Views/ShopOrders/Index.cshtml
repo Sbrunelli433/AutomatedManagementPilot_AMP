@@ -166,17 +166,23 @@
             {
                 @if (User.IsInRole("Manager"))
                 {
-                    <a asp-action="Edit" asp-route-id="@item.ShopOrderNumber">Edit</a>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.ShopOrderNumber">Edit</a> |
+
+        </td>
 
                 }
             }
 
-            <a asp-action="Details" asp-route-id="@item.ShopOrderNumber">Details</a>
+            <a asp-action="Details" asp-route-id="@item.ShopOrderNumber">Details</a> 
             @if (User.Identity.IsAuthenticated)
             {
                 @if (User.IsInRole("Manager"))
                 {
-                    <a asp-action="Delete" asp-route-id="@item.ShopOrderNumber">Delete</a>
+        <td>
+            | <a asp-action="Delete" asp-route-id="@item.ShopOrderNumber">Delete</a>
+
+        </td>
 
                 }
             }
