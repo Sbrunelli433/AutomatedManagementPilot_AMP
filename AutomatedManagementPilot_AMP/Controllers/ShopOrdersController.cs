@@ -81,12 +81,12 @@ namespace AutomatedManagementPilot_AMP.Controllers
         }
 
 
-        //// GET: ShopOrders
-        //[Authorize(Roles = "Supervisor, Manager, Employee")]
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.ShopOrder.ToListAsync());
-        //}
+        // GET: ShopOrders
+        [Authorize(Roles = "Supervisor, Manager, Employee")]
+        public async Task<IActionResult> ReportIndex()
+        {
+            return View(await _context.ShopOrder.ToListAsync());
+        }
 
         // GET: ShopOrders/Details/5
         [Authorize(Roles = "Supervisor, Manager, Employee")]

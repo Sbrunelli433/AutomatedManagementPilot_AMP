@@ -11,8 +11,8 @@
     <h4>Time Clock</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            <label>Clock In</label>
+        <dt >
+            <label style="background-color: grey">Clock In</label>
 
             @*@Html.DisplayNameFor(model => model.ClockIn)*@
         </dt>
@@ -20,7 +20,7 @@
             @Html.DisplayFor(model => model.ClockIn)
         </dd>
         <dt>
-            <label>Clock Out</label>
+            <label style="background-color: grey">Clock Out</label>
 
             @*@Html.DisplayNameFor(model => model.ClockOut)*@
         </dt>
@@ -28,7 +28,7 @@
             @Html.DisplayFor(model => model.ClockOut)
         </dd>
         <dt>
-            <label>Total Hours Worked</label>
+            <label style="background-color: grey">Total Hours Worked</label>
 
             @*@Html.DisplayNameFor(model => model.HoursWorked)*@
         </dt>
@@ -36,7 +36,7 @@
             @Html.DisplayFor(model => model.HoursWorked)
         </dd>
         <dt>
-            <label>Employee Id</label>
+            <label style="background-color: grey">Employee Id</label>
 
             @*@Html.DisplayNameFor(model => model.Employee)*@
         </dt>
@@ -44,19 +44,19 @@
             @Html.DisplayFor(model => model.Employee.EmployeeId)
         </dd>
         <dt>
-            <label>Machine Id</label>
+            <label style="background-color: grey">Machine Id</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.MachineId)
         </dd>
         <dt>
-            <label>Shop Order Number</label>
+            <label style="background-color: grey">Shop Order Number</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ShopOrderNumber)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Summary)
+            <label style="background-color: grey">Summary</label>
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Summary)

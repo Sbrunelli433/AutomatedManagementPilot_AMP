@@ -33,9 +33,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Task)
             </th>
-            @*<th>
+            <th>
                 @Html.DisplayNameFor(model => model.ShopOrder.Profitability)
-            </th>*@
+            </th>
 
             <th></th>
         </tr>
@@ -64,9 +64,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Task.Id)
             </td>
-            @*<td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ShopOrder.Profitability)
-            </td>*@
+            </td>
 
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TimeClockId">Edit</a> |

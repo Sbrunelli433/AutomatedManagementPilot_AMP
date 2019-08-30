@@ -17,37 +17,40 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
             <div class="navbar-header">
                 @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>*@
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>*@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AutomatedManagementPilot (AMP)</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="ShopOrders" asp-action="Index">Shop Orders</a>|</li>
+                    @*<li><a asp-area="" asp-controller="ShopOrders" asp-action="Index">Shop Orders</a>|</li>*@
                     <li><a asp-area="" asp-controller="TimeClocks" asp-action="Index">Time Clock</a>|</li>
-                    <li><a asp-area="" asp-controller="TimeClocks" asp-action="ReportIndex">Report Index</a>|</li>
-                    <li><a asp-area="" asp-controller="Managers" asp-action="TaskReports">Task Reports</a>|</li>
+                    <li><a asp-area="" asp-controller="ShopOrders" asp-action="ReportIndex">Reports</a>|</li>
+                    @*<li><a asp-area="" asp-controller="Managers" asp-action="TaskReports">Task Reports</a>|</li>*@
 
 
 
                     @*<li>
-        @if (User.Identity.IsAuthenticated)
-        {
-            @if (User.IsInRole("Supervisor"))
-            {
-            <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisors</a></li>
-            <li><a asp-area="" asp-controller="Managers" asp-action="Index">Managers</a></li>
-            <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
-        }
-        }
-        </li>*@
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Supervisor"))
+                            {
+                            <li><a asp-area="" asp-controller="Supervisors" asp-action="Index">Supervisors</a></li>
+                            <li><a asp-area="" asp-controller="Managers" asp-action="Index">Managers</a></li>
+                            <li><a asp-area="" asp-controller="Employees" asp-action="Index">Employees</a></li>
+                        }
+                        }
+                        </li>*@
                     <li>
                         @if (User.Identity.IsAuthenticated)
                         {

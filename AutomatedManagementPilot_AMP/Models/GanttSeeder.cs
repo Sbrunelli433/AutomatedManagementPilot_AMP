@@ -23,22 +23,22 @@ namespace AutomatedManagementPilot_AMP.Models
                     new Task()
                     {
                         Id = 1,
-                        Text = "Project #2",
-                        start_date = DateTime.Today.AddDays(-1),
-                        Duration = 1,
+                        Text = "Shop Order #1",
+                        start_date = DateTime.Today.AddHours(+1),
+                        Duration = 4,
                         Progress = 0.4m,
                         ParentId = null,
                         SortOrder = 0,
-                        Type = "task",
+                        Type = "project",
                         Description = null,
                         Machine = null,
-                        Customer = "Terrill Inc."
+                        Customer = "Speedy Metals"
                     },
                     new Task()
                     {
                         Id = 2,
-                        Text = "Task #1",
-                        start_date = DateTime.Today.AddDays(-1),
+                        Text = "Task 1.1",
+                        start_date = DateTime.Today.AddHours(+1),
                         Duration = 1,
                         Progress = 0.6m,
                         ParentId = 1,
@@ -46,49 +46,49 @@ namespace AutomatedManagementPilot_AMP.Models
                         Type = "task",
                         Description = null,
                         Machine = null,
-                        Customer = "Terrill Inc."
+                        Customer = "Speedy Metals"
                     },
                     new Task()
                     {
                         Id = 3,
-                        Text = "Task #2",
-                        start_date = DateTime.Today.AddDays(-1),
-                        Duration = 1,
+                        Text = "Task 1.1",
+                        start_date = DateTime.Today.AddHours(+2),
+                        Duration = 3,
                         Progress = 0.6m,
                         ParentId = 2,
                         SortOrder = 2,
                         Type = "task",
                         Description = null,
                         Machine = null,
-                        Customer = "Terrill Inc."
+                        Customer = "Speedy Metals"
                     },
                     new Task()
                     {
                         Id = 4,
-                        Text = "Task #3",
-                        start_date = DateTime.Today.AddDays(-1),
-                        Duration = 1,
+                        Text = "Shop Order #2",
+                        start_date = DateTime.Today.AddHours(+4),
+                        Duration = 5,
                         Progress = 0.6m,
                         ParentId = 0,
                         SortOrder = 2,
-                        Type = "task",
+                        Type = "project",
                         Description = null,
                         Machine = null,
-                        Customer = "Bradley"
+                        Customer = "Nevin's Bananas"
                     },
                     new Task()
                     {
                         Id = 5,
-                        Text = "Task #4",
-                        start_date = DateTime.Today.AddDays(-1),
+                        Text = "Task #2.1",
+                        start_date = DateTime.Today.AddHours(+4),
                         Duration = 1,
                         Progress = 0.6m,
-                        ParentId = 0,
+                        ParentId = 4,
                         SortOrder = 2,
                         Type = "task",
                         Description = null,
                         Machine = null,
-                        Customer = "ian"
+                        Customer = "Nevin's Bananas"
                     },
                // List<Task> tasks = new List<Task>()
                //{

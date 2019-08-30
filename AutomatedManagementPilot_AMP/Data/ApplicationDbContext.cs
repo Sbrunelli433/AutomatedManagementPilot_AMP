@@ -28,7 +28,7 @@ namespace AutomatedManagementPilot_AMP.Data
                     OrderQuantity = 10000,
                     OrderRecDate = new DateTime(2019, 07, 06),
                     OrderDueDate = new DateTime(2019, 07, 09),
-                    MachineId = null,
+                    MachineId = 01,
                     ScheduleStartTime = new DateTime(2019, 07, 06),
                     ScheduleEndTime = new DateTime(2019, 07, 08),
                     OperationSetUpHours = new TimeSpan(0, 30, 0),
@@ -40,7 +40,7 @@ namespace AutomatedManagementPilot_AMP.Data
 
                     //GrossProductionRate = null,
                     //NetProductionRate = null,
-                    //Profitability = null,   
+                    Profitability = 0.25m
                 });
             modelBuilder.Entity<ShopOrder>().HasData(
                 new ShopOrder
@@ -51,7 +51,7 @@ namespace AutomatedManagementPilot_AMP.Data
                     OrderQuantity = 200000,
                     OrderRecDate = new DateTime(2019, 07, 07),
                     OrderDueDate = new DateTime(2019, 07, 11),
-                    MachineId = null,
+                    MachineId = 01,
                     ScheduleStartTime = new DateTime(2019, 07, 07),
                     ScheduleEndTime = new DateTime(2019, 07, 10),
                     OperationSetUpHours = new TimeSpan(1, 0, 0),
@@ -59,7 +59,7 @@ namespace AutomatedManagementPilot_AMP.Data
                     OperationTearDownHours = new TimeSpan(1, 30, 0),
                     //GrossProductionRate = null,
                     //NetProductionRate = null,
-                    //Profitability = null,   
+                    Profitability = 0.28m
                 });
 
             modelBuilder.Entity<ShopOrder>().HasData(
@@ -71,7 +71,7 @@ namespace AutomatedManagementPilot_AMP.Data
                     OrderQuantity = 15000,
                     OrderRecDate = new DateTime(2019, 07, 07),
                     OrderDueDate = new DateTime(2019, 07, 09),
-                    MachineId = null,
+                    MachineId = 01,
                     ScheduleStartTime = new DateTime(2019, 07, 07),
                     ScheduleEndTime = new DateTime(2019, 07, 10),
                     OperationSetUpHours = new TimeSpan(0, 30, 0),
@@ -79,8 +79,27 @@ namespace AutomatedManagementPilot_AMP.Data
                     OperationTearDownHours = new TimeSpan(0, 45, 0),
                     //GrossProductionRate = null,
                     //NetProductionRate = null,
-                    //Profitability = null,   
+                    Profitability = 0.08m
                 });
+            modelBuilder.Entity<ShopOrder>().HasData(
+    new ShopOrder
+    {
+        ShopOrderNumber = 004,
+        Customer = "Ian Inc.",
+        PartName = "Hanger",
+        OrderQuantity = 25000,
+        OrderRecDate = new DateTime(2019, 07, 10),
+        OrderDueDate = new DateTime(2019, 07, 15),
+        MachineId = 01,
+        ScheduleStartTime = new DateTime(2019, 07, 07),
+        ScheduleEndTime = new DateTime(2019, 07, 10),
+        OperationSetUpHours = new TimeSpan(0, 30, 0),
+        OperationProductionHours = new TimeSpan(2, 30, 0),
+        OperationTearDownHours = new TimeSpan(0, 45, 0),
+                    //GrossProductionRate = null,
+                    //NetProductionRate = null,
+                    Profitability = 0.02m
+    });
 
             modelBuilder.Entity<Machine>().HasData(
                 new Machine

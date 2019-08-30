@@ -174,7 +174,7 @@
                 }
             }
 
-           @*| <a asp-action="Details" asp-route-id="@item.ShopOrderNumber">Details</a> |*@
+           | <a asp-action="Details" asp-route-id="@item.ShopOrderNumber">Details</a> |
             @if (User.Identity.IsAuthenticated)
             {
                 @if (User.IsInRole("Manager"))
